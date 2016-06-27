@@ -1,0 +1,23 @@
+{
+  "name": "intellogo-sdk",
+  "version": "1.0.0",
+  "description": "Node.js wrappers for the Intellogo REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "intellogo"
+  ],
+  "author": "Intellogo Inc. (http://www.intellogo.com)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "JSONStream": "^1.1.2",
+    "oauth": "^0.9.14",
+    "querystring": "^0.2.0"
+  },
+  "scripts": {
+    "jsdoc": "jsdoc . -c jsdoc_conf.json",
+    "jshint": "jshint .; true"
+  }
+}

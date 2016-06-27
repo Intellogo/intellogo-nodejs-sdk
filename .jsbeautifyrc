@@ -1,0 +1,12 @@
+{
+    "js": {
+      "indent_size": 4,
+      "indent_char": " ",
+      "indent_with_tabs": false
+    },
+    "json": {
+      "indent_size": 4,
+      "indent_char": " ",
+      "indent_with_tabs": false
+    }
+}
