@@ -2,8 +2,14 @@
  * A <code>Stream</code> object that emits a 'data' event for every
  * result object received from the server. Result objects will be of type
  * &lt;DataType&gt;.<br>
- * An 'end' event is emitted when  no more data is available.
+ * An 'end' event is emitted when no more data is available.
  * If an error occurs, an 'error' event is emmited.
  * @typedef {Stream.<DataType>} IntellogoResponse
  */
 
+/**
+ * Defines a function that returns an IntellogoResponse
+ * @typedef {Function} IntellogoFunction
+ * @param {...*}
+ * @returns {IntellogoResponse.<*>}
+ */
