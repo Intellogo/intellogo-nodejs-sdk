@@ -1,0 +1,17 @@
+{
+    "globals": {
+        "afterEach": true,
+        "any": true,
+        "beforeEach": true,
+        "describe": true,
+        "expect": true,
+        "it": true,
+        "jasmine": true,
+        "spyOn": true,
+        "xdescribe": true,
+        "xit": true,
+        "MiddlewareHelpers": true
+    },
+    "esnext": true,
+    "node": true
+}
