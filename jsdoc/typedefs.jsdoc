@@ -13,3 +13,12 @@
  * @param {...*}
  * @returns {IntellogoResponse.<*>}
  */
+
+/**
+ * Defines a callback function that will be called when an operation completes
+ * successfully, or fails with some error. The result will be of type &lt;DataType&gt;
+ * @typedef {Function} IntellogoCallback
+ * @param {*} error Any error that occured during execution, or a falsy value
+ * if nothing went wrong
+ * @param {DataType} result The result of the operation
+ */
