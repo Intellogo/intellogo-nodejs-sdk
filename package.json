@@ -1,10 +1,10 @@
 {
-  "name": "intellogo-sdk",
+  "name": "intellogo-nodejs-sdk",
   "version": "1.0.0",
   "description": "Node.js wrappers for the Intellogo REST API",
   "main": "index.js",
   "scripts": {
-    "jsdoc": "jsdoc . -c jsdoc_conf.json --readme README.md",
+    "jsdoc": "jsdoc . -c jsdoc_conf.json --readme README.md -u jsdoc/tutorials",
     "jshint": "jshint .; true",
     "spec": "jasmine-node spec/; true"
   },

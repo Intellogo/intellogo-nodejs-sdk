@@ -1,3 +1,3 @@
-This page contains the documentation for the Intellogo Node.js SDK.
-Here are some test links: {@link IntellogoResponse}
+A Node.js wrapper for the Intellogo REST API.
 
+See our {@tutorial getting-started} tutorial for some examples on how to use the API.
