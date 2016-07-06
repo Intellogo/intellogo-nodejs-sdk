@@ -1,5 +1,7 @@
 ```
 var IntellogoClient = require('intellogo-nodejs-sdk').IntellogoClient;
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
 var client = new IntellogoClient({
     clientId: '<myClientId>',
     clientSecret: '<myClientSecret>'
@@ -12,7 +14,6 @@ var options = {
     }
 };
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 client.getSmartCollectionRecommendations(
     '<smartFolderId>', options, (error, data) => {
         if (error) {
