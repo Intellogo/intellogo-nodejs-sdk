@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/api-groups/insights-api.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/api-groups/insights-api.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @typedef {Object} InsightsAPI~DynamicGenerationResult
+ * @property {boolean} new Whether the returned insight was generated
+ * as a result of this operation
+ * @property {String[]} categoryIds The id(s) of the matching insights
+ * @property {*} [error] Any error that might occur during the operation
+ * @property {boolean} success Whether the operation was successful.
+ * If this is &lt;code>false&lt;/code>, categoryIds won't be set.
+ */
+
+/**
+ * A string that describes the possible status for an insights. Possible values
+ * are 'new', 'forReview', and 'ready'
+ * @typedef {String} InsightsAPI~Status
+ */
+
+/**
+ * An Intellogo insight
+ * @typedef {Object} InsightsAPI~Insight
+ * @property {String} categoryId The ID of the insight
+ * @property {String} name Name of the insight
+ * @property {String} displayName Display name of the insight
+ * @property {String} description A short description of the insight
+ * @property {String[]} tags Tags assigned to the Insight
+ * @property {String[]} keywords Keywords relevant to the insight
+ * @property {boolean} productionReady Whether the insight is of
+ * production-ready quality
+ * @property {boolean} autoupdate Whether auto-update is turned on
+ * for the insight
+ * @property {boolean} readonly whether the insight is readonly
+ * @property {boolean} locked whether the insight is locked for changes
+ * @property {Number} modifiedTime The last time an insight was trained
+ */
+
+/**
+ * A convenience class meant to group together insights-related API.
+ * All availables methods should be called directly through the
+ * {@link IntellogoClient} object.
+ * @mixin
+ */
+function InsightsAPI () { }
+
+/**
+ * Retrieve all insights with metadata.
+ * @param {String} [searchTerm] A search term used to filter the returned
+ * insights. If specified, only insights relevant to that term will be returned.
+ * @param {InsightsAPI~Status[]} [status] The desired status of the insights.
+ * @param {IntellogoCallback.&lt;InsightsAPI~Insight[]>} [callback]
+ * @returns {IntellogoResponse.&lt;InsightsAPI~Insight>}
+ */
+InsightsAPI.prototype.getAllInsights = function (searchTerm, status) {
+    var query = {
+        search: searchTerm,
+        status: status &amp;&amp; JSON.stringify(
+            Array.isArray(status)? status : [status])
+    };
+    return this.webBridge.get('/api/categories/all', query, true);
+};
+
+/**
+ * Get metadata for the specified insights.
+ * @param {String[]} insights A list of insight IDs.
+ * @param {IntellogoCallback.&lt;Object&lt;String, InsightsAPI~Insight>> [callback]
+ * @returns {IntellogoResponse.&lt;Object&lt;String, InsightsAPI~Insight>>}
+ */
+InsightsAPI.prototype.getInsightsInfo = function (insights) {
+    if (!Array.isArray(insights)) {
+        insights = [insights];
+    }
+    var data = this.webBridge.buildPostData(insights, [], false);
+    return this.webBridge.post('/api/categories/info',
+                               data, {}, false);
+};
+
+/**
+ * Searches for insights that match the specified keyword.
+ * If none are found, a new insight will be generated, using the provided
+ * generation options.
+ * @param {String} keyword The keyword to match
+ * @param {Object} [generationOptions]
+ * @param {Number} [generationOptions.numContent=30] How many content to
+ * use when generating a matching insight
+ * @param {String} [generationOptions.displayName] Display name to
+ * use for the generated insight
+ * @param {String} [generationOptions.description] Description for the
+ * generated insight
+ * @param {IntellogoCallback.&lt;InsightsAPI~DynamicGenerationResult>} [callback]
+ * @returns {IntellogoResponse.&lt;InsightsAPI~DynamicGenerationResult>}
+ */
+InsightsAPI.prototype.generateDynamicInsight =
+    function (keyword, generationOptions) {
+        generationOptions = generationOptions || {};
+        var data = {
+            searchTerm: keyword,
+            numResults: generationOptions.numContent,
+            displayName: generationOptions.displayName,
+            description: generationOptions.description
+        };
+
+        data = this.webBridge.buildPostData(data, null, false);
+        return this.webBridge.post('/api/categories/dynamic', data, {}, false);
+    };
+
+module.exports = InsightsAPI;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Jul 07 2016 13:26:48 GMT+0300 (EEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

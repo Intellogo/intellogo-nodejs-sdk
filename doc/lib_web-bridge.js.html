@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/web-bridge.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/web-bridge.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module web-bridge */
+
+var https         = require('https'),
+    http          = require('http'),
+    events        = require('events'),
+    fs            = require('fs'),
+    Stream        = require('stream'),
+    OAuth2        = require('oauth').OAuth2,
+    QueryString   = require('querystring'),
+    ZLib          = require('zlib'),
+    JSONStream    = require('JSONStream'),
+    FormData      = require('form-data'),
+    ACCESS_TOKEN  = 'access_token',
+    GRANT_TYPE    = 'grant_type';
+
+
+//jshint maxparams: 5
+function createOAuth2Instance(_config) {
+    return new OAuth2(_config.consumerKey,
+                      _config.consumerSecret,
+                      _config.host,
+                      null,
+                      _config.authTokenPath,
+                      null);
+}
+/**
+ * Handles the transport of data to/from the web service.
+ * @class
+ * @param {string} options.hostname
+ * @param {int} options.port
+ * @param {string} options.consumerKey
+ * @param {string} options.consumerSecret
+ */
+function WebBridge(apiVersion, options) {
+    // jshint maxstatements:30
+    var self = this,
+        _config, _oAuth2, _accessToken = null, _refreshToken = null;
+
+    _config = {
+        hostname: options.hostname,
+        protocol: options.protocol,
+        port: options.port,
+        consumerKey: options.consumerKey,
+        consumerSecret: options.consumerSecret,
+        authTokenPath: '/oauth/token'
+    };
+    _config.host = [_config.protocol,
+                    '://',
+                    _config.hostname,
+                    ':',
+                    _config.port].join('');
+    _oAuth2 = createOAuth2Instance(_config);
+
+    /**
+     * Build an object to pipe the server response through.
+     * If the server response is a JSON array, each element will be
+     * emitted separately; If the response is a JSON object, each
+     * of its values will be emitted separately
+     * @private
+     */
+    function buildStreamResponse(parameters) {
+        var response = new events.EventEmitter();
+        response.stream = JSONStream.parse('*');
+        response.index = 0;
+        response.stream.on('data', function (data) {
+            response.emit('data', data,
+                          parameters &amp;&amp; parameters[response.index++]);
+        });
+        response.stream.on('end', response.emit.bind(response, 'end'));
+        response.isIntellogoStream = true;
+        return response;
+    }
+
+    /**
+     * Build an object to pipe the server response through.
+     * It parses all of the data at once and will emit only a
+     * complete JSON object with the result
+     */
+    function buildNonStreamResponse() {
+        var response = new events.EventEmitter();
+        var allData = '';
+        response.stream = new Stream.PassThrough();
+        response.stream.on('data', function (data) {
+            allData += data;
+            // response.emit('data', JSON.parse(data));
+        });
+        response.stream.once('end', function () {
+            if (allData &amp;&amp; allData.length) {
+                // ugly, but sometimes the server returns plaintext
+                // and not json
+                // e.g. with empty OK responses
+                try {
+                    allData = JSON.parse(allData);
+                } catch (e) {
+                    // it was plaintext after all, leave it as it is
+                }
+                response.emit('data', allData);
+            }
+            process.nextTick(function () {
+                response.emit('end');
+            });
+        });
+        response.isIntellogoStream = false;
+        return response;
+    }
+
+    /**
+     * Save the access token received by the server.
+     * @private
+     */
+    function getAccessTokenHandler(e, accessToken, refreshToken) {
+        var queue = this.authCallbackQueue,
+            i = 0;
+        this.authenticating = false;
+        if(e) {
+            _accessToken  = null;
+            _refreshToken = null;
+            e = new Error(JSON.stringify(e));
+        } else {
+            _accessToken  = accessToken;
+            _refreshToken = refreshToken;
+        }
+        while(i &lt; queue.length) {
+            queue[i](e);
+            i++;
+        }
+        this.authCallbackQueue = [];
+    }
+
+    function get(requestPath, query, shouldStreamResponse) {
+        return request('GET', requestPath, null, query, shouldStreamResponse);
+    }
+
+    function post(requestPath, postBody, query, shouldStreamResponse) {
+        return request('POST', requestPath, postBody, query,
+                       shouldStreamResponse);
+    }
+
+    function put(requestPath, postBody, query, shouldStreamResponse) {
+        return request('PUT', requestPath, postBody, query,
+                       shouldStreamResponse);
+    }
+
+    function deleteReq(requestPath, query, shouldStreamResponse) {
+        return request('DELETE', requestPath, null, query,
+                       shouldStreamResponse);
+    }
+
+    function buildPostData(params, includedProps, asArray) {
+        var result = {};
+        // by default turn single-parameter sets into arrays
+        if (asArray === undefined) {
+            asArray = true;
+        }
+        // In case this is a single parameter set
+        if (params &amp;&amp; !Array.isArray(params) &amp;&amp; asArray) {
+            params = [ params ];
+        }
+
+        result.postData = JSON.stringify(params, includedProps);
+        result.params = params;
+        return result;
+    }
+
+    function buildFormData(formData, fileKeys) {
+        var form = new FormData(), prop;
+        fileKeys = fileKeys || [];
+
+        for (prop in formData) {
+            if (formData.hasOwnProperty(prop)) {
+                if (fileKeys.indexOf(prop) !== -1) {
+                    form.append(prop, fs.createReadStream(formData[prop]));
+                } else {
+                    form.append(prop, formData[prop]);
+                }
+            }
+        }
+
+        return {
+            postData: form
+        };
+    }
+
+    /**
+     * Add common headers, i.e. accept, accept-encoding, user-agent
+     * @private
+     * @param {Object} headers
+     */
+    function addCommonHeaders(headers) {
+        var prop,
+            result = {
+                'Accept-Encoding': 'identity;q=0.1,deflate;q=0.5,gzip;q=0.7',
+                'Accept': 'application/json, json',
+                'content-type': 'application/json',
+                'User-Agent': 'Intellogo-' + apiVersion + '-oauth',
+                'Content-Encoding': 'gzip'
+            };
+        for (prop in headers) {
+            if (headers.hasOwnProperty(prop)) {
+                result[prop] = headers[prop];
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Pipe the server's response through a decompress stream, if necessary.
+     * @private
+     * @param {StreamResponse} destination
+     * @param {ReadableStream} serverResponse
+     */
+    function pipeResponse(destination, source) {
+        var contentEncoding, decodeStream, responseStream;
+
+        contentEncoding = source.headers['content-encoding'] || 'identity';
+
+        switch (contentEncoding) {
+        case 'gzip':
+            decodeStream = ZLib.createGunzip();
+            break;
+        case 'deflate':
+            decodeStream = ZLib.createInflate();
+            break;
+        default:
+            decodeStream = null;
+        }
+
+        if (decodeStream) {
+            // Error event is not emitted on the receiving stream...
+            source.on('error', decodeStream.emit.bind(decodeStream, 'error'));
+            source.pipe(decodeStream);
+            responseStream = decodeStream;
+        } else {
+            responseStream = source;
+        }
+
+        responseStream.on('error', destination.emit.bind(destination, 'error'));
+        responseStream.on('data', destination.stream.write
+                          .bind(destination.stream));
+        responseStream.on('end', destination.stream.emit
+                          .bind(destination.stream, 'end'));
+        responseStream.on('close', destination.emit.bind(destination, 'close'));
+    }
+
+    /**
+     * @private
+     */
+    function request(method,
+                     requestPath,
+                     postBody,
+                     query,
+                     shouldStreamResponse) {
+        if (shouldStreamResponse === undefined) {
+            shouldStreamResponse = true;
+        }
+        var isFormData = postBody &amp;&amp; postBody.postData instanceof FormData,
+            headers = isFormData? postBody.postData.getHeaders() : {},
+            withCommonHeaders = addCommonHeaders(headers),
+            result = shouldStreamResponse?
+                buildStreamResponse(postBody &amp;&amp; postBody.params) :
+                buildNonStreamResponse(),
+            requestConfig;
+
+        query = query || {};
+        requestConfig = {
+            requestPath: requestPath,
+            query: query,
+            // actual 'http' or 'https' config
+            hostname: _config.hostname,
+            port: _config.port,
+            method: method,
+            headers: withCommonHeaders,
+            agent: null
+        };
+
+        executeRequest(requestConfig, result, postBody);
+        return result;
+    }
+
+    function authenticationHandler(requestConfig, result, postBody, error) {
+        if(error) {
+            result.emit('error', error);
+        } else {
+            executeRequest(requestConfig, result, postBody);
+        }
+    }
+    function executeRequest(requestConfig, result, postBody) {
+        //jshint maxcomplexity: 6
+        function sendPostBody(postBody, method, requestObj) {
+            var buffer, stringData;
+            if (!postBody || (method !== 'POST' &amp;&amp; method !== 'PUT')) {
+                requestObj.end();
+                return;
+            }
+            if (postBody.postData instanceof FormData) {
+                postBody.postData.pipe(requestObj);
+            } else {
+                if (typeof postBody.postData !== 'string' &amp;&amp;
+                    !(postBody.postData instanceof String)) {
+                    stringData = JSON.stringify(postBody.postData);
+                } else {
+                    stringData = postBody.postData;
+                }
+
+                buffer = new Buffer(stringData, 'utf-8');
+                ZLib.gzip(buffer, function (error, data) {
+                    requestObj.setHeader('Content-Length', data.length);
+                    requestObj.end(data);
+                });
+            }
+        }
+
+        var lib = _config.protocol === 'http' ? http : https,
+            method = requestConfig.method,
+            requestObj;
+        if (_accessToken === null) {
+            self.authenticate(authenticationHandler.bind(null,
+                                                         requestConfig,
+                                                         result,
+                                                         postBody));
+          return;
+        }
+        // Must be built AFTER successful authentication
+        requestConfig.query[ACCESS_TOKEN] = _accessToken;
+        requestConfig.path = requestConfig.requestPath +
+            '?' +
+            QueryString.stringify(requestConfig.query);
+
+        requestObj = lib.request(requestConfig, function(response) {
+            if (response.statusCode === 401) {
+                // OAuth error due to expired access token
+                // request new token and retry the request
+                _accessToken = null;
+                // Make sure the stream is consumed so that it is closed
+                // otherwise it stays open and blocks the connection pool
+                response.resume();
+                response.on('end', function() {
+                    self.authenticate(authenticationHandler.bind(null,
+                                                                 requestConfig,
+                                                                 result,
+                                                                 postBody));
+                });
+            } else if (response.statusCode &lt; 200 ||
+                       response.statusCode >= 400) {
+                // http error, collect the error response and
+                // emit an error event on the result stream
+                var errData = '';
+                response.on('data', function (data) {
+                    errData += data.toString();
+                });
+                response.on('end', function () {
+                    result.emit('error', errData);
+                });
+            } else {
+                // all good, pipe the response
+                pipeResponse(result, response);
+            }
+        });
+
+        sendPostBody(postBody, method, requestObj);
+    }
+
+    /**
+     * @private
+     */
+    function authenticate(callback) {
+        var parameters = {};
+        parameters[GRANT_TYPE] = 'client_credentials';
+
+        if (callback) {
+            this.authCallbackQueue.push(callback);
+        }
+        var that = this;
+        if (!this.authenticating) {
+            this.authenticating = true;
+            _oAuth2.getOAuthAccessToken('', parameters,
+                                        getAccessTokenHandler.bind(that));
+        }
+    }
+
+    // Members
+    /**
+     * Attempt to authenticate.
+     */
+    this.authenticate = authenticate;
+    /**
+     * Generic send of an HTTP request to the configured host.
+     * @param {string} method
+     * @param {string} requestPath
+     * @param {APICallback} callback
+     * @param {string} postBody
+     * @param {object} query
+     * @param {object} headers
+     */
+    this.request = request;
+    /**
+     * GET request to the configured host.
+     */
+    this.get = get;
+    /**
+     * POST request to the configured host.
+     */
+    this.post = post;
+    /**
+     * PUT request to the configured host.
+     */
+    this.put = put;
+    /**
+     * DELETE request to the configured host.
+     */
+    this.delete = deleteReq;
+    /**
+     * Construct uniform POST data from an object or an array of objects.
+     * Optionally filter properties from
+     * the given parameters to reduce request size.
+     * @param {Object|Array} params
+     * @param {Array&lt;string>} [includedProps=[]]
+     */
+    this.buildPostData = buildPostData;
+
+    /**
+     * Creates an object that can be used for a form-encoded POST request
+     * If any &lt;code>fileKeys&lt;/code> are specified, the respective values
+     * in the &lt;code>formData&lt;/code> param are interpeted as filenames
+     * and are streamed as part of the multi-part data.
+     * @param {Object} formData An object containing all form data
+     * @param {String[]} [fileKeys] The keys from formData that reference a file
+     * @return {Object} An object that can be passed to
+     * &lt;code>WebBridge.post&lt;/code>
+     */
+    this.buildFormData = buildFormData;
+    /**
+     * @private
+     */
+    this.authCallbackQueue = [];
+}
+
+module.exports = WebBridge;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Jul 07 2016 13:26:48 GMT+0300 (EEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,5 +1,2 @@
-A Node.js wrapper for the Intellogo REST API.
-
-See our {@tutorial getting-started} tutorial for an example on how to use the API,
-
-or see how to retrieve {@tutorial dynamic-insight-recommendations}
+A Node.js wrapper for the <a href="http://intellogo.com">Intellogo</a> REST API.
+For complete documentation and sample usage, see our page on <a href="https://intellogo.github.io/intellogo-nodejs-sdk/">github.io</a>

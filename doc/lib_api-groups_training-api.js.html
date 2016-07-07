@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/api-groups/training-api.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/api-groups/training-api.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var events = require('events'),
+DEFAULT_POLLING_INTERVAL = 5000;
+
+/**
+ * The status of an Intellogo task. The possible values are:
+ * 'new', 'waiting', 'running', 'finished', 'failed' and 'cancelled'.
+ * @typedef {String} TrainingAPI~TaskState
+ */
+
+/**
+ * @typedef {Object} TrainingAPI~InsightTask
+ * @property {String} taskId The ID of the task
+ * @property {String} categoryId The ID of the insight that this task will train
+ */
+
+/**
+ * @typedef {Object} TrainingAPI~ContentRecommendationTask
+ * @property {Object} task Information about the initiated task
+ * @property {String} task.taskId The ID of the task
+ * @property {TrainingAPI~TaskState} task.status The status of the task
+ * @property {Number} task.timeStarted When the task started. Will be -1
+ * if the task is still pending
+ * @property {String} requestId A requestId that can be used to cancel the task
+ * @property {RecommendationsAPI~Recommendation[]} ratings Currently available
+ * recommendations for the content for which the task was initiated
+ */
+
+/**
+ * A description of the status of a task. Contains information about progress
+ * and subtasks, if there are any
+ * @typedef {Object} TrainingAPI~TaskStatus
+ * @property {String} id The ID of the task
+ * @property {String} name A human-readable name for the task
+ * @property {TrainingAPI~TaskState} status Task state
+ * @property {Object[]} subTasks Information about subtasks
+ * @property {Number} progress Progress of the task. 1 means the task
+ * has finished.
+ * @property {Number} timeStarted
+ * @property {Number} timeQueued
+ * @property {Number} timeFinished
+ * @property {Number} timeIdle
+ * @property {Number} timeElapsed
+ */
+
+/**
+ * A convenience class meant to group together training-related API.
+ * All availables methods should be called directly through the
+ * {@link IntellogoClient} object.
+ * @mixin
+ */
+function TrainingAPI () { }
+
+/**
+ * Initiate a training operation with the given parameters
+ * @param {String} insightId The id of the insight
+ * @param {String[]} [sources] Content from which sources to rate after the
+ * insight has been trained
+ * @param {ContentAPI~ContentIdentifier[]} [itemsToRate] Specific content items
+ * to rate after the insight has been trained
+ * @param {IntellogoCallback.&lt;TrainingAPI~InsightTask>} [callback]
+ * @returns {IntellogoResponse.&lt;TrainingAPI~InsightTask>}
+ */
+TrainingAPI.prototype.initiateInsightTraining = function (insightId,
+                                                          sources,
+                                                          itemsToRate) {
+    var data = {
+        categoryId: insightId
+    };
+    if (sources) {
+        data.contentSource = sources;
+    }
+    if (itemsToRate) {
+        data.itemsToRate = itemsToRate;
+    }
+
+    data = this.webBridge.buildPostData(data, ['categoryId',
+                                               'contentSource',
+                                               'itemsToRate'],
+                                        false);
+    return this.webBridge.post('/api/trainings/initiate',
+                               data, {}, false);
+};
+
+/**
+ * Initiate a task for generating recommendations for the specified content
+ * @param {ContentAPI~ContentIdentifier} content The content for which to
+ * generate recommendations
+ * @param {IntellogoCallback.&lt;TrainingAPI~ContentRecommendationTask>} [callback]
+ * @returns {IntellogoResponse.&lt;TrainingAPI~ContentRecommendationTask>}
+ */
+TrainingAPI.prototype.initiateContentRecommendationGeneration =
+    function (content) {
+        var data = { };
+        if (content.contentId) {
+            data.contentId = content.contentId;
+        } else {
+            data.content = {
+                source: content.source,
+                sourceId: content.sourceId
+            };
+        }
+
+        data = this.webBridge.buildPostData(data, null, false);
+
+        return this.webBridge.post('/api/rating/contentBest',
+                                   data, null, false);
+};
+
+/**
+ * Retrieve task status
+ * @param {String} taskId The task ID
+ * @param {IntellogoCallback.&lt;TrainingAPI~TaskStatus>} [callback]
+ * @returns {IntellogoResponse.&lt;TrainingAPI~TaskStatus>}
+ */
+TrainingAPI.prototype.getTaskStatus = function (taskId) {
+    var query = { taskId: taskId };
+    return this.webBridge.get('/api/trainings/taskStatus', query, false);
+};
+
+/**
+ * Initiate polling for the specified taskId. This will periodically
+ * check the status of the task and emit a result event only when the task
+ * transitions to a final state (finished / cancelled / failed).
+ * @param {String} taskId The ID of the task to poll for.
+ * @param {Number} [pollingIntervalMs] What time interval to use for
+ * polling. The default value is 5000ms
+ * @param {IntellogoCallback.&lt;Object>} [callback]
+ * @returns {IntellogoResponse.&lt;Object>} Will emit a data event when the
+ * task completes successfully. If the task fails or another error occurs,
+ * an 'error' event will be emitted.
+ */
+TrainingAPI.prototype.pollTaskStatus = function (taskId, pollingIntervalMs) {
+    var result = new events.EventEmitter(),
+        that = this;
+
+    function pollTaskStatus () {
+        var pollResponse = that.getTaskStatus(taskId);
+        pollResponse.on('data', function (data) {
+            if (data.status === 'finished') {
+                result.emit('data', { state: data.status });
+                result.emit('end');
+            } else if (data.status === 'cancelled' ||
+                       data.status === 'failed') {
+                result.emit('error', {
+                    error: 'Task ended with status ' + data.status,
+                    state: data.status
+                });
+            } else {
+                setTimeout(pollTaskStatus, pollingIntervalMs);
+            }
+        });
+        pollResponse.on('error', result.emit.bind(result, 'error'));
+    }
+
+    pollingIntervalMs = pollingIntervalMs || DEFAULT_POLLING_INTERVAL;
+    pollTaskStatus();
+
+    return result;
+};
+
+module.exports = TrainingAPI;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Jul 07 2016 13:26:48 GMT+0300 (EEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
