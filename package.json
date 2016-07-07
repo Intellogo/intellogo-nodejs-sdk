@@ -4,7 +4,7 @@
   "description": "Node.js wrappers for the Intellogo REST API",
   "main": "index.js",
   "scripts": {
-    "jsdoc": "jsdoc . -c jsdoc_conf.json --readme README.md -u jsdoc/tutorials",
+    "jsdoc": "jsdoc . -c jsdoc_conf.json --readme jsdoc/jsdoc-home.md -u jsdoc/tutorials",
     "jshint": "jshint .; true",
     "spec": "jasmine-node spec/; true"
   },
