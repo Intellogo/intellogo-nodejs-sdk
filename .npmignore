@@ -1,0 +1,9 @@
+*~
+doc/
+jsdoc/
+spec/
+.jsbeautifyrc
+.jshintignore
+.jshintrc
+index.html
+.npmignore
