@@ -16,6 +16,7 @@
   "dependencies": {
     "JSONStream": "^1.1.2",
     "form-data": "^1.0.0-rc4",
+    "lodash": "^4.13.1",
     "oauth": "^0.9.14"
   },
   "devDependencies": {
