@@ -1,10 +1,11 @@
 ```
-var IntellogoClient = require('intellogo-nodejs-sdk').IntellogoClient;
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+var IntellogoClient = require('intellogo-sdk').IntellogoClient;
+var async = require('async');
+var _= require('lodash');
 
 var client = new IntellogoClient({
-    clientId: '<myClientId>',
-    clientSecret: '<myClientSecret>'
+    clientId: '<clientId>',
+    clientSecret: '<clientSecret>'
 });
 var options = {
     from: 0,
@@ -14,13 +15,22 @@ var options = {
     }
 };
 
-client.getSmartCollectionRecommendations(
-    '<smartFolderId>', options, (error, data) => {
-        if (error) {
-            console.error(error);
-        } else {
-            console.log('Recommendations received: ');
-            console.log(data.items);
-        }
+async.waterfall([
+    client.getAllSmartCollections.bind(client),
+    function smartCollectionsListReceived(data,callback) {
+        var idx = _.random();
+        console.log("Loading recommendations for smart collection " +
+            data[idx].metadata.name);
+        client.getSmartCollectionRecommendations (data[idx]._id, options, callback);
+    },
+    function smartCollectionResultsReceived(data,callback) {
+        console.log("Recommendations:");
+        console.log(JSON.stringify(data,null,'\t'));
+        callback();
+    }
+    ],
+    function (error)
+    {
+        console.log(error);
     });
 ```

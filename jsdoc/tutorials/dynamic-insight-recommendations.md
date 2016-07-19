@@ -1,6 +1,5 @@
 ```
-var IntellogoClient = require('intellogo-nodejs-sdk').IntellogoClient;
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+var IntellogoClient = require('intellogo-sdk').IntellogoClient;
 
 var client = new IntellogoClient({
     clientId: '<myClientId>',
@@ -15,7 +14,9 @@ var options = {
     }
 };
 
-client.generateDynamicInsight('sugar', (error, result) => {
+var keyword = 'sugar';
+
+client.generateDynamicInsight(keyword, (error, result) => {
     if (error) {
         console.error('Error generating a dynamic insight: ' + error);
         return;
