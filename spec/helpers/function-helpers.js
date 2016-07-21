@@ -11,7 +11,9 @@ module.exports = {
         },
         nonStreamingFunction: function (resp, dataToEmit) {
             process.nextTick(function () {
-                IntellogoResponseHelpers.emitDataEvent(resp, dataToEmit);
+                if (dataToEmit) {
+                    IntellogoResponseHelpers.emitDataEvent(resp, dataToEmit);
+                }
                 IntellogoResponseHelpers.emitEndEvent(resp);
             });
             return resp;

@@ -1,4 +1,5 @@
-var callbackify = require('../../lib/util/callbackify').callbackify;
+var callbackify = require('../../lib/util/callbackify').callbackify,
+    EventEmitter = require('events').EventEmitter;
 
 describe('callbackify', function () {
     var streamResp,
@@ -73,6 +74,16 @@ describe('callbackify', function () {
            });
        });
 
+    it('should call the callback with no data if no data was emitted on a ' +
+       'non-streaming response', function (done) {
+           var wrapped = callbackify(FunctionHelpers.nonStreamingFunction);
+           wrapped(nonStreamResp, null, function (error, data) {
+               expect(error).toBeFalsy();
+               expect(data).toEqual(undefined);
+               done();
+           });
+       });
+
     it('should pass the error to the callback', function (done) {
         var wrapped = callbackify(FunctionHelpers.errorEmittingFunction);
         wrapped(streamResp, function (error, data) {
@@ -81,4 +92,24 @@ describe('callbackify', function () {
             done();
         });
     });
+
+    it('should call the wrapped function with the proper binding',
+       function (done) {
+           var object = {};
+           var f = function () {
+               var e = new EventEmitter();
+               process.nextTick(() => {
+                   e.emit('data', this.data);
+                   e.emit('end');
+               });
+               return e;
+           };
+           object.data = 5;
+           object.fn = callbackify(f);
+           object.fn(function (error, data) {
+               expect(error).toBeFalsy();
+               expect(data).toEqual(object.data);
+               done();
+           });
+       });
 });
