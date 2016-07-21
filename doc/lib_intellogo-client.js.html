@@ -27,6 +27,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>var WebBridge = require('./web-bridge'),
+    NotificationsWebService = require('./notifications/web-service'),
     ApiMerger = require('./util/api-merger'),
     TrainingAPI = require('./api-groups/training-api'),
     SmartCollectionsAPI = require('./api-groups/smart-collections-api'),
@@ -43,6 +44,15 @@
     };
 
 /**
+ * @typedef {Object} OAuthOptions
+ * @property {String} clientId Your Intellogo clientId.
+ * @property {String} clientSecret Your Intellogo clientSecret.
+ * @property {String} [hostname=production.intellogo.com]
+ * The hostname of the Intellogo server to connect to.
+ * @property {Number} [port=443] The port at which the server is available.
+ */
+
+/**
  * Creates an instance of the IntellogoClient.
  * All methods accept an optional callback argument as their last
  * parameter.&lt;br>
@@ -55,12 +65,7 @@
  * &lt;code>access_token&lt;/code>, which will be used for all subsequent requests.
  * The &lt;code>access_token&lt;/code> will also be automatically renewed in case it
  * expires.
- * @param {Object} options
- * @param {String} options.clientId Your Intellogo clientId.
- * @param {String} options.clientSecret Your Intellogo clientSecret.
- * @param {String} [options.hostname=production.intellogo.com]
- * The hostname of the Intellogo server to connect to.
- * @param {Number} [options.port=443] The port at which the server is available.
+ * @param {OAuthOptions} options Options to use for connecting to the Intellogo service
  * @constructor
  * @mixes RecommendationsAPI
  * @mixes InsightsAPI
@@ -77,13 +82,42 @@ function IntellogoClient (options) {
         consumerSecret: options.clientSecret
     };
     this.webBridge = new WebBridge(API_VERSION, opts);
-    var apiMerger = new ApiMerger(this);
-    apiMerger.merge(TrainingAPI,
-                    ContentAPI,
-                    SmartCollectionsAPI,
-                    InsightsAPI,
-                    RecommendationsAPI);
 }
+
+/**
+ * Sets up a local web service that provides a better alternative for the task polling mechanism.
+ * While the service is running, it will be used instead of polling when possible.
+ * @param {NotificationsWebService~NotificationOptions} notificationOptions
+ * Options to use for setting up the local web service
+ * @param {Function} [callback] A callback that will be called when the service is up and running.
+ */
+IntellogoClient.prototype.initNotificationsService = function (notificationOptions,
+                                                               callback) {
+    this.webService = new NotificationsWebService(notificationOptions);
+    this.webService.init(callback);
+};
+
+/**
+ * Stops the local web service, if it is still running. After this is done, the
+ * {@link IntellogoClient} can still be used as usual. The only difference will be that waiting
+ * for task completion will use the polling mechanism, sending status requests at some polling
+ * interval.
+ * @param {Function} [callback] An optional callback that will be called once the web service
+ * has been stopped.
+ */
+IntellogoClient.prototype.stopNotificationsService = function (callback) {
+    if (this.webService) {
+        this.webService.destroy(callback);
+    }
+    this.webService = null;
+};
+
+var plainMerger = new ApiMerger(IntellogoClient.prototype, []);
+plainMerger.merge(ContentAPI,
+                  SmartCollectionsAPI,
+                  InsightsAPI,
+                  RecommendationsAPI,
+                  TrainingAPI);
 
 module.exports = IntellogoClient;
 </code></pre>
@@ -96,13 +130,13 @@ module.exports = IntellogoClient;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 15:08:18 GMT+0300 (FLE Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Aug 01 2016 18:06:53 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -26,7 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>var callbackify = require('../util/callbackify').callbackify;
+
+/**
  * @typedef {Object} InsightsAPI~DynamicGenerationResult
  * @property {boolean} new Whether the returned insight was generated
  * as a result of this operation
@@ -74,31 +76,35 @@ function InsightsAPI () { }
  * insights. If specified, only insights relevant to that term will be returned.
  * @param {InsightsAPI~Status[]} [status] The desired status of the insights.
  * @param {IntellogoCallback.&lt;InsightsAPI~Insight[]>} [callback]
- * @returns {IntellogoResponse.&lt;InsightsAPI~Insight>}
+ * @return {IntellogoResponse.&lt;InsightsAPI~Insight>}
+ * @method
  */
-InsightsAPI.prototype.getAllInsights = function (searchTerm, status) {
-    var query = {
-        search: searchTerm,
-        status: status &amp;&amp; JSON.stringify(
-            Array.isArray(status)? status : [status])
-    };
-    return this.webBridge.get('/api/categories/all', query, true);
-};
+InsightsAPI.prototype.getAllInsights = callbackify(
+    function (searchTerm, status) {
+        var query = {
+            search: searchTerm,
+            status: status &amp;&amp; JSON.stringify(
+                Array.isArray(status)? status : [status])
+        };
+        return this.webBridge.get('/api/categories/all', query, true);
+    });
 
 /**
  * Get metadata for the specified insights.
  * @param {String[]} insights A list of insight IDs.
  * @param {IntellogoCallback.&lt;Object&lt;String, InsightsAPI~Insight>> [callback]
- * @returns {IntellogoResponse.&lt;Object&lt;String, InsightsAPI~Insight>>}
+ * @return {IntellogoResponse.&lt;Object&lt;String, InsightsAPI~Insight>>}
+ * @method
  */
-InsightsAPI.prototype.getInsightsInfo = function (insights) {
-    if (!Array.isArray(insights)) {
-        insights = [insights];
-    }
-    var data = this.webBridge.buildPostData(insights, [], false);
-    return this.webBridge.post('/api/categories/info',
-                               data, {}, false);
-};
+InsightsAPI.prototype.getInsightsInfo = callbackify(
+    function (insights) {
+        if (!Array.isArray(insights)) {
+            insights = [insights];
+        }
+        var data = this.webBridge.buildPostData(insights, [], false);
+        return this.webBridge.post('/api/categories/info',
+                                   data, {}, false);
+    });
 
 /**
  * Searches for insights that match the specified keyword.
@@ -113,9 +119,10 @@ InsightsAPI.prototype.getInsightsInfo = function (insights) {
  * @param {String} [generationOptions.description] Description for the
  * generated insight
  * @param {IntellogoCallback.&lt;InsightsAPI~DynamicGenerationResult>} [callback]
- * @returns {IntellogoResponse.&lt;InsightsAPI~DynamicGenerationResult>}
+ * @return {IntellogoResponse.&lt;InsightsAPI~DynamicGenerationResult>}
+ * @method
  */
-InsightsAPI.prototype.generateDynamicInsight =
+InsightsAPI.prototype.generateDynamicInsight = callbackify(
     function (keyword, generationOptions) {
         generationOptions = generationOptions || {};
         var data = {
@@ -127,7 +134,7 @@ InsightsAPI.prototype.generateDynamicInsight =
 
         data = this.webBridge.buildPostData(data, null, false);
         return this.webBridge.post('/api/categories/dynamic', data, {}, false);
-    };
+    });
 
 module.exports = InsightsAPI;
 </code></pre>
@@ -140,13 +147,13 @@ module.exports = InsightsAPI;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 15:08:18 GMT+0300 (FLE Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Aug 01 2016 18:06:53 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

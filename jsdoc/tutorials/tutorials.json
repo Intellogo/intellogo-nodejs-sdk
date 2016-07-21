@@ -4,5 +4,8 @@
     },
     "dynamic-insight-recommendations": {
         "title": "Dynamic Insight Recommendations"
+    },
+    "notifications-service": {
+        "title": "Notifications Service usage"
     }
 }

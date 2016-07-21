@@ -94,21 +94,23 @@
     
 
     
-        <h3 class="subsection-title">Methods</h3>
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
 
         
-            
+                
 
     
 
-    <h4 class="name" id="callbackify"><span class="type-signature"></span>callbackify<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoFunction">IntellogoFunction</a>}</span></h4>
+    <h4 class="name" id="callback"><span class="type-signature"></span>callback<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Creates a wrapper for the given function that accepts a callbackas its last parameter.When the new function is invoked with a callback, it will call the wrappedfunction with all provided arguments (except the callback), and will onlyexecute the callback when an 'error' or an 'end' event is emittedThe callback will be called with all collected data, or with the error.<br>If no callback is provided, the wrapper will not modify in any waythe given function's behaviour.<br><i>In both cases, the returned function will still return the same valueas the original function when called.</i>
+    Initializes the web service HTTP server
 </div>
 
 
@@ -117,55 +119,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The function to wrap</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -201,7 +154,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_util_callbackify.js.html">lib/util/callbackify.js</a>, <a href="lib_util_callbackify.js.html#line23">line 23</a>
+        <a href="lib_notifications_web-service.js.html">lib/notifications/web-service.js</a>, <a href="lib_notifications_web-service.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -224,38 +177,514 @@
 
 
 
-<h5>Returns:</h5>
 
-        
-<div class="param-desc">
-    The wrapper function
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="callback"><span class="type-signature"></span>callback<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Stops the underlying HTTP server. No more connections will be
+accepted.
 </div>
 
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
 
 
-    </dd>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_notifications_web-service.js.html">lib/notifications/web-service.js</a>, <a href="lib_notifications_web-service.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
 </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="ContentFilter">ContentFilter</h4>
+
+
+
+
+<div class="description">
+    Describes a content filter.
+The commonly used filters are documented below. You can add custom key-value
+pairs to this object. In that case, the system will try to find content
+that has exactly matching metadata. Such queries might be slower and/or
+return no results, so use this feature with caution. <br>
+<i>Do not specify <b>sources</b> and <b>sourceGroups</b> at the same time
+- one of them will be overwritten!</i>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
     
 
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
+        <th>Type</th>
 
         
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <th>Attributes</th>
+        
 
         
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>source</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">only match content from these sources</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sourceGroup</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">only match content from these
+source groups. Supported source groups are 'wikipedia', 'web', and 'books'</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>acquisitionDate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A timestamp (measured in seconds).
+If specified, only content newer than this will be matched</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="ContentRetrievalOptions">ContentRetrievalOptions</h4>
+
+
+
+
+<div class="description">
+    Options that can be passed to the recommendations retrieval methods.
+Pagination is supported through the from/to parameters.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>from</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Start index of the results</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>to</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    30
+                
+                </td>
+            
+
+            <td class="description last">End index of the results</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contentFilter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ContentFilter">ContentFilter</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last">Filters to apply to the results</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
                 
 
     
@@ -267,7 +696,8 @@
 
 
 <div class="description">
-    Defines a callback function that will be called when an operation completessuccessfully, or fails with some error. The result will be of type &lt;DataType&gt;
+    Defines a callback function that will be called when an operation completes
+successfully, or fails with some error. The result will be of type &lt;DataType&gt;
 </div>
 
 
@@ -319,7 +749,8 @@
 
             
 
-            <td class="description last">Any error that occured during execution, or a falsy valueif nothing went wrong</td>
+            <td class="description last">Any error that occured during execution, or a falsy value
+if nothing went wrong</td>
         </tr>
 
     
@@ -574,7 +1005,11 @@
 
 
 <div class="description">
-    A <code>Stream</code> object that emits a 'data' event for everyresult object received from the server. Result objects will be of type&lt;DataType&gt;.<br>An 'end' event is emitted when no more data is available.If an error occurs, an 'error' event is emmited.
+    A <code>Stream</code> object that emits a 'data' event for every
+result object received from the server. Result objects will be of type
+&lt;DataType&gt;.<br>
+An 'end' event is emitted when no more data is available.
+If an error occurs, an 'error' event is emmited.
 </div>
 
 
@@ -639,6 +1074,247 @@
 
 
             
+                
+<h4 class="name" id="OAuthOptions">OAuthOptions</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Your Intellogo clientId.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientSecret</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Your Intellogo clientSecret.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hostname</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    production.intellogo.com
+                
+                </td>
+            
+
+            <td class="description last">The hostname of the Intellogo server to connect to.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>port</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    443
+                
+                </td>
+            
+
+            <td class="description last">The port at which the server is available.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
     
 
     
@@ -652,13 +1328,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 15:08:18 GMT+0300 (FLE Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Aug 01 2016 18:06:53 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

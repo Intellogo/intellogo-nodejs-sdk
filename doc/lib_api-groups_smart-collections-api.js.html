@@ -26,7 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>var callbackify = require('../util/callbackify').callbackify;
+
+/**
  * An item that is a part of a smart collection definition.
  * @typedef {Object} SmartCollectionsAPI~SmartCollectionItem
  * @property {String} id The id of the insight that is part of the collection
@@ -34,6 +36,36 @@
  * in order to be considered a match
  * @property {Number} max The maximum score (in percents) a content must have
  * in order to be considered a match
+ */
+
+/**
+ * Smart collection metadata
+ * @typedef {Object} SmartCollectionsAPI~SmartCollectionMetadata
+      "modifiedTime": 1462979480853,
+      "tags": [],
+      "name": "MathColl4",
+      "importance": 0,
+      "invalidated": true,
+      "image": ""
+ * @property {String} name Name
+ * @property {String} [displayName] Display name
+ * @property {String} [description] A short description of the smart collection
+ * @property {String} [image] An image URL associated with this smart collection.
+ * &lt;i> Note: in rare cases this property may contain base64-encoded image data instead&lt;/i>
+ * @property {String[]} tags Tags assigned to this smart collection
+ * @property {Number} [modifiedTime] Last modification timestamp
+ * @property {Boolean} productionReady Whether the smart collection is ready for
+ * production
+ * @property {Boolean} [invalidated] Whether the smart collection has been invalidated
+ * by another action, e.g. when an associated insight is deleted
+ */
+
+/**
+ * An Intellogo Smart collection
+ * @typedef {Object} SmartCollectionsAPI~SmartCollection
+ * @property {String} _id The ID of the smart collection
+ * @property {SmartCollectionsAPI~SmartCollectionItem[]} items
+ * @property {SmartCollectionsAPI~SmartCollectionMetadata} metadata
  */
 
 /**
@@ -46,24 +78,21 @@ function SmartCollectionsAPI () { }
 
 /**
  * Retrieve all smart collections with their metadata and definitions.
- * @return {ResponseStream} A stream that emits a 'data' event for each
- * smart collection. An 'end' event is emitted when there are
- * no more results.
+ * @return {IntellogoResponse.&lt;SmartCollectionsAPI~SmartCollection>}
+ * @method
  */
-SmartCollectionsAPI.prototype.getAllSmartCollections = function () {
-    return this.webBridge.get('/api/smartFolders', null, true);
-};
+SmartCollectionsAPI.prototype.getAllSmartCollections = callbackify(
+    function () {
+        return this.webBridge.get('/api/smartFolders', null, true);
+    });
 
 /**
  * Get metadata for the specified smart collections.
  * @param {String[]} smartCollections A list of smart collections IDs.
- * @return {EventEmitter} An event emitter that will emit a single 'data'
- * event with a plain object containing entries in the format
- * &lt;code>&amp;lt;smartCollectionId&amp;gt;:&amp;lt;smartCollectionMetadata&amp;gt;&lt;/code>
- *  (one field for each requested insight).
- * An error event is emitted if anything goes wrong.
+ * @return {IntellogoResponse.&lt;Object&lt;String, SmartCollectionsAPI~SmartCollection>>}
+ * @method
  */
-SmartCollectionsAPI.prototype.getSmartCollectionsInfo =
+SmartCollectionsAPI.prototype.getSmartCollectionsInfo = callbackify(
     function (smartCollections) {
         if (!Array.isArray(smartCollections)) {
             smartCollections = [smartCollections];
@@ -72,7 +101,7 @@ SmartCollectionsAPI.prototype.getSmartCollectionsInfo =
         return this.webBridge.post('/api/smartFolders/info',
                                    data, {}, false);
 
-};
+});
 
 module.exports = SmartCollectionsAPI;
 </code></pre>
@@ -85,13 +114,13 @@ module.exports = SmartCollectionsAPI;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 15:08:18 GMT+0300 (FLE Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Aug 01 2016 18:06:53 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

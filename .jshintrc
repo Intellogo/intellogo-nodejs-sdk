@@ -18,7 +18,7 @@
     "immed": true,
     "maxcomplexity": 6,
     "maxdepth": 3,
-    "maxlen": 80,
+    "maxlen": 100,
     "maxparams": 4,
     "maxstatements": 15,
     "newcap": true,

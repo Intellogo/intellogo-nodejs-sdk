@@ -37,7 +37,9 @@
     <div class="container-overview">
     
         
-            <div class="description">A convenience class meant to group together training-related API.All availables methods should be called directly through the<a href="IntellogoClient.html">IntellogoClient</a> object.</div>
+            <div class="description">A convenience class meant to group together training-related API.
+All availables methods should be called directly through the
+<a href="IntellogoClient.html">IntellogoClient</a> object.</div>
         
 
         
@@ -72,7 +74,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line51">line 51</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -102,6 +104,348 @@
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="_wrapTaskExecution"><span class="type-signature">(private) </span>_wrapTaskExecution<span class="signature">(taskInitiator, executionParams)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Creates a wrapper around one of the task-initiating methods.
+When the wrapper is called, it initiates a task using the specified method
+and the provided arguments. The last argument is expected to be a callback,
+otherwise an error is thrown.
+The wrapper then waits for it to finish either by polling, or using a webook
+if the <a href="IntellogoClient.html">IntellogoClient</a> is set up for it.
+The callback is called when the task has finished or if an error occurs.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskInitiator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A method that can initiate a task.
+It should already be bound to the proper context.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>executionParams</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TrainingAPI.html#~TaskWrapperParams">TrainingAPI~TaskWrapperParams</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Parameters controlling
+how the wrapper is set up.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line206">line 206</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="generateContentRecommendations"><span class="type-signature"></span>generateContentRecommendations<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Generate recommendations for a content. This method initiates a content task
+and waits until the task has completed to call its callback.
+It accepts the same arguments as <a href="TrainingAPI.html#initiateContentRecommendationGeneration">TrainingAPI#initiateContentRecommendationGeneration</a>
+except that the last argument must be a callback function.
+The callback will be called when the task has finished.
+If a local notifications web service has been initialized (using
+<a href="IntellogoClient.html#initNotificationsService">IntellogoClient#initNotificationsService</a>, a webhook will be used to signal
+task completion.
+Otherwise, regular polling will be used.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line278">line 278</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="generateInsightRecommendations"><span class="type-signature"></span>generateInsightRecommendations<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Generate recommendations for an insight. This method initiates an insight
+training task and waits until the task has completed to call its callback.
+It accepts the same arguments as <a href="TrainingAPI.html#initiateInsightTraining">TrainingAPI#initiateInsightTraining</a>,
+except that the last argument must be a callback function.
+The callback will be called when the task has finished.
+If a local notifications web service has been initialized (using
+<a href="IntellogoClient.html#initNotificationsService">IntellogoClient#initNotificationsService</a>, a webhook will be used to
+signal task completion.
+Otherwise, regular polling will be used.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line258">line 258</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
             
@@ -251,7 +595,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line115">line 115</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line142">line 142</a>
     </li></ul></dd>
     
 
@@ -369,7 +713,8 @@
 
             
 
-            <td class="description last">The content for which togenerate recommendations</td>
+            <td class="description last">The content for which to
+generate recommendations</td>
         </tr>
 
     
@@ -443,7 +788,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line91">line 91</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line112">line 112</a>
     </li></ul></dd>
     
 
@@ -594,7 +939,8 @@
 
             
 
-            <td class="description last">Content from which sources to rate after theinsight has been trained</td>
+            <td class="description last">Content from which sources to rate after the
+insight has been trained</td>
         </tr>
 
     
@@ -627,7 +973,8 @@
 
             
 
-            <td class="description last">Specific content itemsto rate after the insight has been trained</td>
+            <td class="description last">Specific content items
+to rate after the insight has been trained</td>
         </tr>
 
     
@@ -701,7 +1048,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line63">line 63</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -757,7 +1104,9 @@
 
 
 <div class="description">
-    Initiate polling for the specified taskId. This will periodicallycheck the status of the task and emit a result event only when the tasktransitions to a final state (finished / cancelled / failed).
+    Initiate polling for the specified taskId. This will periodically
+check the status of the task and emit a result event only when the task
+transitions to a final state (finished / cancelled / failed).
 </div>
 
 
@@ -852,7 +1201,8 @@
 
             
 
-            <td class="description last">What time interval to use forpolling. The default value is 5000ms</td>
+            <td class="description last">What time interval to use for
+polling. The default value is 5000ms</td>
         </tr>
 
     
@@ -926,7 +1276,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line132">line 132</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line161">line 161</a>
     </li></ul></dd>
     
 
@@ -953,7 +1303,9 @@
 
         
 <div class="param-desc">
-    Will emit a data event when thetask completes successfully. If the task fails or another error occurs,an 'error' event will be emitted.
+    Will emit a data event when the
+task completes successfully. If the task fails or another error occurs,
+an 'error' event will be emitted.
 </div>
 
 
@@ -1132,7 +1484,8 @@
 
             
 
-            <td class="description last">When the task started. Will be -1if the task is still pending</td>
+            <td class="description last">When the task started. Will be -1
+if the task is still pending</td>
         </tr>
 
     
@@ -1185,7 +1538,8 @@
 
             
 
-            <td class="description last">Currently availablerecommendations for the content for which the task was initiated</td>
+            <td class="description last">Currently available
+recommendations for the content for which the task was initiated</td>
         </tr>
 
     
@@ -1224,7 +1578,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line16">line 16</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -1367,7 +1721,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line10">line 10</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -1391,7 +1745,8 @@
 
 
 <div class="description">
-    The status of an Intellogo task. The possible values are:'new', 'waiting', 'running', 'finished', 'failed' and 'cancelled'.
+    The status of an Intellogo task. The possible values are:
+'new', 'waiting', 'running', 'finished', 'failed' and 'cancelled'.
 </div>
 
 
@@ -1439,7 +1794,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line4">line 4</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -1463,7 +1818,8 @@
 
 
 <div class="description">
-    A description of the status of a task. Contains information about progressand subtasks, if there are any
+    A description of the status of a task. Contains information about progress
+and subtasks, if there are any
 </div>
 
 
@@ -1616,7 +1972,8 @@
 
             
 
-            <td class="description last">Progress of the task. 1 means the taskhas finished.</td>
+            <td class="description last">Progress of the task. 1 means the task
+has finished.</td>
         </tr>
 
     
@@ -1770,7 +2127,184 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line28">line 28</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~TaskWrapperParams">TaskWrapperParams</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>idPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    taskId
+                
+                </td>
+            
+
+            <td class="description last">How to find the taskId from the result
+of the task initiation. E.g. for content recommendations generation
+this path is 'task.taskId'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>supportsWebhooks</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Whether the task initiator accepts
+a webhook argument. If <code>true</code>, a webhook may be used instead of
+polling.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -1800,13 +2334,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 15:08:18 GMT+0300 (FLE Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Aug 01 2016 18:06:53 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

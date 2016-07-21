@@ -26,7 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>var callbackify = require('../util/callbackify').callbackify;
+
+/**
  * An Intellogo content item.
  * @typedef {Object} ContentAPI~Content
  * @property {String} contentId The ID of the content
@@ -88,18 +90,43 @@ function ContentAPI () { }
  * @param {String[]} contentIds The IDs of the content to retrieve
  * @param {IntellogoCallback.&lt;ContentAPI~Content[]>} [callback]
  * @return {IntellogoResponse.&lt;ContentAPI~Content>}
+ * @method
  */
 ContentAPI.prototype.getAllContentsMetadataByContentIds =
-    function (contentIds) {
-        var data = this.webBridge.buildPostData(contentIds,
-                                                null,
-                                                false);
+    callbackify (getAllContentsMetadataByContentIds);
+function getAllContentsMetadataByContentIds(contentIds) {
+    var data = this.webBridge.buildPostData(contentIds,
+                                            null,
+                                            false);
 
-        return this.webBridge.post('/api/contents/metadata/all',
-                                   data,
-                                   null,
-                                   true);
-    };
+    return this.webBridge.post('/api/contents/metadata/all',
+                               data,
+                               null,
+                               true);
+}
+
+/**
+ * Retrieve all content items matching specified criteria.
+ * @param {String} searchTerm A search word or expression that the content must match
+ * @param {ContentRetrievalOptions} [options] A filter to apply to the results.
+ * Also supports pagination.
+ * @param {IntellogoCallback.&lt;ContentAPI~Content[]>} [callback]
+ * @return {IntellogoResponse.&lt;ContentAPI~Content>}
+ * @method
+ */
+ContentAPI.prototype.searchContent = callbackify(searchContent);
+function searchContent (searchTerm, options) {
+    var query = { };
+    if (searchTerm) {
+        query.search = searchTerm;
+    }
+    options = this._applyContentFilterDefaults(options);
+    query.from = options.from;
+    query.to = options.to;
+    query.metadataFilter = options.filter;
+
+    return this.webBridge.get('/api/contents/all', query, true);
+}
 
 /**
  * Retrieves content from the given source that matches the
@@ -109,8 +136,9 @@ ContentAPI.prototype.getAllContentsMetadataByContentIds =
  * @param {String[]} [titles]
  * @param {IntellogoCallback.&lt;ContentAPI~Content[]>} [callback]
  * @return {IntellogoResponse.&lt;ContentAPI~Content>}
+ * @method
  */
-ContentAPI.prototype.getContentsBySource =
+ContentAPI.prototype.getContentsBySource = callbackify(
     function (source, sourceIds, titles) {
         var postData = this.webBridge.buildPostData({
             source: source,
@@ -121,8 +149,7 @@ ContentAPI.prototype.getContentsBySource =
                                    postData,
                                    null,
                                    true);
-    };
-
+    });
 
 /**
  * Checks whether the IDs for the given source exist.
@@ -130,35 +157,39 @@ ContentAPI.prototype.getContentsBySource =
  * @param {String[]} ids List of IDs to check.
  * @param {IntellogoCallback.&lt;ContentAPI~ContentExistenceResult[]>} [callback]
  * @return {IntellogoResponse.&lt;ContentAPI~ContentExistenceResult>}
+ * @method
  */
-ContentAPI.prototype.checkIfSourceIdsExist = function (ids, source) {
-    var postData = this.webBridge.buildPostData({
-        source: source,
-        sourceIds: ids
-    }, null, false);
-    return this.webBridge.post('/api/contents/metadata/checkSourceIds',
-                               postData,
-                               null,
-                               true);
-};
+ContentAPI.prototype.checkIfSourceIdsExist = callbackify(
+    function (ids, source) {
+        var postData = this.webBridge.buildPostData({
+            source: source,
+            sourceIds: ids
+        }, null, false);
+        return this.webBridge.post('/api/contents/metadata/checkSourceIds',
+                                   postData,
+                                   null,
+                                   true);
+    });
 
 /**
  * Checks whether the title-author pair exists in the Intellogo system
  * @param {String} title
  * @param {String} author
  * @param {IntellogoCallback.&lt;ContentAPI~ContentExistenceResult>} [callback]
- * @returns {IntellogoResponse.&lt;ContentAPI~ContentExistenceResult>}
+ * @return {IntellogoResponse.&lt;ContentAPI~ContentExistenceResult>}
+ * @method
  */
-ContentAPI.prototype.checkTitleAndAuthor = function (title, author) {
-    var postData = this.webBridge.buildPostData({
-        title: title,
-        author: author
-    }, null, false);
-    return this.webBridge.post('/api/contents/metadata/checkTitleAndAuthor',
-                               postData,
-                               null,
-                               false);
-};
+ContentAPI.prototype.checkTitleAndAuthor = callbackify(
+    function (title, author) {
+        var postData = this.webBridge.buildPostData({
+            title: title,
+            author: author
+        }, null, false);
+        return this.webBridge.post('/api/contents/metadata/checkTitleAndAuthor',
+                                   postData,
+                                   null,
+                                   false);
+    });
 
 /**
  * Checks whether a content with the given title and the specified length
@@ -169,18 +200,20 @@ ContentAPI.prototype.checkTitleAndAuthor = function (title, author) {
  * @param {String} title
  * @param {Number} length
  * @param {IntellogoCallback.&lt;ContentAPI~TitleExistenceResult>} [callback]
- * @returns {IntellogoResponse.&lt;ContentAPI~TitleExistenceResult>}
+ * @return {IntellogoResponse.&lt;ContentAPI~TitleExistenceResult>}
+ * @method
  */
-ContentAPI.prototype.checkIfTitleAndLengthPairExist = function (title, length) {
-    var postData = this.webBridge.buildPostData({
-        title: title,
-        length: length
-    }, null, false);
-    return this.webBridge.post('/api/contents/metadata/checkTitleAndLength',
-                               postData,
-                               null,
-                               false);
-};
+ContentAPI.prototype.checkIfTitleAndLengthPairExist = callbackify(
+    function (title, length) {
+        var postData = this.webBridge.buildPostData({
+            title: title,
+            length: length
+        }, null, false);
+        return this.webBridge.post('/api/contents/metadata/checkTitleAndLength',
+                                   postData,
+                                   null,
+                                   false);
+    });
 
 module.exports = ContentAPI;
 </code></pre>
@@ -193,13 +226,13 @@ module.exports = ContentAPI;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 15:08:18 GMT+0300 (FLE Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Aug 01 2016 18:06:53 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

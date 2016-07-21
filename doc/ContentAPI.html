@@ -37,7 +37,9 @@
     <div class="container-overview">
     
         
-            <div class="description">A convenience class meant to group together content-related API.All availables methods should be called directly through the<a href="IntellogoClient.html">IntellogoClient</a> object.</div>
+            <div class="description">A convenience class meant to group together content-related API.
+All availables methods should be called directly through the
+<a href="IntellogoClient.html">IntellogoClient</a> object.</div>
         
 
         
@@ -72,7 +74,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line56">line 56</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -282,7 +284,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line106">line 106</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line134">line 134</a>
     </li></ul></dd>
     
 
@@ -338,7 +340,11 @@
 
 
 <div class="description">
-    Checks whether a content with the given title and the specified lengthexists in the Intellogo system. The length will be matched with a+/-10% tolerance, e.g. a content with content length of 2000 will bereturned as a match when the <code>length</code> parameter is in theinterval [1800; 2200]
+    Checks whether a content with the given title and the specified length
+exists in the Intellogo system. The length will be matched with a
++/-10% tolerance, e.g. a content with content length of 2000 will be
+returned as a match when the <code>length</code> parameter is in the
+interval [1800; 2200]
 </div>
 
 
@@ -505,7 +511,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line146">line 146</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line178">line 178</a>
     </li></ul></dd>
     
 
@@ -728,7 +734,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line124">line 124</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line154">line 154</a>
     </li></ul></dd>
     
 
@@ -920,7 +926,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line64">line 64</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
@@ -976,7 +982,8 @@
 
 
 <div class="description">
-    Retrieves content from the given source that matches thespecified criteria.
+    Retrieves content from the given source that matches the
+specified criteria.
 </div>
 
 
@@ -1178,7 +1185,233 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line85">line 85</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="searchContent"><span class="type-signature"></span>searchContent<span class="signature">(searchTerm, options<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve all content items matching specified criteria.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>searchTerm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A search word or expression that the content must match</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ContentRetrievalOptions">ContentRetrievalOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A filter to apply to the results.
+Also supports pagination.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line89">line 89</a>
     </li></ul></dd>
     
 
@@ -1320,7 +1553,8 @@
 
             
 
-            <td class="description last">Metadata relevant to the content.It may contain more keys than the specified here.
+            <td class="description last">Metadata relevant to the content.
+It may contain more keys than the specified here.
                 <h6>Properties</h6>
 
 <table class="props">
@@ -1459,7 +1693,8 @@
 
             
 
-            <td class="description last">The ID of the contentthat identifies it in its source</td>
+            <td class="description last">The ID of the content
+that identifies it in its source</td>
         </tr>
 
     
@@ -1488,7 +1723,8 @@
 
             
 
-            <td class="description last">The time at which the content wasadded to the Intellogo system (a timestamp in seconds).</td>
+            <td class="description last">The time at which the content was
+added to the Intellogo system (a timestamp in seconds).</td>
         </tr>
 
     
@@ -1548,7 +1784,8 @@
 
             
 
-            <td class="description last">Contains information about some textcharacteristics of the content
+            <td class="description last">Contains information about some text
+characteristics of the content
                 <h6>Properties</h6>
 
 <table class="props">
@@ -1599,7 +1836,8 @@
 
             
 
-            <td class="description last"><a src="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_reading_ease">Flesch Reading Ease</a> score of the content</td>
+            <td class="description last"><a src="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability
+_tests#Flesch_reading_ease">Flesch Reading Ease</a> score of the content</td>
         </tr>
 
     
@@ -1630,7 +1868,8 @@
 
             
 
-            <td class="description last">Average readingtime (in seconds)</td>
+            <td class="description last">Average reading
+time (in seconds)</td>
         </tr>
 
     
@@ -1661,7 +1900,8 @@
 
             
 
-            <td class="description last">Keywords describing thecontent</td>
+            <td class="description last">Keywords describing the
+content</td>
         </tr>
 
     
@@ -1714,7 +1954,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line1">line 1</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -1933,7 +2173,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line42">line 42</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -1957,7 +2197,8 @@
 
 
 <div class="description">
-    An object identifying a single content item. A content can be identifiedeither by its <i>contentId</i> or by the pair <i>&lt;source, sourceId&gt;</i>
+    An object identifying a single content item. A content can be identified
+either by its <i>contentId</i> or by the pair <i>&lt;source, sourceId&gt;</i>
 </div>
 
 
@@ -2132,7 +2373,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line27">line 27</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -2275,7 +2516,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line36">line 36</a>
+        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line38">line 38</a>
     </li></ul></dd>
     
 
@@ -2305,13 +2546,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callbackify">callbackify</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 15:08:18 GMT+0300 (FLE Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Aug 01 2016 18:06:53 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>
