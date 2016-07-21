@@ -15,9 +15,13 @@
   "license": "Apache-2.0",
   "dependencies": {
     "JSONStream": "^1.1.2",
+    "body-parser": "^1.15.2",
+    "connect": "^3.4.1",
     "form-data": "^1.0.0-rc4",
     "lodash": "^4.13.1",
-    "oauth": "^0.9.14"
+    "node-uuid": "^1.4.7",
+    "oauth": "^0.9.14",
+    "qs": "^6.2.1"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.3",
