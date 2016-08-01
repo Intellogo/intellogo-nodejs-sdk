@@ -22,3 +22,29 @@
  * if nothing went wrong
  * @param {DataType} result The result of the operation
  */
+
+/**
+ * Describes a content filter.
+ * The commonly used filters are documented below. You can add custom key-value
+ * pairs to this object. In that case, the system will try to find content
+ * that has exactly matching metadata. Such queries might be slower and/or
+ * return no results, so use this feature with caution. <br>
+ * <i>Do not specify <b>sources</b> and <b>sourceGroups</b> at the same time
+ * - one of them will be overwritten!</i>
+ * @typedef {Object} ContentFilter
+ * @property {String[]} [source] - only match content from these sources
+ * @property {String[]} [sourceGroup] - only match content from these
+ * source groups. Supported source groups are 'wikipedia', 'web', and 'books'
+ * @property {Number} [acquisitionDate] - A timestamp (measured in seconds).
+ * If specified, only content newer than this will be matched
+ */
+
+/**
+ * Options that can be passed to the recommendations retrieval methods.
+ * Pagination is supported through the from/to parameters.
+ * @typedef {Object} ContentRetrievalOptions
+ * @property {Number} [from=0] Start index of the results
+ * @property {Number} [to=30] End index of the results
+ * @property {ContentFilter} [contentFilter={}]
+ * Filters to apply to the results
+ */
