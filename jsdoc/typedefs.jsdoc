@@ -29,7 +29,7 @@
  * pairs to this object. In that case, the system will try to find content
  * that has exactly matching metadata. Such queries might be slower and/or
  * return no results, so use this feature with caution. <br>
- * <i>Do not specify <b>sources</b> and <b>sourceGroups</b> at the same time
+ * <i>Do not specify <b>source</b> and <b>sourceGroup</b> at the same time
  * - one of them will be overwritten!</i>
  * @typedef {Object} ContentFilter
  * @property {String[]} [source] - only match content from these sources
