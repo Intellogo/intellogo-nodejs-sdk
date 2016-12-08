@@ -1,7 +1,8 @@
 'use strict';
 
 var IntellogoClient = require('../../lib/intellogo-client'),
-    // TODO: mock IntellogoClient
+    _ = require('lodash'),
+// TODO: mock IntellogoClient
     api = new IntellogoClient({
         clientId: '<use real>',
         clientSecret: '<change with real>',
@@ -53,7 +54,7 @@ describe('Insight Model', () => {
         });
     });
 
-    describe('#findById', () => {
+    describe('#get', () => {
         describe('callback', () => {
             it('find created object', (done) => {
                 insight = new Insight({
@@ -123,6 +124,68 @@ describe('Insight Model', () => {
                     done();
                 });
             });
+        });
+    });
+
+    describe('#query', () => {
+        describe('callback', () => {
+            it('returns a list of objects', (done) => {
+                Insight.query('Science Fiction', ['new'], (err, results) => {
+                    expect(err).toBeNull();
+                    expect(results.length).toBe(4);
+
+                    let categoryNames = _.sortBy(_.map(results, 'name'));
+
+                    expect(categoryNames[0]).toBe('English fiction');
+                    expect(categoryNames[1]).toBe('Psychological fiction');
+                    expect(categoryNames[2]).toBe('Science fiction');
+                    expect(categoryNames[3]).toBe('[steve] Action&Adventure Fiction&Non');
+
+                    done();
+                })
+            });
+
+            it('return all categories if searchTerm and status are empty', (done) => {
+                Insight.query(null, null, (err, results) => {
+                    expect(err).toBeNull();
+                    
+                    // TODO: change this with real value when API is mocked
+                    expect(results.length).toBeGreaterThan(400);
+
+                    done();
+                })
+            });
+
+            it('returns empty list when there is no matching criteria', (done) => {
+                Insight.query('Non existing category', ['notStatus'], (err, results) => {
+                    expect(err).toBeNull();
+                    expect(results.length).toBe(0);
+
+                    done();
+                })
+            });
+        });
+
+        describe('continuity monad', () => {
+            it('returns a list of objects', (done) => {
+                let insights = Insight.query('Science Fiction', ['new']);
+
+                insights.then((results) => {
+                    expect(results.length).toBe(4);
+
+                    let categoryNames = _.sortBy(_.map(results, 'name'));
+
+                    expect(categoryNames[0]).toBe('English fiction');
+                    expect(categoryNames[1]).toBe('Psychological fiction');
+                    expect(categoryNames[2]).toBe('Science fiction');
+                    expect(categoryNames[3]).toBe('[steve] Action&Adventure Fiction&Non');
+
+                    done();
+                }, (err) => {
+                    fail('No error is supposed to be returned', err);
+                    done();
+                })
+            })
         });
     });
 });
