@@ -9,8 +9,11 @@ var IntellogoClient = require('../../lib/intellogo-client'),
         port: 4444,
         protocol: 'http'
     }),
-    ModelFactory = require('../../lib/models/factory'),
-    Insight = ModelFactory.Insight(api);
+    Factory = require('../../lib/models/factory'),
+    factory = new Factory(api),
+    Insight = factory.Insight,
+    Content = factory.Content,
+    SmartCollection = factory.SmartCollection;
 
 describe('Insight Model', () => {
     let insight;
