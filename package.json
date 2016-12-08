@@ -6,7 +6,7 @@
   "scripts": {
     "jsdoc": "jsdoc . -c jsdoc/jsdoc_conf.json --readme jsdoc/jsdoc-home.md -u jsdoc/tutorials",
     "jshint": "jshint .; true",
-    "spec": "jasmine-node spec/; true"
+    "spec": "jasmine-node spec/ --captureExceptions; true"
   },
   "keywords": [
     "intellogo"
@@ -21,6 +21,7 @@
     "lodash": "^4.13.1",
     "node-uuid": "^1.4.7",
     "oauth": "^0.9.14",
+    "q": "~1.4.1",
     "qs": "^6.2.1"
   },
   "devDependencies": {
