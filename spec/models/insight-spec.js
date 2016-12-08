@@ -4,8 +4,8 @@ var IntellogoClient = require('../../lib/intellogo-client'),
     _ = require('lodash'),
 // TODO: mock IntellogoClient
     api = new IntellogoClient({
-        clientId: '<use real>',
-        clientSecret: '<change with real>',
+        clientId: 'testClientForSDK',
+        clientSecret: 'testClientSecretForSDK',
         hostname: 'localhost',
         port: 4444,
         protocol: 'http'
@@ -130,7 +130,7 @@ describe('Insight Model', () => {
     describe('#query', () => {
         describe('callback', () => {
             it('returns a list of objects', (done) => {
-                Insight.query('Science Fiction', ['new'], (err, results) => {
+                Insight.query({searchTerm: 'Science Fiction', status: ['new']}, (err, results) => {
                     expect(err).toBeNull();
                     expect(results.length).toBe(4);
 
@@ -146,7 +146,7 @@ describe('Insight Model', () => {
             });
 
             it('return all categories if searchTerm and status are empty', (done) => {
-                Insight.query(null, null, (err, results) => {
+                Insight.query({}, (err, results) => {
                     expect(err).toBeNull();
                     
                     // TODO: change this with real value when API is mocked
@@ -157,7 +157,7 @@ describe('Insight Model', () => {
             });
 
             it('returns empty list when there is no matching criteria', (done) => {
-                Insight.query('Non existing category', ['notStatus'], (err, results) => {
+                Insight.query({searchTerm: 'Non existing category', status: ['notStatus']}, (err, results) => {
                     expect(err).toBeNull();
                     expect(results.length).toBe(0);
 
@@ -168,7 +168,7 @@ describe('Insight Model', () => {
 
         describe('continuity monad', () => {
             it('returns a list of objects', (done) => {
-                let insights = Insight.query('Science Fiction', ['new']);
+                let insights = Insight.query({searchTerm: 'Science Fiction', status: ['new']});
 
                 insights.then((results) => {
                     expect(results.length).toBe(4);
@@ -185,6 +185,41 @@ describe('Insight Model', () => {
                     fail('No error is supposed to be returned', err);
                     done();
                 })
+            })
+        });
+    });
+
+    describe('#generateDynamic', () => {
+        describe('callback', () => {
+            it('returns already created object', (done) => {
+                let options = {
+                    displayName: 'Psycho Fiction',
+                    description: 'test category',
+                    numContent: 5
+                };
+
+                Insight.generateDynamic('Psychological fiction', options, (err, result) => {
+                    expect(err).toBeNull();
+                    expect(result.displayName).toBe('Dynamic Psychological fiction');
+                    done();
+                });
+            });
+        });
+
+        describe('continuity monad', () => {
+            it('returns already created object', (done) => {
+                let options = {
+                    displayName: 'Psycho Fiction',
+                    description: 'test category',
+                    numContent: 5
+                };
+
+                let insight = Insight.generateDynamic('Psychological fiction', options);
+
+                insight.then((result) => {
+                    expect(result.displayName).toBe('Dynamic Psychological fiction');
+                    done();
+                });
             })
         });
     });
