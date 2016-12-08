@@ -23,16 +23,27 @@ describe('Insight Model', () => {
 
     });
 
+    describe('constructor', () => {
+       it('constructs object', () => {
+           insight = new Insight({name: 'OOP', displayName: 'Object Oriented Programming'});
+
+           expect(insight.name).toBe('OOP');
+           expect(insight.displayName).toBe('Object Oriented Programming');
+       });
+
+        it('dont add unwanted properties', () => {
+            insight = new Insight({foo: 'bar'});
+
+            expect(insight.foo).toBeUndefined();
+        });
+    });
+
     describe('#save', () => {
         it('should fail for invalid object', (done) => {
             insight = new Insight({});
 
             insight.save((err, result) => {
-                let errors = err.errors;
-
-                console.log('errors', errors);
-
-                expect(errors.lenght).toBe(4);
+                expect(err.errors.length).toBe(4);
                 done();
             });
         });
@@ -75,7 +86,6 @@ describe('Insight Model', () => {
 
             it('find existing object', (done) => {
                 Insight.get('54ff19d8b9c1b433732b2df3', (err, result) => {
-                    console.log('err', err);
 
                     expect(result.name).toBe('Juvenile fiction');
                     expect(result.tags.length).toBe(0);
@@ -134,12 +144,16 @@ describe('Insight Model', () => {
                     expect(err).toBeNull();
                     expect(results.length).toBe(4);
 
-                    let categoryNames = _.sortBy(_.map(results, 'name'));
+                    let insights = _.sortBy(results, '_id');
 
-                    expect(categoryNames[0]).toBe('English fiction');
-                    expect(categoryNames[1]).toBe('Psychological fiction');
-                    expect(categoryNames[2]).toBe('Science fiction');
-                    expect(categoryNames[3]).toBe('[steve] Action&Adventure Fiction&Non');
+                    expect(insights[0].name).toBe('Science fiction');
+                    expect(insights[0]._id).toBe('54ff19d8b9c1b433732b2dfb');
+                    expect(insights[1].name).toBe('English fiction');
+                    expect(insights[1]._id).toBe('54ff19d9b9c1b433732b2e1f');
+                    expect(insights[2].name).toBe('Psychological fiction');
+                    expect(insights[2]._id).toBe('54ff19d9b9c1b433732b2e30');
+                    expect(insights[3].name).toBe('[steve] Action&Adventure Fiction&Non');
+                    expect(insights[3]._id).toBe('555da507e54f62372c141d9d');
 
                     done();
                 })
