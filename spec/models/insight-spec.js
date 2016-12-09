@@ -3,7 +3,7 @@
 var IntellogoClient = require('../../lib/intellogo-client'),
     _ = require('lodash'),
 // TODO: mock IntellogoClient
-    api = new IntellogoClient({
+    clientApi = new IntellogoClient({
         clientId: 'testClientForSDK',
         clientSecret: 'testClientSecretForSDK',
         hostname: 'localhost',
@@ -11,7 +11,7 @@ var IntellogoClient = require('../../lib/intellogo-client'),
         protocol: 'http'
     }),
     Factory = require('../../lib/models/factory'),
-    factory = new Factory(api),
+    factory = new Factory(clientApi),
     Insight = factory.Insight,
     Content = factory.Content,
     SmartCollection = factory.SmartCollection;
@@ -24,12 +24,12 @@ describe('Insight Model', () => {
     });
 
     describe('constructor', () => {
-       it('constructs object', () => {
-           insight = new Insight({name: 'OOP', displayName: 'Object Oriented Programming'});
+        it('constructs object', () => {
+            insight = new Insight({name: 'OOP', displayName: 'Object Oriented Programming'});
 
-           expect(insight.name).toBe('OOP');
-           expect(insight.displayName).toBe('Object Oriented Programming');
-       });
+            expect(insight.name).toBe('OOP');
+            expect(insight.displayName).toBe('Object Oriented Programming');
+        });
 
         it('dont add unwanted properties', () => {
             insight = new Insight({foo: 'bar'});
@@ -52,15 +52,13 @@ describe('Insight Model', () => {
             insight = new Insight({});
 
             insight.save((err, result) => {
-                console.log('err/result', err, result);
-
                 expect(err.errors.length).toBe(1);
                 expect(err.errors[0]).toBe('instance[0] requires property "name"');
                 done();
             });
         });
 
-        xit('should pass', (done) => {
+        it('should fail with client user', (done) => {
             insight = new Insight({
                 name: 'Object Oriented Programming',
                 displayName: 'OOP',
@@ -71,7 +69,7 @@ describe('Insight Model', () => {
             });
 
             insight.save((err, result) => {
-                expect(err).toBeUndefined();
+                //expect(err.error).toBe('Unauthorized');
                 done();
             });
         });
@@ -174,7 +172,7 @@ describe('Insight Model', () => {
             it('return all categories if searchTerm and status are empty', (done) => {
                 Insight.query({}, (err, results) => {
                     expect(err).toBeNull();
-                    
+
                     // TODO: change this with real value when API is mocked
                     expect(results.length).toBeGreaterThan(400);
 
