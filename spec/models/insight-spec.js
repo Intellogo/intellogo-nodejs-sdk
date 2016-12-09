@@ -4,8 +4,8 @@ var IntellogoClient = require('../../lib/intellogo-client'),
     _ = require('lodash'),
 // TODO: mock IntellogoClient
     clientApi = new IntellogoClient({
-        clientId: 'testClientForSDK',
-        clientSecret: 'testClientSecretForSDK',
+        clientId: '<use real>',
+        clientSecret: '<change with real>',
         hostname: 'localhost',
         port: 4444,
         protocol: 'http'
@@ -16,35 +16,41 @@ var IntellogoClient = require('../../lib/intellogo-client'),
     Content = factory.Content,
     SmartCollection = factory.SmartCollection;
 
-describe('Insight Model', () => {
-    let insight;
+ddescribe('Insight Model', () => {
+    let insight,
+        insightProperties = {
+            name: 'Object Oriented Programming',
+            displayName: 'OOP',
+            productionReady: true,
+            description: 'Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.',
+            tags: ['programming', 'oop'],
+            keywords: ['object', 'oriented', 'programming']
+        };
 
     beforeEach(() => {
 
     });
 
-    describe('constructor', () => {
-        it('constructs object', () => {
-            insight = new Insight({name: 'OOP', displayName: 'Object Oriented Programming'});
+    it('have constructor', () => {
+        insight = new Insight(insightProperties);
 
-            expect(insight.name).toBe('OOP');
-            expect(insight.displayName).toBe('Object Oriented Programming');
-        });
+        expect(insight.displayName).toBe('OOP');
+        expect(insight.name).toBe('Object Oriented Programming');
+    });
 
-        it('dont add unwanted properties', () => {
-            insight = new Insight({foo: 'bar'});
+    it('dont add unwanted properties', () => {
+        insight = new Insight({foo: 'bar'});
 
-            expect(insight.foo).toBeUndefined();
-        });
+        expect(insight.foo).toBeUndefined();
+    });
 
-        it('works with serialize', () => {
-            let plainObject = new Insight({name: 'OOP', displayName: 'Object Oriented Programming'}).toPlainObject();
+    it('works with serialize', () => {
+        let plainObject = new Insight(insightProperties).toPlainObject();
 
-            expect(_.keys(plainObject).length).toBe(2);
+        expect(_.keys(plainObject).length).toBe(6);
 
-            expect(plainObject.name).toBe('OOP');
-            expect(plainObject.displayName).toBe('Object Oriented Programming');
-        });
+        expect(plainObject.name).toBe('Object Oriented Programming');
+        expect(plainObject.displayName).toBe('OOP');
     });
 
     describe('#save', () => {
@@ -58,52 +64,30 @@ describe('Insight Model', () => {
             });
         });
 
-        it('should fail with client user', (done) => {
-            insight = new Insight({
-                name: 'Object Oriented Programming',
-                displayName: 'OOP',
-                productionReady: true,
-                description: 'Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.',
-                tags: ['programming', 'oop'],
-                keywords: ['object', 'oriented', 'programming']
-            });
+        it('should pass', (done) => {
+            insight = new Insight(insightProperties);
 
-            insight.save((err, result) => {
-                //expect(err.error).toBe('Unauthorized');
-                done();
+            insight.save((err, insight) => {
+                expect(err).toBeNull();
+                expect(insight.productionReady).toBe(true);
+                expect(insight.name).toBe('Object Oriented Programming');
+                insight.remove(done);
             });
         });
     });
 
     describe('#get', () => {
         describe('callback', () => {
-            xit('find created object', (done) => {
-                insight = new Insight({
-                    name: 'Object Oriented Programming',
-                    displayName: 'OOP',
-                    productionReady: true,
-                    description: 'Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.',
-                    tags: ['programming', 'oop'],
-                    keywords: ['object', 'oriented', 'programming']
-                });
+            it('find created object', (done) => {
+                insight = new Insight(insightProperties);
 
-                insight.save((err, result) => {
-                    let savedInsight = Insight.get(result.id);
-
-                    done();
-                });
-            });
-
-            it('find existing object', (done) => {
-                Insight.get('54ff19d8b9c1b433732b2df3', (err, result) => {
-
-                    expect(result.name).toBe('Juvenile fiction');
-                    expect(result.tags.length).toBe(0);
-                    expect(result.productionReady).toBe(false);
-                    expect(result.modifiedTime).toBe(1468592018149);
-
-                    done();
-                });
+                insight.save()
+                    .then(insight => Insight.get(insight._id))
+                    .then(insight => {
+                        expect(insight.name).toBe('Object Oriented Programming');
+                        expect(insight._id).toBeDefined();
+                        insight.remove(done);
+                    });
             });
 
             it('returns error when id is not systemId', (done) => {
@@ -147,6 +131,8 @@ describe('Insight Model', () => {
         });
     });
 
+
+    // TODO: rewrite
     describe('#query', () => {
         describe('callback', () => {
             it('returns a list of objects', (done) => {
@@ -224,7 +210,7 @@ describe('Insight Model', () => {
 
                 Insight.generateDynamic('Psychological fiction', options, (err, result) => {
                     expect(err).toBeNull();
-                    expect(result.displayName).toBe('Dynamic Psychological fiction');
+                    expect(result.displayName).toBe('Psycho Fiction');
                     done();
                 });
             });
@@ -241,7 +227,7 @@ describe('Insight Model', () => {
                 let insight = Insight.generateDynamic('Psychological fiction', options);
 
                 insight.then((result) => {
-                    expect(result.displayName).toBe('Dynamic Psychological fiction');
+                    expect(result.displayName).toBe('Psycho Fiction');
                     done();
                 });
             })
