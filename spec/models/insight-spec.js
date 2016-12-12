@@ -28,8 +28,11 @@ describe('Insight Model', () => {
             productionReady: true,
             description: 'Object-oriented programming (OOP) is a programming language model organized around objects rather than "actions" and data rather than logic.',
             tags: ['programming', 'oop'],
-            keywords: ['object', 'oriented', 'programming']
-        };
+            keywords: ['object', 'oriented', 'programming'],
+            readonly: false,
+            locked: false
+        },
+        fakeId = '111111111111111111111111';
 
     beforeEach(() => {
 
@@ -51,7 +54,7 @@ describe('Insight Model', () => {
     it('works with serialize', () => {
         let plainObject = new Insight(insightProperties).toPlainObject();
 
-        expect(_.keys(plainObject).length).toBe(6);
+        expect(_.keys(plainObject).length).toBe(8);
 
         expect(plainObject.name).toBe('Object Oriented Programming');
         expect(plainObject.displayName).toBe('OOP');
@@ -93,7 +96,20 @@ describe('Insight Model', () => {
                 .then(insight => {
                     expect(insight.name).toBe('new name');
                     insight.remove(done);
-                }).catch(err => done(err));
+                })
+                .catch(err => done(err));
+        });
+
+        it('should fail for non-existent object', (done) => {
+            insight = new Insight(insightProperties);
+            insight._id = fakeId;
+
+            insight.save()
+                .then(insight => done(insight))
+                .catch(err => {
+                    expect(err.errors).toEqual([ 'No such category.' ]);
+                    done();
+                });
         });
     });
 
@@ -121,9 +137,9 @@ describe('Insight Model', () => {
             });
 
             it('returns error when id is not found', (done) => {
-                let insight = Insight.get('111111111111111111111111', (err, result) => {
+                let insight = Insight.get(fakeId, (err, result) => {
                     expect(err.errors.length).toBe(1);
-                    expect(err.errors[0]).toBe('Insight(111111111111111111111111) could not be found.');
+                    expect(err.errors[0]).toBe('Insight(' + fakeId + ') could not be found.');
                     expect(result).toBeUndefined();
                     done();
                 });
