@@ -107,7 +107,7 @@ describe('Insight Model', () => {
             insight.save()
                 .then(insight => done(insight))
                 .catch(err => {
-                    expect(err.errors).toEqual([ 'No such category.' ]);
+                    expect(err.errors).toEqual(['No such category.']);
                     done();
                 });
         });
@@ -278,5 +278,16 @@ describe('Insight Model', () => {
                 });
             })
         });
+    });
+
+    describe('#count', () => {
+        it('returns categories count', (done) => {
+            Insight.count()
+                .then((count) => {
+                    expect(count).toBe(514);
+                    done();
+                })
+                .catch(err => done(err));
+        })
     });
 });
