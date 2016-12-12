@@ -119,6 +119,15 @@ describe('Insight Model', () => {
                     done();
                 });
             });
+
+            it('returns error when id is not found', (done) => {
+                let insight = Insight.get('111111111111111111111111', (err, result) => {
+                    expect(err.errors.length).toBe(1);
+                    expect(err.errors[0]).toBe('Insight(111111111111111111111111) could not be found.');
+                    expect(result).toBeUndefined();
+                    done();
+                });
+            });
         });
         describe('continuity monad', () => {
             it('find existing object', (done) => {
