@@ -1,5 +1,6 @@
 'use strict';
-const IntellogoClient = require('../../lib/intellogo-client'),
+const _ = require('lodash'),
+      IntellogoClient = require('../../lib/intellogo-client'),
       api = new IntellogoClient({
           clientId: 'testClientForSDK',
           clientSecret: 'testClientSecretForSDK',
@@ -55,6 +56,42 @@ describe('SmartCollection Model', () => {
             SmartCollection.get(nonExistentId, (error, smartCollection) => {
                 expect(error).toBeTruthy();
                 expect(smartCollection).not.toBeDefined();
+                done();
+            });
+        });
+    });
+
+    describe('#query', () => {
+        const insightId = '559962096149361d10d22da1';
+
+        it('should retrieve all smart collections with no filter', (done) => {
+            SmartCollection.query({}, (error, allCollections) => {
+                expect(error).toBeFalsy();
+                expect(allCollections.length).toBeGreaterThan(0);
+                done();
+            });
+        });
+
+
+        it('should retrieve all smart collections with filter', (done) => {
+            SmartCollection.query({insightId: insightId}, (error, allCollections) => {
+                expect(error).toBeFalsy();
+                expect(allCollections.length).toBeGreaterThan(0);
+                allCollections.forEach((smartCollection) => {
+                    expect(_.find(smartCollection.items, {categoryId: insightId})).toBeDefined();
+                });
+                done();
+            });
+        });
+
+        it('should retrieve all smart collections with no filter', (done) => {
+            let promise = SmartCollection.query({});
+            promise.then((allCollections) => {
+                expect(allCollections.length).toBeGreaterThan(0);
+                done();
+            }).catch((error) => {
+                expect(error).not.toBeDefined();
+                expect(error).toBeDefined();
                 done();
             });
         });
