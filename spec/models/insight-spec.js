@@ -16,7 +16,11 @@ var IntellogoClient = require('../../lib/intellogo-client'),
     Content = factory.Content,
     SmartCollection = factory.SmartCollection;
 
-ddescribe('Insight Model', () => {
+// TODO: remove this after api is mocked
+jasmine.getEnv().defaultTimeoutInterval = 10000;
+
+describe('Insight Model', () => {
+
     let insight,
         insightProperties = {
             name: 'Object Oriented Programming',
@@ -73,6 +77,23 @@ ddescribe('Insight Model', () => {
                 expect(insight.name).toBe('Object Oriented Programming');
                 insight.remove(done);
             });
+        });
+    });
+
+    describe('#update', () => {
+        it('should pass', (done) => {
+            insight = new Insight(insightProperties);
+
+            insight.save()
+                .then(insight => {
+                    insight.name = 'new name';
+                    return insight.save();
+                })
+                .then(insight => Insight.get(insight._id))
+                .then(insight => {
+                    expect(insight.name).toBe('new name');
+                    insight.remove(done);
+                }).catch(err => done(err));
         });
     });
 
