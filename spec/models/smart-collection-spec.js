@@ -13,6 +13,31 @@ const _ = require('lodash'),
       SmartCollection = factory.SmartCollection;
 
 describe('SmartCollection Model', () => {
+    describe('#save', () => {
+        const metadata = {
+            name: 'SDK Test',
+            displayName: 'SDK Test',
+            productionReady: false,
+            autoupdate: false
+        }, items = [
+            {categoryId: '5579d8cecf8e650a174d4c5f', min: 70, max: 100}
+        ];
+
+        it('should create new smart collection', (done) => {
+            let smartCollection = new SmartCollection({metadata: metadata, items: items});
+            smartCollection.save((error) => {
+                expect(error).toBeFalsy();
+                expect(smartCollection._id).toBeDefined();
+                done();
+            });
+        });
+
+        xit('should save only the metadata', (done) => {
+        });
+        xit('should save only items', (done) => {
+        });
+    });
+
     describe('#get', () => {
         const nonExistentId = '55cb7ab85f5bb5f2703711b';
         const existingId = '55cb7ab85f5bb5f2703711b6';
@@ -78,7 +103,8 @@ describe('SmartCollection Model', () => {
                 expect(error).toBeFalsy();
                 expect(allCollections.length).toBeGreaterThan(0);
                 allCollections.forEach((smartCollection) => {
-                    expect(_.find(smartCollection.items, {categoryId: insightId})).toBeDefined();
+                    expect(_.find(smartCollection.items.toAPIArray(), {categoryId: insightId}))
+                        .toBeDefined();
                 });
                 done();
             });
