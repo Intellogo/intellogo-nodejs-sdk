@@ -35,7 +35,15 @@ describe('Insight Model', () => {
         fakeId = '111111111111111111111111';
 
     beforeEach(() => {
+        insight = null;
+    });
 
+    afterEach((done) => {
+        if (insight && insight._id) {
+            insight.remove(done);
+        } else {
+            done();
+        }
     });
 
     it('have constructor', () => {
@@ -177,6 +185,193 @@ describe('Insight Model', () => {
         });
     });
 
+    xdescribe('#samples', function() {
+        it('#should set samples on insight create if given', () => {
+            let content = new Content();
+            content._id = fakeId;
+
+            insight = new Insight({
+                samples: [{content: content, positive: true}],
+                testSamples: [{content: content, positive: true}]
+            });
+            expect(insight.samples.get(fakeId)).toEqual({content: content, positive: true});
+            expect(insight.testSamples.get(fakeId)).toEqual({content: content, positive: true});
+        });
+
+        ddescribe('samples altering', function() {
+            // TODO enforce positive ??
+            it('#add samples', () => {
+                insight = new Insight();
+
+                // normal add
+                insight.samples.add(fakeId, false);
+                insight.testSamples.add(fakeId);
+
+                expect(insight.samples.toArray()).toEqual([{
+                    contentId: fakeId,
+                    positive: false
+                }]);
+                expect(insight.testSamples.toArray()).toEqual([{
+                    contentId: fakeId,
+                    positive: true
+                }]);
+
+                // duplicates
+                insight.samples.add(fakeId, false);
+                insight.testSamples.add(fakeId);
+                expect(insight.samples.toArray()).toEqual([{
+                    contentId: fakeId,
+                    positive: false
+                }]);
+                expect(insight.testSamples.toArray()).toEqual([{
+                    contentId: fakeId,
+                    positive: true
+                }]);
+
+                // changing
+                insight.samples.add(fakeId, true);
+                expect(insight.samples.toArray()).toEqual([{
+                    contentId: fakeId,
+                    positive: true
+                }]);
+            });
+
+            it('#get', () => {
+                insight = new Insight();
+                insight.samples.add(fakeId, false);
+
+                expect(insight.samples.get(fakeId))
+                    .toEqual({contentId: fakeId, positive: false});
+                expect(insight.samples.get('notExisting'))
+                    .toEqual(null);
+            });
+
+            it('#toArray', () => {});
+
+            it('#remove samples', () => {
+                insight = new Insight();
+                insight.samples.add(fakeId, false);
+                insight.testSamples.add(fakeId, false);
+
+                insight.samples.remove(fakeId, false);
+                insight.testSamples.remove(fakeId);
+
+                expect(insight.samples.toArray()).toEqual();
+                expect(insight.testSamples.toArray()).toEqual();
+            });
+        });
+
+        describe('#saveSamples', function() {
+            it('#_saveSamples should load samples', (done) => {
+                insight = new Insight({
+                    testSamples: [{contentId: fakeId, positive: true}]
+                });
+
+                insight
+                    .save()
+                    // Reload insight
+                    .then(insight => Insight.get(insight._id))
+                    .then(insight => insight._saveSamples())
+                    .then(insight => {
+                        console.log('hr4e');
+                        expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
+                        done();
+                    });
+            });
+
+            it('#_saveTestSamples should load testSamples', (done) => {
+                insight = new Insight();
+                insight.testSamples = [{contentId: fakeId, positive: true}];
+
+                insight
+                    .save()
+                    // Reload insight
+                    .then(insight => Insight.get(insight._id))
+                    .then(insight => insight._saveTestSamples())
+                    .then(insight => {
+                        console.log('hre');
+                        expect(insight.testSamples).toEqual([{contentId: fakeId, positive: true}]);
+                        done();
+                    });
+            });
+
+            it('#loadSamples should load both', (done) => {
+                insight = new Insight();
+                insight.testSamples = [{contentId: fakeId, positive: true}];
+                insight.samples = [{contentId: fakeId, positive: false}];
+
+                insight
+                    .save()
+                    // Reload insight
+                    .then(insight => Insight.get(insight._id))
+                    .then(insight => insight._populateSamples())
+                    .then(insight => {
+                        console.log('hr4e');
+                        expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
+                        expect(insight.testSamples).toEqual([{contentId: fakeId, positive: false}]);
+                        done();
+                    });
+
+            });
+        });
+
+        describe('#loadSamples', function () {
+            it('#_loadSamples should load samples', (done) => {
+                insight = new Insight({
+                    testSamples: [{contentId: fakeId, positive: true}]
+                });
+
+                insight
+                    .save()
+                    // Reload insight
+                    .then(insight => Insight.get(insight._id))
+                    .then(insight => insight._populateSamples())
+                    .then(insight => {
+                        console.log('hr4e');
+                        expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
+                        done();
+                    });
+            });
+
+            it('#_loades should load samples with metadata', (done) => {});
+
+            it('#_loadTestSamples should load testSamples', (done) => {
+                insight = new Insight();
+                insight.testSamples = [{contentId: fakeId, positive: true}];
+
+                insight
+                    .save()
+                    // Reload insight
+                    .then(insight => Insight.get(insight._id))
+                    .then(insight => insight._populateTestSamples())
+                    .then(insight => {
+                        console.log('hre');
+                        expect(insight.testSamples).toEqual([{contentId: fakeId, positive: true}]);
+                        done();
+                    });
+            });
+
+            it('#loadTestSamples should load both', (done) => {
+                insight = new Insight();
+                insight.testSamples = [{contentId: fakeId, positive: true}];
+                insight.samples = [{contentId: fakeId, positive: false}];
+
+                insight
+                    .save()
+                    // Reload insight
+                    .then(insight => Insight.get(insight._id))
+                    .then(insight => insight._populateSamples())
+                    .then(insight => {
+                        console.log('hr4e');
+                        expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
+                        expect(insight.testSamples).toEqual([{contentId: fakeId, positive: false}]);
+                        done();
+                    });
+
+            });
+
+        });
+    });
 
     // TODO: rewrite
     describe('#query', () => {
@@ -291,3 +486,4 @@ describe('Insight Model', () => {
         })
     });
 });
+
