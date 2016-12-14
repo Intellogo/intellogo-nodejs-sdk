@@ -4,8 +4,8 @@ var IntellogoClient = require('../../lib/intellogo-client'),
     _ = require('lodash'),
 // TODO: mock IntellogoClient
     clientApi = new IntellogoClient({
-        clientId: '<use real>',
-        clientSecret: '<change with real>',
+        clientId: 'testClientForSDK',
+        clientSecret: 'testClientSecretForSDK',
         hostname: 'localhost',
         port: 4444,
         protocol: 'http'
@@ -72,7 +72,7 @@ describe('Insight Model', () => {
         it('should fail for invalid object', (done) => {
             insight = new Insight({});
 
-            insight.save((err, result) => {
+            insight.save({}, (err, result) => {
                 expect(err.errors.length).toBe(1);
                 expect(err.errors[0]).toBe('instance[0] requires property "name"');
                 done();
@@ -82,7 +82,7 @@ describe('Insight Model', () => {
         it('should pass', (done) => {
             insight = new Insight(insightProperties);
 
-            insight.save((err, insight) => {
+            insight.save({}, (err, insight) => {
                 expect(err).toBeNull();
                 expect(insight.productionReady).toBe(true);
                 expect(insight.name).toBe('Object Oriented Programming');
@@ -479,7 +479,7 @@ describe('Insight Model', () => {
         it('returns categories count', (done) => {
             Insight.count()
                 .then((count) => {
-                    expect(count).toBe(514);
+                    expect(count).toBe(518);
                     done();
                 })
                 .catch(err => done(err));

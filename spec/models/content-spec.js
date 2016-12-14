@@ -4,8 +4,8 @@ var IntellogoClient = require('../../lib/intellogo-client'),
     _ = require('lodash'),
 // TODO: mock IntellogoClient
     clientApi = new IntellogoClient({
-        clientId: '<use real>',
-        clientSecret: '<change with real>',
+        clientId: 'testClientForSDK',
+        clientSecret: 'testClientSecretForSDK',
         hostname: 'localhost',
         port: 4444,
         protocol: 'http'
@@ -31,9 +31,8 @@ describe('Content Model', () => {
         it('found existing content', (done) => {
            Content.get('54ff19deb9c1b433732b2e78', (err, content) => {
                expect(err).toBeNull();
-
-               expect(content.sourceId).toBe(5);
-               expect(content.source).toBe('Project Gutenberg');
+               expect(content.metadata.sourceId).toBe(5);
+               expect(content.metadata.source).toBe('Project Gutenberg');
                expect(content.metadata.title).toBe('The United States Constitution');
 
                done();
