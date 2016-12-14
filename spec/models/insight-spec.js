@@ -1,6 +1,6 @@
 'use strict';
 
-var IntellogoClient = require('../../lib/intellogo-client'),
+const IntellogoClient = require('../../lib/intellogo-client'),
     _ = require('lodash'),
 // TODO: mock IntellogoClient
     clientApi = new IntellogoClient({
@@ -35,7 +35,9 @@ describe('Insight Model', () => {
             metadata: true,
             samples: false,
             testSamples: false
-        };
+        },
+        fakeId2 = '222222222222222222222222',
+        fakeContent = new Content({_id: fakeId});
 
     beforeEach(() => {
         insight = null;
@@ -213,79 +215,133 @@ describe('Insight Model', () => {
         });
     });
 
-    xdescribe('#samples', function() {
+    describe('#samples', function() {
         it('#should set samples on insight create if given', () => {
-            let content = new Content();
-            content._id = fakeId;
+            let content = new Content({_id: fakeId}),
+                content2 = new Content({_id: fakeId2});
 
             insight = new Insight({
-                samples: [{content: content, positive: true}],
+                samples: [{content: content, positive: true}, {content: content2, positive: true}],
                 testSamples: [{content: content, positive: true}]
             });
+
             expect(insight.samples.get(fakeId)).toEqual({content: content, positive: true});
+            expect(insight.samples.get(fakeId2)).toEqual({content: content2, positive: true});
             expect(insight.testSamples.get(fakeId)).toEqual({content: content, positive: true});
         });
 
-        describe('samples altering', function() {
-            // TODO enforce positive ??
-            it('#add samples', () => {
+
+        ddescribe('samples altering', function() {
+            beforeEach(() => {
                 insight = new Insight();
+            });
 
-                // normal add
-                insight.samples.add(fakeId, false);
-                insight.testSamples.add(fakeId);
+            describe('#add samples', () => {
+                it('should add samples', () => {
+                    insight.samples.add(new Content({_id: fakeId}), false);
+                    insight.testSamples.add(new Content({_id: fakeId}), true);
 
-                expect(insight.samples.toArray()).toEqual([{
-                    contentId: fakeId,
-                    positive: false
-                }]);
-                expect(insight.testSamples.toArray()).toEqual([{
-                    contentId: fakeId,
-                    positive: true
-                }]);
+                    expect(insight.samples.toArray()).toEqual([{
+                        content: jasmine.objectContaining({
+                                                              _id: fakeId
+                                                          }),
+                        positive: false
+                    }]);
+                    expect(insight.testSamples.toArray()).toEqual([{
+                        content: jasmine.objectContaining({
+                                                              _id: fakeId
+                                                          }),
+                        positive: true
+                    }]);
+                });
 
-                // duplicates
-                insight.samples.add(fakeId, false);
-                insight.testSamples.add(fakeId);
-                expect(insight.samples.toArray()).toEqual([{
-                    contentId: fakeId,
-                    positive: false
-                }]);
-                expect(insight.testSamples.toArray()).toEqual([{
-                    contentId: fakeId,
-                    positive: true
-                }]);
+                it('should not add duplicates', () => {
+                    insight.samples.add(new Content({_id: fakeId}), false);
+                    insight.testSamples.add(new Content({_id: fakeId}), true);
+                    expect(insight.samples.toArray()).toEqual([{
+                        content: jasmine.objectContaining({
+                                                              _id: fakeId
+                                                          }),
+                        positive: false
+                    }]);
+                    expect(insight.testSamples.toArray()).toEqual([{
+                        content: jasmine.objectContaining({
+                                                              _id: fakeId
+                                                          }),
+                        positive: true
+                    }]);
+                });
 
-                // changing
-                insight.samples.add(fakeId, true);
-                expect(insight.samples.toArray()).toEqual([{
-                    contentId: fakeId,
-                    positive: true
-                }]);
+                it('should alter existing content positiveness', () => {
+                    insight.samples.add(new Content({_id: fakeId}), true);
+                    expect(insight.samples.toArray()).toEqual([{
+                        content: jasmine.objectContaining({
+                                                              _id: fakeId
+                                                          }),
+                        positive: true
+                    }]);
+                });
+
+                it('should throw', () => {
+                    insight = new Insight();
+
+                    expect(insight.samples.add.bind(null, 'not a content')).toThrow();
+                    expect(insight.samples.add.bind(null, new Content(), 'not a boolean')).toThrow();
+                });
             });
 
             it('#get', () => {
                 insight = new Insight();
-                insight.samples.add(fakeId, false);
+                insight.samples.add(new Content({_id: fakeId}), false);
 
                 expect(insight.samples.get(fakeId))
-                    .toEqual({contentId: fakeId, positive: false});
+                    .toEqual({
+                                 content : jasmine.objectContaining({_id: fakeId}),
+                                 positive: false
+                             });
                 expect(insight.samples.get('notExisting'))
                     .toEqual(null);
             });
 
-            it('#toArray', () => {});
+            it('#overwrite tests', () => {
+                insight = new Insight();
+                insight.samples = new Insight.InsightSamples([
+                    {
+                        content : new Content({_id: fakeId}),
+                        positive: false
+                    }]);
+
+                expect(insight.samples.toArray()).toEqual([{
+                        content : new Content({_id: fakeId}),
+                        positive: false
+                    }]);
+            });
+
+            it('#toArray', () => {
+                insight = new Insight();
+                insight.samples.add(new Content({_id: fakeId}), false);
+                insight.samples.add(new Content({_id: fakeId2}), true);
+
+                expect(insight.samples.toArray(fakeId))
+                    .toEqual([{
+                                 content : jasmine.objectContaining({_id: fakeId}),
+                                 positive: false
+                             },{
+                                 content : jasmine.objectContaining({_id: fakeId2}),
+                                 positive: true
+                             }]);
+            });
 
             it('#remove samples', () => {
                 insight = new Insight();
-                insight.samples.add(fakeId, false);
-                insight.testSamples.add(fakeId, false);
+                insight.samples.add(new Content({_id: fakeId}), false);
+                insight.testSamples.add(new Content({_id: fakeId}), false);
 
-                insight.samples.remove(fakeId, false);
+                insight.samples.remove(fakeId);
                 insight.testSamples.remove(fakeId);
 
-                expect(insight.samples.toArray()).toEqual();
-                expect(insight.testSamples.toArray()).toEqual();
+                expect(insight.samples.toArray()).toEqual([]);
+                expect(insight.testSamples.toArray()).toEqual([]);
             });
         });
 
@@ -344,6 +400,16 @@ describe('Insight Model', () => {
         });
 
         describe('#loadSamples', function () {
+            iit('#_loadSamples should load samples', (done) => {
+                (new Insight({_id: '54ff19d8b9c1b433732b2df6'}))
+                    ._loadSamples()
+                    .then(insight => {
+                        expect(insight.samples.toArray())
+                            .toEqual([]);
+                        done();
+                    });
+            });
+
             it('#_loadSamples should load samples', (done) => {
                 insight = new Insight({
                     testSamples: [{contentId: fakeId, positive: true}]
@@ -398,6 +464,7 @@ describe('Insight Model', () => {
 
             });
 
+            it('#load samples', (done) => {});
         });
     });
 
