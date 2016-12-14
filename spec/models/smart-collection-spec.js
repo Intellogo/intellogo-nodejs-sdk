@@ -8,9 +8,7 @@ const _ = require('lodash'),
           port: 4444,
           protocol: 'http'
       }),
-      Factory = require('../../lib/models/factory'),
-      factory = new Factory(api),
-      SmartCollection = factory.SmartCollection;
+      SmartCollection = api.classes.SmartCollection;
 
 describe('SmartCollection Model', () => {
     describe('#save', () => {

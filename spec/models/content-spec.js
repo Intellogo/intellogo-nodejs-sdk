@@ -10,11 +10,9 @@ var IntellogoClient = require('../../lib/intellogo-client'),
         port: 4444,
         protocol: 'http'
     }),
-    Factory = require('../../lib/models/factory'),
-    factory = new Factory(clientApi),
-    Insight = factory.Insight,
-    Content = factory.Content,
-    SmartCollection = factory.SmartCollection;
+    Insight = clientApi.classes.Insight,
+    Content = clientApi.classes.Content,
+    SmartCollection = clientApi.classes.SmartCollection;
 
 // TODO: remove this after api is mocked
 jasmine.getEnv().defaultTimeoutInterval = 10000;
