@@ -48,3 +48,16 @@
  * @property {ContentFilter} [contentFilter={}]
  * Filters to apply to the results
  */
+
+/**
+ * Object containing an Intellogo ID
+ * @typedef {Object} IntellogoID
+ * @property {String} id An IntellogoID
+ */
+
+/**
+ * Response indicating whether an operation was successful or not
+ * @typedef {Object} SuccessResponse
+ * @property {Boolean} success Whether the operation suceeded
+ * @property {String} [error] An error message, if the operation failed
+ */
