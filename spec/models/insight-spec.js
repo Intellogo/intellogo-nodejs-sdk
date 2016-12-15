@@ -120,65 +120,84 @@ describe('Insight Model', () => {
     });
 
     describe('#get', () => {
-        describe('callback', () => {
-            it('find created object', (done) => {
-                insight = new Insight(insightProperties);
+        it('find created object', (done) => {
+            insight = new Insight(insightProperties);
 
-                insight.save()
-                    .then(insight => Insight.get(insight._id))
-                    .then(insight => {
-                        expect(insight.name).toBe('Object Oriented Programming');
-                        expect(insight._id).toBeDefined();
-                        insight.remove(done);
-                    });
-            });
-
-            it('returns error when id is not systemId', (done) => {
-                let insight = Insight.get('not id', (err, result) => {
-                    expect(err.errors.length).toBe(1);
-                    expect(err.errors[0]).toBe('instance[0] does not conform to the "systemId" format');
-                    expect(result).toBeUndefined();
-                    done();
+            insight.save()
+                .then(insight => Insight.get(insight._id))
+                .then(insight => {
+                    expect(insight.name).toBe('Object Oriented Programming');
+                    expect(insight._id).toBeDefined();
+                    insight.remove(done);
                 });
-            });
+        });
 
-            it('returns error when id is not found', (done) => {
-                let insight = Insight.get(fakeId, (err, result) => {
-                    expect(err.errors.length).toBe(1);
-                    expect(err.errors[0]).toBe('Insight(' + fakeId + ') could not be found.');
-                    expect(result).toBeUndefined();
-                    done();
-                });
+        it('returns error when id is not systemId', (done) => {
+            let insight = Insight.get('not id', (err, result) => {
+                expect(err.errors.length).toBe(1);
+                expect(err.errors[0]).toBe('instance[0] does not conform to the "systemId" format');
+                expect(result).toBeUndefined();
+                done();
             });
         });
-        describe('continuity monad', () => {
-            it('find existing object', (done) => {
-                let insight = Insight.get('54ff19d8b9c1b433732b2df3');
 
-                insight.then((result) => {
-                    expect(result.name).toBe('Juvenile fiction');
-                    expect(result.tags.length).toBe(0);
-                    expect(result.productionReady).toBe(false);
-                    expect(result.modifiedTime).toBe(1468592018149);
-
-                    done();
-                }, (err) => {
-                    fail('Unexpected error', err);
-                    done();
-                });
+        it('returns error when id is not found', (done) => {
+            let insight = Insight.get(fakeId, (err, result) => {
+                expect(err.errors.length).toBe(1);
+                expect(err.errors[0]).toBe('Insight(' + fakeId + ') could not be found.');
+                expect(result).toBeUndefined();
+                done();
             });
+        });
+        
+        it('find existing object with samples', (done) => {
+            let insight = Insight.get('54ff19d8b9c1b433732b2df3');
 
-            it('returns error when id is not systemId', (done) => {
-                let insight = Insight.get('154ff19d8b9c1b433732b2df3');
+            insight.then((result) => {
+                expect(result.name).toBe('Juvenile fiction');
+                expect(result.tags.length).toBe(0);
+                expect(result.productionReady).toBe(false);
+                expect(result.modifiedTime).toBe(1468592018149);
 
-                insight.then((result) => {
-                    fail("Unexpected result", result);
-                    done();
-                }, (err) => {
-                    expect(err.errors.length).toBe(1);
-                    expect(err.errors[0]).toBe('instance[0] does not conform to the "systemId" format');
-                    done();
-                });
+                //expect(result.samples.toArray().length).toBe(33);
+                //expect(result.testSamples.toArray().length).toBe(44);
+
+                done();
+            }, (err) => {
+                fail('Unexpected error', err);
+                done();
+            });
+        });
+
+        it('find existing object without samples', (done) => {
+            let insight = Insight.get('54ff19d8b9c1b433732b2df3', { samples: false, testSamples: false });
+
+            insight.then((result) => {
+                expect(result.name).toBe('Juvenile fiction');
+                expect(result.tags.length).toBe(0);
+                expect(result.productionReady).toBe(false);
+                expect(result.modifiedTime).toBe(1468592018149);
+
+                expect(result.samples.toArray()).toEqual([]);
+                expect(result.testSamples.toArray()).toEqual([]);
+
+                done();
+            }, (err) => {
+                fail('Unexpected error', err);
+                done();
+            });
+        });
+
+        it('returns error when id is not systemId', (done) => {
+            let insight = Insight.get('154ff19d8b9c1b433732b2df3');
+
+            insight.then((result) => {
+                fail("Unexpected result", result);
+                done();
+            }, (err) => {
+                expect(err.errors.length).toBe(1);
+                expect(err.errors[0]).toBe('instance[0] does not conform to the "systemId" format');
+                done();
             });
         });
     });
