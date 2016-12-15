@@ -190,8 +190,8 @@ describe('Insight Model', () => {
                 expect(result.productionReady).toBe(false);
                 expect(result.modifiedTime).toBe(1468592018149);
 
-                // expect(insight.samples.length).toBe(779);
-                // expect(insight.testSamples.length).toBe(0);
+                expect(insight.samples).toBeUndefined();
+                expect(insight.testSamples).toBeUndefined();
                 done();
             }, (err) => {
                 fail('Unexpected error', err);
@@ -226,7 +226,7 @@ describe('Insight Model', () => {
             expect(insight.testSamples.get(fakeId)).toEqual({content: content, positive: true});
         });
 
-        ddescribe('samples altering', function() {
+        describe('samples altering', function() {
             // TODO enforce positive ??
             it('#add samples', () => {
                 insight = new Insight();
