@@ -30,7 +30,12 @@ describe('Insight Model', () => {
             readonly: false,
             locked: false
         },
-        fakeId = '111111111111111111111111';
+        fakeId = '111111111111111111111111',
+        metadataOnly = {
+            metadata: true,
+            samples: false,
+            testSamples: false
+        };
 
     beforeEach(() => {
         insight = null;
@@ -151,16 +156,14 @@ describe('Insight Model', () => {
         });
         
         it('find existing object with samples', (done) => {
-            let insight = Insight.get('54ff19d8b9c1b433732b2df3');
+            Insight.get('54ff19d8b9c1b433732b2df3').then((insight) => {
+                expect(insight.name).toBe('Juvenile fiction');
+                expect(insight.tags.length).toBe(0);
+                expect(insight.productionReady).toBe(false);
+                expect(insight.modifiedTime).toBe(1468592018149);
 
-            insight.then((result) => {
-                expect(result.name).toBe('Juvenile fiction');
-                expect(result.tags.length).toBe(0);
-                expect(result.productionReady).toBe(false);
-                expect(result.modifiedTime).toBe(1468592018149);
-
-                //expect(result.samples.toArray().length).toBe(33);
-                //expect(result.testSamples.toArray().length).toBe(44);
+                expect(insight.samples.length).toBe(779);
+                expect(insight.testSamples.length).toBe(0);
 
                 done();
             }, (err) => {
@@ -178,9 +181,8 @@ describe('Insight Model', () => {
                 expect(result.productionReady).toBe(false);
                 expect(result.modifiedTime).toBe(1468592018149);
 
-                expect(result.samples.toArray()).toEqual([]);
-                expect(result.testSamples.toArray()).toEqual([]);
-
+                // expect(insight.samples.length).toBe(779);
+                // expect(insight.testSamples.length).toBe(0);
                 done();
             }, (err) => {
                 fail('Unexpected error', err);
