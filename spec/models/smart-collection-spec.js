@@ -108,7 +108,7 @@ describe('SmartCollection Model', () => {
             });
         });
 
-        iit('should retrieve all smart collections with no filter', (done) => {
+        it('should retrieve all smart collections with no filter', (done) => {
             let promise = SmartCollection.query({});
             promise.then((allCollections) => {
                 expect(allCollections.length).toBeGreaterThan(0);

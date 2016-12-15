@@ -1,7 +1,6 @@
 'use strict';
 
 const IntellogoClient = require('../../lib/intellogo-client'),
-    _ = require('lodash'),
 // TODO: mock IntellogoClient
     clientApi = new IntellogoClient({
         clientId: 'testClientForSDK',
@@ -230,8 +229,7 @@ describe('Insight Model', () => {
             expect(insight.testSamples.get(fakeId)).toEqual({content: content, positive: true});
         });
 
-
-        ddescribe('samples altering', function() {
+        describe('samples altering', function() {
             beforeEach(() => {
                 insight = new Insight();
             });
@@ -357,7 +355,6 @@ describe('Insight Model', () => {
                     .then(insight => Insight.get(insight._id))
                     .then(insight => insight._saveSamples())
                     .then(insight => {
-                        console.log('hr4e');
                         expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
                         done();
                     });
@@ -373,7 +370,6 @@ describe('Insight Model', () => {
                     .then(insight => Insight.get(insight._id))
                     .then(insight => insight._saveTestSamples())
                     .then(insight => {
-                        console.log('hre');
                         expect(insight.testSamples).toEqual([{contentId: fakeId, positive: true}]);
                         done();
                     });
@@ -390,7 +386,6 @@ describe('Insight Model', () => {
                     .then(insight => Insight.get(insight._id))
                     .then(insight => insight._populateSamples())
                     .then(insight => {
-                        console.log('hr4e');
                         expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
                         expect(insight.testSamples).toEqual([{contentId: fakeId, positive: false}]);
                         done();
@@ -399,35 +394,33 @@ describe('Insight Model', () => {
             });
         });
 
-        describe('#loadSamples', function () {
-            iit('#_loadSamples should load samples', (done) => {
+        xdescribe('#loadSamples', function () {
+            it('#_loadSamples should load samples', (done) => {
                 (new Insight({_id: '54ff19d8b9c1b433732b2df6'}))
                     ._loadSamples()
                     .then(insight => {
                         expect(insight.samples.toArray())
                             .toEqual([]);
-                        done();
                     });
             });
 
             it('#_loadSamples should load samples', (done) => {
                 insight = new Insight({
-                    testSamples: [{contentId: fakeId, positive: true}]
+                    testSamples: [{content: fakeContent, positive: true}]
                 });
 
                 insight
                     .save()
                     // Reload insight
-                    .then(insight => Insight.get(insight._id))
-                    .then(insight => insight._populateSamples())
+                    .then(insight => (new Insight({_id: insight._id}))._loadSamples())
                     .then(insight => {
-                        console.log('hr4e');
-                        expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
+                        expect(insight.testSamples.toArray())
+                            .toEqual([{content: fakeContent, positive: true}]);
                         done();
                     });
             });
 
-            it('#_loades should load samples with metadata', (done) => {});
+            xit('#_loadSamples should load samples with metadata', (done) => {});
 
             it('#_loadTestSamples should load testSamples', (done) => {
                 insight = new Insight();
@@ -439,13 +432,12 @@ describe('Insight Model', () => {
                     .then(insight => Insight.get(insight._id))
                     .then(insight => insight._populateTestSamples())
                     .then(insight => {
-                        console.log('hre');
                         expect(insight.testSamples).toEqual([{contentId: fakeId, positive: true}]);
                         done();
                     });
             });
 
-            it('#loadTestSamples should load both', (done) => {
+            it('#_loadTestSamples should load both', (done) => {
                 insight = new Insight();
                 insight.testSamples = [{contentId: fakeId, positive: true}];
                 insight.samples = [{contentId: fakeId, positive: false}];
@@ -456,7 +448,6 @@ describe('Insight Model', () => {
                     .then(insight => Insight.get(insight._id))
                     .then(insight => insight._populateSamples())
                     .then(insight => {
-                        console.log('hr4e');
                         expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
                         expect(insight.testSamples).toEqual([{contentId: fakeId, positive: false}]);
                         done();
