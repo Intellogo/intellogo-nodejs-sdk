@@ -361,8 +361,7 @@ describe('Insight Model', () => {
             });
 
             it('#_saveTestSamples should load testSamples', (done) => {
-                insight = new Insight();
-                insight.testSamples = [{contentId: fakeId, positive: true}];
+                insight = new Insight({testSamples :[{contentId: fakeId, positive: true}]});
 
                 insight
                     .save()
@@ -376,9 +375,10 @@ describe('Insight Model', () => {
             });
 
             it('#loadSamples should load both', (done) => {
-                insight = new Insight();
-                insight.testSamples = [{contentId: fakeId, positive: true}];
-                insight.samples = [{contentId: fakeId, positive: false}];
+                insight = new Insight({
+                    testSamples: [{contentId: fakeId, positive: true}],
+                    samples    : [{contentId: fakeId, positive: false}]
+                });
 
                 insight
                     .save()

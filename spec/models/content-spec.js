@@ -43,6 +43,6 @@ describe('Content Model', () => {
                 expect(content).toBeUndefined();
                 done();
             });
-        })
-    })
+        });
+    });
 });
