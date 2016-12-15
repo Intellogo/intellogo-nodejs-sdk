@@ -137,13 +137,22 @@ describe('Insight Model', () => {
                 });
         });
 
-        it('returns error when id is not systemId', (done) => {
+        it('throws error when id is not systemId', (done) => {
             let insight = Insight.get('not id', (err, result) => {
                 expect(err.errors.length).toBe(1);
-                expect(err.errors[0]).toBe('instance[0] does not conform to the "systemId" format');
+                expect(err.errors[0]).toBeDefined();
                 expect(result).toBeUndefined();
                 done();
             });
+        });
+
+        it('returns error when id is not systemId', (done) => {
+            let insight = Insight.get('not id')
+                .catch((err) => {
+                    expect(err.errors.length).toBe(1);
+                    expect(err.errors[0]).toBeDefined();
+                    done();
+                });
         });
 
         it('returns error when id is not found', (done) => {
@@ -173,7 +182,7 @@ describe('Insight Model', () => {
         });
 
         it('find existing object without samples', (done) => {
-            let insight = Insight.get('54ff19d8b9c1b433732b2df3', { samples: false, testSamples: false });
+            let insight = Insight.get('54ff19d8b9c1b433732b2df3', {samples: false, testSamples: false});
 
             insight.then((result) => {
                 expect(result.name).toBe('Juvenile fiction');
@@ -198,7 +207,7 @@ describe('Insight Model', () => {
                 done();
             }, (err) => {
                 expect(err.errors.length).toBe(1);
-                expect(err.errors[0]).toBe('instance[0] does not conform to the "systemId" format');
+                expect(err.errors[0]).toBeDefined();
                 done();
             });
         });
@@ -498,7 +507,7 @@ describe('Insight Model', () => {
         it('returns categories count', (done) => {
             Insight.count()
                 .then((count) => {
-                    expect(count).toBe(518);
+                    expect(count).toBe(517);
                     done();
                 })
                 .catch(err => done(err));
