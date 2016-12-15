@@ -16,6 +16,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "JSONStream": "^1.1.2",
+    "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "connect": "^3.4.1",
     "form-data": "^1.0.0-rc4",
