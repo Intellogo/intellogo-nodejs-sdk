@@ -145,32 +145,42 @@ describe('Insight Model', () => {
             });
         });
 
-        xit('should pass with samples', (done) => {
+        it('should pass with samples', (done) => {
             insight = new Insight(insightProperties);
-            insight.testSamples = new InsightSamples(
+            insight.samples = new InsightSamples(
                 [
                     {
-                        content: new Content({_id: fakeId}),
+                        content: new Content({_id: '54ff19deb9c1b433732b2e76'}),
                         positive: false
                     },
                     {
-                        content: new Content({_id: fakeId2}),
+                        content: new Content({_id: '54ff19deb9c1b433732b2e77'}),
                         positive: true
                     }
                 ]
             );
 
-            // TODO: fix this
-            insight.save({}, (err, insight) => {
-                console.log('err/ins', err, insight);
+            insight.save()
+                .then(insight => Insight.get(insight._id))
+                .then(insight => {
+                    expect(insight.productionReady).toBe(true);
+                    expect(insight.name).toBe('Object Oriented Programming');
 
-                expect(err).toBeNull();
-                expect(insight.productionReady).toBe(true);
-                expect(insight.name).toBe('Object Oriented Programming');
+                    expect(insight.samples.toArray().length).toBe(2);
+                    expect(insight.testSamples.toArray().length).toBe(0);
 
-                expect(insight.testSamples.toArray().length).toBe(2);
-                insight.remove(done);
-            });
+                    let sample = insight.samples.toArray()[0],
+                        content = sample.content;
+
+                    expect(sample.positive).toBe(false);
+                    expect(content.metadata.sourceId).toBe(2);
+                    expect(content.metadata.source).toBe('Project Gutenberg');
+                    expect(content.metadata.title).toBe('United States Bill of Rights');
+                    expect(content.metadata.author).toBe('United States');
+
+                    return insight.remove(done);
+                })
+                .catch(done);
         });
     });
 
@@ -456,7 +466,7 @@ describe('Insight Model', () => {
             it('#loadSamples should load both', (done) => {
                 insight = new Insight({
                     testSamples: [{contentId: fakeId, positive: true}],
-                    samples    : [{contentId: fakeId, positive: false}]
+                    samples: [{contentId: fakeId, positive: false}]
                 });
 
                 insight
