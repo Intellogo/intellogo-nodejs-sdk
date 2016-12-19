@@ -266,6 +266,7 @@ describe('Insight Model', () => {
 
                 done();
             }, (err) => {
+                // TODO: this is actually undefined, fix it
                 fail('Unexpected error', err);
                 done();
             });
@@ -568,7 +569,7 @@ describe('Insight Model', () => {
                     expect(insights[3]._id).toBe('555da507e54f62372c141d9d');
 
                     done();
-                })
+                });
             });
 
             it('return all categories if searchTerm and status are empty', (done) => {
@@ -579,7 +580,7 @@ describe('Insight Model', () => {
                     expect(results.length).toBeGreaterThan(400);
 
                     done();
-                })
+                });
             });
 
             it('returns empty list when there is no matching criteria', (done) => {
@@ -588,7 +589,7 @@ describe('Insight Model', () => {
                     expect(results.length).toBe(0);
 
                     done();
-                })
+                });
             });
         });
 
@@ -610,8 +611,8 @@ describe('Insight Model', () => {
                 }, (err) => {
                     fail('No error is supposed to be returned', err);
                     done();
-                })
-            })
+                });
+            });
         });
     });
 
@@ -646,7 +647,7 @@ describe('Insight Model', () => {
                     expect(result.displayName).toBe('Psycho Fiction');
                     done();
                 });
-            })
+            });
         });
     });
 
@@ -658,7 +659,7 @@ describe('Insight Model', () => {
                     done();
                 })
                 .catch(err => done(err));
-        })
+        });
     });
 });
 
