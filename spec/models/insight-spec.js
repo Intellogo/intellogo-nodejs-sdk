@@ -51,6 +51,13 @@ describe('Insight Model', () => {
         }
     });
 
+    let fail = (done) => {
+        return (err) => {
+            expect(err).toBeUndefined();
+            done();
+        };
+    };
+
     it('have constructor', () => {
         insight = new Insight(insightProperties);
 
@@ -180,7 +187,7 @@ describe('Insight Model', () => {
 
                     return insight.remove(done);
                 })
-                .catch(done);
+                .catch(fail(done));
         });
     });
 
@@ -198,7 +205,7 @@ describe('Insight Model', () => {
                     expect(insight.name).toBe('new name');
                     insight.remove(done);
                 })
-                .catch(err => done(err));
+                .catch(fail(done));
         });
 
         it('should fail for non-existent object', (done) => {
@@ -433,7 +440,7 @@ describe('Insight Model', () => {
             });
         });
 
-        xdescribe('#saveSamples', function() {
+        xdescribe('#saveSamples', function () {
             it('#_saveSamples should load samples', (done) => {
                 insight = new Insight({
                     testSamples: [{contentId: fakeId, positive: true}]
@@ -484,68 +491,97 @@ describe('Insight Model', () => {
             });
         });
 
-        xdescribe('#loadSamples', function () {
-            it('#_loadSamples should load samples', (done) => {
-                (new Insight({_id: '54ff19d8b9c1b433732b2df6'}))
-                    ._loadSamples()
+        describe('#loadSamples', function () {
+            it('should load samples for existing Insight', (done) => {
+                new Insight({_id: '54ff19d8b9c1b433732b2df3'})
+                    ._loadSamples(false)
                     .then(insight => {
-                        expect(insight.samples.toArray())
-                            .toEqual([]);
-                    });
+
+                        expect(insight.name).toBeUndefined();
+
+                        expect(insight.samples.toArray().length).toBe(779);
+                        expect(insight.testSamples.toArray().length).toBe(0);
+
+                        done();
+                    })
+                    .catch(fail(done));
             });
 
-            it('#_loadSamples should load samples', (done) => {
-                insight = new Insight({
-                    testSamples: [{content: fakeContent, positive: true}]
-                });
+            it('should load samples with callback for existing Insight', (done) => {
+                new Insight({_id: '54ff19d8b9c1b433732b2df3'})
+                    ._loadSamples(false, (err, insight) => {
 
-                insight
-                    .save()
-                    // Reload insight
-                    .then(insight => (new Insight({_id: insight._id}))._loadSamples())
-                    .then(insight => {
-                        expect(insight.testSamples.toArray())
-                            .toEqual([{content: fakeContent, positive: true}]);
+                        expect(err).toBeNull();
+                        expect(insight.name).toBeUndefined();
+                        expect(insight.samples.toArray().length).toBe(779);
+                        expect(insight.testSamples.toArray().length).toBe(0);
                         done();
                     });
             });
-
-            xit('#_loadSamples should load samples with metadata', (done) => {});
 
             it('#_loadTestSamples should load testSamples', (done) => {
-                insight = new Insight();
-                insight.testSamples = [{contentId: fakeId, positive: true}];
+                insight = new Insight(insightProperties);
+                insight.testSamples = new InsightSamples(
+                    [
+                        {
+                            content: {_id: '54ff19deb9c1b433732b2e76'},
+                            positive: true
+                        }
+                    ]
+                );
 
                 insight
-                    .save()
-                    // Reload insight
-                    .then(insight => Insight.get(insight._id))
-                    .then(insight => insight._populateTestSamples())
+                    .save({})
                     .then(insight => {
-                        expect(insight.testSamples).toEqual([{contentId: fakeId, positive: true}]);
+                        return Insight.get(insight._id, {testSamples: false, samples: false});
+                    })
+                    .then(insight => {
+                        expect(insight.displayName).toBe('OOP');
+                        expect(insight.testSamples.toArray()).toEqual([]);
+                        return insight._loadTestSamples(true);
+                    })
+                    .then(insight => {
+                        expect(insight.displayName).toBe('OOP');
+                        expect(insight.samples.toArray().length).toBe(0);
+                        expect(insight.testSamples.toArray().length).toBe(1);
+
+                        let content = insight.testSamples.toArray()[0].content;
+                        expect(content.metadata.source).toBe('Project Gutenberg');
+                        expect(content.metadata.title).toBe('United States Bill of Rights');
+                        expect(content.metadata.author).toBe('United States');
+
                         done();
-                    });
+                    })
+                    .catch(fail(done));
             });
 
             it('#_loadTestSamples should load both', (done) => {
-                insight = new Insight();
-                insight.testSamples = [{contentId: fakeId, positive: true}];
-                insight.samples = [{contentId: fakeId, positive: false}];
+                insight = new Insight(insightProperties);
+                insight.samples = new InsightSamples(
+                    [
+                        {
+                            content: {_id: '54ff19deb9c1b433732b2e76'},
+                            positive: true
+                        }
+                    ]
+                );
 
                 insight
                     .save()
-                    // Reload insight
                     .then(insight => Insight.get(insight._id))
-                    .then(insight => insight._populateSamples())
+                    .then(insight => insight._loadSamples(false))
                     .then(insight => {
-                        expect(insight.samples).toEqual([{contentId: fakeId, positive: true}]);
-                        expect(insight.testSamples).toEqual([{contentId: fakeId, positive: false}]);
+                        expect(insight.samples.toArray().length).toBe(1);
+                        let content = insight.samples.toArray()[0];
+
+                        expect(content.positive).toBe(true);
+                        expect(content.content).toEqual({ _id : '54ff19deb9c1b433732b2e76' });
+                        expect(insight.testSamples.toArray()).toEqual([]);
                         done();
-                    });
+                    })
+                    .catch(fail(done));
 
             });
-
-            it('#load samples', (done) => {});
         });
     });
 
@@ -655,7 +691,7 @@ describe('Insight Model', () => {
         it('returns categories count', (done) => {
             Insight.count()
                 .then((count) => {
-                    expect(count).toBe(517);
+                    expect(count).toBe(519);
                     done();
                 })
                 .catch(err => done(err));
