@@ -18,7 +18,6 @@ const IntellogoClient = require('../../lib/intellogo-client'),
 jasmine.getEnv().defaultTimeoutInterval = 20000;
 
 describe('Insight Model', () => {
-
     let insight,
         insightProperties = {
             name: 'Object Oriented Programming',
@@ -691,7 +690,7 @@ describe('Insight Model', () => {
         it('returns categories count', (done) => {
             Insight.count()
                 .then((count) => {
-                    expect(count).toBe(519);
+                    expect(count).toBe(517);
                     done();
                 })
                 .catch(err => done(err));
