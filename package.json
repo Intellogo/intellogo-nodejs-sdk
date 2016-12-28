@@ -6,7 +6,8 @@
   "scripts": {
     "jsdoc": "jsdoc . -c jsdoc/jsdoc_conf.json --readme jsdoc/jsdoc-home.md -u jsdoc/tutorials",
     "jshint": "jshint .; true",
-    "spec": "jasmine-node spec/; true"
+    "spec": "jasmine-node spec/ --captureExceptions; true",
+    "spec-coverage": "istanbul cover -x '**/ext/**/*.*' -x '**/spec/**/*.js' \"`which jasmine-node`\" -- --junitreport spec/; istanbul report cobertura --root coverage --dir coverage-cobertura/; true"
   },
   "keywords": [
     "intellogo"
@@ -15,15 +16,18 @@
   "license": "Apache-2.0",
   "dependencies": {
     "JSONStream": "^1.1.2",
+    "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "connect": "^3.4.1",
     "form-data": "^1.0.0-rc4",
     "lodash": "^4.13.1",
     "node-uuid": "^1.4.7",
     "oauth": "^0.9.14",
+    "q": "~1.4.1",
     "qs": "^6.2.1"
   },
   "devDependencies": {
+    "istanbul": "^0.4.5",
     "jasmine-node": "^1.14.3",
     "jsdoc": "^3.4.0",
     "jshint": "^2.9.2"
