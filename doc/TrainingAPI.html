@@ -241,7 +241,7 @@ how the wrapper is set up.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line206">line 206</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line221">line 221</a>
     </li></ul></dd>
     
 
@@ -331,7 +331,7 @@ Otherwise, regular polling will be used.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line278">line 278</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line293">line 293</a>
     </li></ul></dd>
     
 
@@ -421,7 +421,7 @@ Otherwise, regular polling will be used.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line258">line 258</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line273">line 273</a>
     </li></ul></dd>
     
 
@@ -595,7 +595,7 @@ Otherwise, regular polling will be used.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line142">line 142</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line157">line 157</a>
     </li></ul></dd>
     
 
@@ -644,14 +644,19 @@ Otherwise, regular polling will be used.
 
     
 
-    <h4 class="name" id="initiateContentRecommendationGeneration"><span class="type-signature"></span>initiateContentRecommendationGeneration<span class="signature">(content, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="TrainingAPI.html#~ContentRecommendationTask">TrainingAPI~ContentRecommendationTask</a>>}</span></h4>
+    <h4 class="name" id="initiateContentRecommendationGeneration"><span class="type-signature"></span>initiateContentRecommendationGeneration<span class="signature">(content, recommendationsFilters<span class="signature-attributes">opt</span>, webhook<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="TrainingAPI.html#~ContentRecommendationTask">TrainingAPI~ContentRecommendationTask</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Initiate a task for generating recommendations for the specified content
+    Initiate a task for generating recommendations for the specified content. Recommendations
+will be generated from a subset of all Intellogo content, defined by the specified
+<code>recommendationsFilters</code>. If the filters are an empty array [], recommendations
+will be generated from all content in the system.
+<br>
+Note: The task will complete faster when the filters are more restrictive.
 </div>
 
 
@@ -715,6 +720,73 @@ Otherwise, regular polling will be used.
 
             <td class="description last">The content for which to
 generate recommendations</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recommendationsFilters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#ContentFilter">ContentFilter</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Filters that limit what part
+of all Intellogo content will be rated against the specified <code>content</code>.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>webhook</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A webhook that should be notified of the task completion.</td>
         </tr>
 
     
@@ -788,7 +860,7 @@ generate recommendations</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line112">line 112</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line120">line 120</a>
     </li></ul></dd>
     
 
@@ -1276,7 +1348,7 @@ polling. The default value is 5000ms</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line161">line 161</a>
+        <a href="lib_api-groups_training-api.js.html">lib/api-groups/training-api.js</a>, <a href="lib_api-groups_training-api.js.html#line176">line 176</a>
     </li></ul></dd>
     
 
@@ -2334,13 +2406,13 @@ polling.</td>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-notifications-service.html">Notifications Service usage</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for content recommendations while a task is running</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Oct 18 2016 11:54:07 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri May 12 2017 12:01:23 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>
