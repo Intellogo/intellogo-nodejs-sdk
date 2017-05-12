@@ -10,5 +10,8 @@
     },
     "import-with-cvc": {
         "title": "Get Recommendations for New Article"
+    },
+    "poll-intermediary-results": {
+        "title": "Polling for Content Recommendations"
     }
 }

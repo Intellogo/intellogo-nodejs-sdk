@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Tutorial: Dynamic Insight Recommendations</title>
+    <title>JSDoc: Tutorial: Polling for content recommendations while a task is running</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,60 +17,68 @@
 
 <div id="main">
 
-    <h1 class="page-title">Tutorial: Dynamic Insight Recommendations</h1>
+    <h1 class="page-title">Tutorial: Polling for content recommendations while a task is running</h1>
 
     <section>
 
 <header>
     
 
-    <h2>Dynamic Insight Recommendations</h2>
+    <h2>Polling for content recommendations while a task is running</h2>
 </header>
 
 <article>
-    <pre class="prettyprint source"><code>var IntellogoClient = require('intellogo-sdk').IntellogoClient;
+    <p>In this tutorial we:</p>
+<ul>
+<li>Initiate a task for content recommendations generation and wait for it to complete</li>
+<li>Set up a polling mechanism to show intermediary results until the task completes</li>
+</ul>
+<pre class="prettyprint source"><code>var IntellogoClient = require('intellogo-sdk').IntellogoClient;
 
 var client = new IntellogoClient({
     clientId: '&lt;myClientId>',
     clientSecret: '&lt;myClientSecret>'
 });
 
-var options = {
+// The content for which we will generate recommendations
+var contentId = '&lt;contentId>';
+var recommendationsFilter = {
     from: 0,
-    to: 10,
+    to: 10, // top ten results
     contentFilter: {
         sourceGroup: ['web']
     }
 };
 
-var keyword = 'sugar';
+console.log('Initiating task for article', contentId);
 
-client.generateDynamicInsight(keyword, (error, result) => {
-    if (error) {
-        console.error('Error generating a dynamic insight: ' + error);
-        return;
-    }
-    var sugarInsightId = result.categoryIds[0];
-    client.initiateInsightTraining(sugarInsightId, (error, done) => {
-        if (error) {
-            console.error('Error initiating a training task: ' + error);
-            return;
-        }
-        client.pollTaskStatus(done.taskId, (error) => {
-            if (error) {
-                console.error('Error during insight training: ' + error);
-                return;
+var keepPolling = true;
+var POLLING_INTERVAL_MS = 5 * 1000; // poll for new results every 5 seconds
+
+function pollIntermediaryResults() {
+    client.getContentRecommendations(
+        contentId, recommendationsFilter, (error, recommendations) => {
+            console.log('Recommenations so far:');
+            console.log(recommendations.ratings);
+            if (keepPolling) {
+                setTimeout(pollIntermediaryResults, POLLING_INTERVAL_MS);
+            } else {
+                console.log('These are the final results');
             }
-            console.log('Task done!');
-            client.getInsightRecommendations(
-                sugarInsightId, options,
-                (error, finalResults) => {
-                    console.log('Recommendations for sugar:');
-                    console.log(finalResults);
-                });
         });
-    });
-});</code></pre>
+}
+
+client.generateContentRecommendations({contentId: contentId}, (error) => {
+    keepPolling = false;
+    if (error) {
+        console.error('Error generating recommendations', error);
+    } else {
+        console.log('The task has completed successfully');
+    }
+});
+
+console.log('Setting up polling');
+pollIntermediaryResults();</code></pre>
 </article>
 
 </section>

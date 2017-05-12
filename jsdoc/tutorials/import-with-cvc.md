@@ -24,7 +24,6 @@ var url = 'https://medium.com/intellogo/deep-sentiment-analysis-7e2ef6baa0',
             sourceGroup: ['web']
         }
     };
-
 client.importArticle(url, metadata, (error, importResult) => {
     if (error) {
         // might happen e.g. on bad credentials
@@ -35,7 +34,7 @@ client.importArticle(url, metadata, (error, importResult) => {
             console.log('Article successfully imported');
             importedId = importResult.id;
         } else {
-            console.error('Error importing article: ', importResult);
+            console.error('Error importing article: ', importResult.error);
             if (importResult.existingIds) {
                 // The article import failed because the article already exists
                 // We can use the existing ID to get recommendations
@@ -44,7 +43,7 @@ client.importArticle(url, metadata, (error, importResult) => {
         }
         if (importedId) {
             // We have an ID, let's initiate a CvC task
-            console.log('Initiating task for article', importedId);
+            console.log('Initiating task for contentId', importedId);
             client.generateContentRecommendations({contentId: importedId}, (error) => {
                 if (error) {
                     console.error('Error generating recommendations', error);
@@ -57,7 +56,7 @@ client.importArticle(url, metadata, (error, importResult) => {
                                 console.error('Error retrieving recommendations', error);
                             } else {
                                 console.log('Received recommendations for', url);
-                                console.log(recommendations);
+                                console.log(recommendations.ratings);
                             }
                         });
                 }
