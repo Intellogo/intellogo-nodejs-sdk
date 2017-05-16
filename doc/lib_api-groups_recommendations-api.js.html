@@ -44,12 +44,19 @@
 
 /**
  * @typedef {Object} RecommendationsAPI~ContentRecommendations
- * @property {Object} task Information about the last task that has generated
- * recommendations for the content, if any
+ * @property {RecommendationsAPI~Recommendations[]} ratings The actual recommendations for
+ * the content
+ * @property {Object} [task] Information about the last initiated task for this content, if any
  * @property {String} task.taskId The ID of the task
  * @property {TrainingAPI~TaskState} task.status The status of the task
- * @property {RecommendationsAPI~Recommendations[]} ratings
- * The actual recommendations for the content
+ * @property {Object[]} [lastRated] Information about the last completed tasks for this content.
+ * @property {String} lastRated.taskId The ID of the task.
+ * @property {TrainingAPI~TaskState} lastRated.status The status of the task.
+ * @property {Number} lastRated.timeStarted Timestamp (in ms) when the task was initiated.
+ * @property {ContentFilter[]} lastRated.itemsToRate What content filters were used when initiating
+ * the given task. If any source groups were specified on task initiation, here they will be in an
+ * expanded form (so there will be a list of all sources the source group includes instead of just
+ * the name of the source group).
  */
 
 /**
@@ -68,17 +75,27 @@ function RecommendationsAPI () { }
 RecommendationsAPI.prototype = {
     _applyContentFilterDefaults: function (options) {
         options = options || {};
-        return {
-            from: options.from || 0,
-            to: options.to || 30,
+        var result = {
+            from: options.from,
+            to: options.to,
+            fullMetadata: options.fullMetadata,
             filter: options.contentFilter &amp;&amp; JSON.stringify(options.contentFilter)
         };
+
+        return this._cleanObject(result);
+    },
+    _cleanObject: function (obj) {
+        Object.keys(obj).forEach(
+            function (key) {
+                return ((obj[key] === null) || (obj[key] === undefined)) &amp;&amp; delete obj[key];
+            });
+        return obj;
     },
     /**
      * Retrieve recommendations for an insight
      * @param {String} insightId the ID of the insight
-     * @param {ContentRetrievalOptions} options -
-     * used to filter the results and to get pagination, if necessary
+     * @param {ContentRetrievalOptions} options used to filter the results, to get pagination,
+     * and/or to disable full metadata retrieval
      * @param {IntellogoCallback.&lt;RecommendationsAPI~Recommendation[]>}
      * [callback]
      * @return {IntellogoResponse.&lt;RecommendationsAPI~Recommendation[]>}
@@ -95,21 +112,30 @@ RecommendationsAPI.prototype = {
     /**
      * Retrieve recommendations for a content
      * @param {String} contentId the ID of the content
-     * @param {ContentRetrievalOptions} options -
-     * used to filter the results and to get pagination, if necessary
+     * @param {ContentRetrievalOptions} [recommendatonsOptions] used to filter the results,
+     * to get pagination, and/or to disable full metadata retrieval
+     * @param {TaskOptions} [taskOptions] Specifies whether to return details for recent
+     * task for the same contentId.
      * @param {IntellogoCallback.&lt;RecommendationsAPI~ContentRecommendations>}
      * [callback]
      * @return {IntellogoResponse.&lt;RecommendationsAPI~ContentRecommendations>}
      * @method
      */
-    getContentRecommendations: callbackify(function (contentId, options) {
-        var query = this._applyContentFilterDefaults(options);
-        query.contentId = contentId;
-        query.contentsToRate = query.filter;
-        delete query.filter;
+    getContentRecommendations: callbackify(
+        function (contentId, recommendationsOptions, taskOptions) {
+            var query = this._applyContentFilterDefaults(recommendationsOptions);
+            query.contentId = contentId;
+            query.contentsToRate = query.filter;
+            delete query.filter;
 
-        return this.webBridge.get('/api/rating/contentBest', query, false);
-    }),
+            taskOptions = taskOptions || {};
+            query.includeLastRated = !!taskOptions.includeLastRated;
+            query.includeCurrentTask = taskOptions.includeCurrentTask !== undefined?
+                !!taskOptions.includeCurrentTask : true;
+
+            return this.webBridge.get('/api/rating/contentBest', query, false);
+        }
+    ),
     /**
      * Retrieve recommendations for the specified smart collection.
      * @param {String} smartCollectionId the ID of the smart collection
@@ -167,13 +193,13 @@ module.exports = RecommendationsAPI;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon May 15 2017 18:03:11 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue May 16 2017 17:01:33 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

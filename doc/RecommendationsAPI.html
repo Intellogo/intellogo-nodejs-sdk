@@ -74,7 +74,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line38">line 38</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line45">line 45</a>
     </li></ul></dd>
     
 
@@ -110,7 +110,7 @@ All availables methods should be called directly through the
 
     
 
-    <h4 class="name" id="getContentRecommendations"><span class="type-signature"></span>getContentRecommendations<span class="signature">(contentId, options, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="RecommendationsAPI.html#~ContentRecommendations">RecommendationsAPI~ContentRecommendations</a>>}</span></h4>
+    <h4 class="name" id="getContentRecommendations"><span class="type-signature"></span>getContentRecommendations<span class="signature">(contentId, recommendatonsOptions<span class="signature-attributes">opt</span>, taskOptions<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="RecommendationsAPI.html#~ContentRecommendations">RecommendationsAPI~ContentRecommendations</a>>}</span></h4>
 
     
 
@@ -186,7 +186,7 @@ All availables methods should be called directly through the
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>recommendatonsOptions</code></td>
             
 
             <td class="type">
@@ -201,6 +201,8 @@ All availables methods should be called directly through the
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -210,7 +212,42 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last">used to filter the results and to get pagination, if necessary</td>
+            <td class="description last">used to filter the results,
+to get pagination, and/or to disable full metadata retrieval</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>taskOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TaskOptions">TaskOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Specifies whether to return details for recent
+task for the same contentId.</td>
         </tr>
 
     
@@ -284,7 +321,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line77">line 77</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line96">line 96</a>
     </li></ul></dd>
     
 
@@ -507,7 +544,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line115">line 115</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line141">line 141</a>
     </li></ul></dd>
     
 
@@ -656,7 +693,8 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last">used to filter the results and to get pagination, if necessary</td>
+            <td class="description last">used to filter the results, to get pagination,
+and/or to disable full metadata retrieval</td>
         </tr>
 
     
@@ -730,7 +768,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line59">line 59</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -953,7 +991,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line96">line 96</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line122">line 122</a>
     </li></ul></dd>
     
 
@@ -1040,6 +1078,8 @@ All availables methods should be called directly through the
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -1048,6 +1088,36 @@ All availables methods should be called directly through the
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ratings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;RecommendationsAPI~Recommendations></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The actual recommendations for
+the content</td>
+        </tr>
+
     
 
         <tr>
@@ -1065,11 +1135,18 @@ All availables methods should be called directly through the
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Information about the last task that has generated
-recommendations for the content, if any
+            <td class="description last">Information about the last initiated task for this content, if any
                 <h6>Properties</h6>
 
 <table class="props">
@@ -1147,13 +1224,62 @@ recommendations for the content, if any
 
         <tr>
             
-                <td class="name"><code>ratings</code></td>
+                <td class="name"><code>lastRated</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;RecommendationsAPI~Recommendations></span>
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Information about the last completed tasks for this content.
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
 
 
             
@@ -1163,7 +1289,86 @@ recommendations for the content, if any
 
             
 
-            <td class="description last">The actual recommendations for the content</td>
+            <td class="description last">The ID of the task.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="TrainingAPI.html#~TaskState">TrainingAPI~TaskState</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The status of the task.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeStarted</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Timestamp (in ms) when the task was initiated.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>itemsToRate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#ContentFilter">ContentFilter</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">What content filters were used when initiating
+the given task. If any source groups were specified on task initiation, here they will be in an
+expanded form (so there will be a list of all sources the source group includes instead of just
+the name of the source group).</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -1699,7 +1904,7 @@ recommendations for the content, if any
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line27">line 27</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -1729,13 +1934,13 @@ recommendations for the content, if any
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon May 15 2017 18:03:11 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue May 16 2017 17:01:33 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

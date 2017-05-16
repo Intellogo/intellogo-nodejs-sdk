@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: web-bridge</title>
+    <title>JSDoc: Tutorial: See recent tasks for content recommendations</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,60 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: web-bridge</h1>
+    <h1 class="page-title">Tutorial: See recent tasks for content recommendations</h1>
 
-    
-
-
-
-
-<section>
+    <section>
 
 <header>
     
-        
-    
+
+    <h2>See recent tasks for content recommendations</h2>
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
+    <p>In this tutorial we retrieve information about the last recommendation generation task for a given contentId.</p>
+<pre class="prettyprint source"><code>var IntellogoClient = require('intellogo-sdk').IntellogoClient;
 
-        
-    
-    </div>
+var client = new IntellogoClient({
+    clientId: '&lt;clientId>',
+    clientSecret: '&lt;clientSecret>'
+});
 
-    
+// The content for which we will generate recommendations.
+var contentId = '&lt;contentId>';
+var taskOptions = {
+    includeLastRated: true,
+    includeCurrentTask: true
+};
 
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-web-bridge-WebBridge.html">WebBridge</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
+client.getContentRecommendations(contentId, {}, taskOptions, (error, result) => {
+    console.log('Last initiated task (might still be running): ', result.task);
+    console.log('Last completed task(s): ', result.lastRated);
+});</code></pre>
 </article>
 
 </section>
-
-
-
 
 </div>
 
