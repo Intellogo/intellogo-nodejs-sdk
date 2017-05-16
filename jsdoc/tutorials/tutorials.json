@@ -13,5 +13,8 @@
     },
     "poll-intermediary-results": {
         "title": "Polling for Content Recommendations"
+    },
+    "check-recent-tasks": {
+        "title": "See recent tasks for content recommendations"
     }
 }
