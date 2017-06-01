@@ -26,7 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var callbackify = require('../util/callbackify').callbackify;
+            <pre class="prettyprint source linenums"><code>var _ = require('lodash'),
+    callbackify = require('../util/callbackify').callbackify;
 
 /**
  * @typedef {Object} RecommendationsAPI~Recommendation
@@ -64,6 +65,24 @@
  * @property {RecommendationsAPI~SmartCollectionRecommendation[]} items
  * The recommended content items
  */
+
+/**
+ * @typedef {Object} RecommendationsAPI~ContentInsightParams
+ * @property {Number} from Start of the results range (used for pagination).
+ * @property {Number} to End of the results range (used for pagination).
+ * @property {Number} minScore The minimum score of the content against an insight. Insights with
+ * lower scores against this content will *not* be returned.
+ * @property {Number} maxScore The maximum score of the content against an insight. Insights with
+ * higher scores against this content will *not* be returned.
+ * @property {Boolean} productionReady Whether to return only production-ready insights.
+ */
+
+/**
+ * @typedef {Object} RecommendationsAPI~ContentInsightResult
+ * @property {InsightsAPI~Insight} category The insight description
+ * @property {Number} score The score of the given content against this insight
+ */
+
 /**
  * A convenience class meant to group together recommendations-related API.
  * All availables methods should be called directly through the
@@ -179,6 +198,22 @@ RecommendationsAPI.prototype = {
         delete query.filter;
 
         return this.webBridge.get('/api/smartFolders/ratings', query, false);
+    }),
+    /**
+     * Retrieve all insights for which the given content has a score in the specified range.
+     * This can be used to see the most prominent insights for an article. &lt;br>
+     * Insights are returned in a sorted order, highest scores first.
+     * @param {ContentAPI~ContentIdentifier} contentIdentifier The content for which to return
+     * insights
+     * @param {RecommendationsAPI~ContentInsightParams} options Options to apply.
+     * Supports pagination, score range and a production-ready filter.
+     * @param {IntellogoCallback.&lt;RecommendationsAPI~ContentInsightResult[]>} [callback]
+     * @return {IntellogoResponse.&lt;RecommendationsAPI~ContentInsightResult[]>}
+     * @method
+     */
+    getInsightsMatchingContent: callbackify(function (contentIdentifier, options) {
+        var query = _.merge({}, contentIdentifier, options);
+        return this.webBridge.get('/api/rating/contentCategoryRatings', query, false);
     })
 };
 
@@ -193,13 +228,13 @@ module.exports = RecommendationsAPI;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue May 16 2017 17:01:33 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 01 2017 19:01:00 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>
