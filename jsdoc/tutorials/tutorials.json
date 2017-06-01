@@ -16,5 +16,8 @@
     },
     "check-recent-tasks": {
         "title": "See recent tasks for content recommendations"
+    },
+    "content-insight-matches": {
+        "title": "Get insights matching a content"
     }
 }
