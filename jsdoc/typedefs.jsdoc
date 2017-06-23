@@ -48,3 +48,10 @@
  * @property {ContentFilter} [contentFilter={}]
  * Filters to apply to the results
  */
+
+/**
+ * Result of an operation
+ * @typedef SuccessResponse
+ * @property {boolean} success Whether the operation was successful
+ * @property {*} [error] Error message, in case the operation failed
+ */
