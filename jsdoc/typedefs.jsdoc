@@ -17,7 +17,7 @@
 /**
  * Defines a callback function that will be called when an operation completes
  * successfully, or fails with some error. The result will be of type &lt;DataType&gt;
- * @typedef {Function} IntellogoCallback
+ * @typedef {callback} IntellogoCallback
  * @param {*} error Any error that occured during execution, or a falsy value
  * if nothing went wrong
  * @param {DataType} result The result of the operation
@@ -51,7 +51,12 @@
 
 /**
  * Result of an operation
- * @typedef SuccessResponse
+ * @typedef {Object} SuccessResponse
  * @property {boolean} success Whether the operation was successful
  * @property {*} [error] Error message, in case the operation failed
+ */
+
+/**
+ * @typedef {Object} IntellogoID
+ * @property {String} id The ID of an Intellogo entity (insight, content, smart collection)
  */
