@@ -19,5 +19,8 @@
     },
     "content-insight-matches": {
         "title": "Get insights matching a content"
+    },
+    "import-channel": {
+        "title": "Working with Youtube channels"
     }
 }
