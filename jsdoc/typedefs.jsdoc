@@ -43,10 +43,12 @@
  * Options that can be passed to the recommendations retrieval methods.
  * Pagination is supported through the from/to parameters.
  * @typedef {Object} ContentRetrievalOptions
- * @property {Number} [from=0] Start index of the results
- * @property {Number} [to=30] End index of the results
- * @property {ContentFilter} [contentFilter={}]
- * Filters to apply to the results
+ * @property {Number} [from] Start index of the results
+ * @property {Number} [to] End index of the results
+ * @property {ContentFilter} [contentFilter] Filters to apply to the results
+ * @property {Boolean} [fullMetadata] Whether to retrieve the full metadata for the
+ * recommendations. If <code>false</code>, only partial metadata will be returned
+ * (source and sourceId will be present, but not the title or summary).
  */
 
 /**
@@ -59,4 +61,11 @@
 /**
  * @typedef {Object} IntellogoID
  * @property {String} id The ID of an Intellogo entity (insight, content, smart collection)
+ */
+
+/* @typedef {Object} TaskOptions
+ * @property {Boolean} [includeLastRated] Whether to include information about the last
+ * successful task for the content
+ * @property {Boolean} [includeCurrentTask] Whether to include information about the last initiated
+ * tasks for the content. This task might be still running.
  */

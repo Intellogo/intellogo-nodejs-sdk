@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Tutorial: See recent tasks for content recommendations</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,42 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
-
-    
-
-
-
-    
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
+    <h1 class="page-title">Tutorial: See recent tasks for content recommendations</h1>
 
     <section>
-        <article><p>A Node.js wrapper for the <a href="http://intellogo.com">Intellogo</a> REST API.
-All source files can be found in our <a href="http://github.com/intellogo/intellogo-nodejs-sdk">GitHub repository</a>.</p>
-<p>See our <a href="tutorial-getting-started.html">Getting Started</a> tutorial for an example on how to use the API,</p>
-<p>or see how to retrieve <a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></p></article>
-    </section>
 
+<header>
+    
 
+    <h2>See recent tasks for content recommendations</h2>
+</header>
 
+<article>
+    <p>In this tutorial we retrieve information about the last recommendation generation task for a given contentId.</p>
+<pre class="prettyprint source"><code>var IntellogoClient = require('intellogo-sdk').IntellogoClient;
 
+var client = new IntellogoClient({
+    clientId: '&lt;clientId>',
+    clientSecret: '&lt;clientSecret>'
+});
 
+// The content for which we will generate recommendations.
+var contentId = '&lt;contentId>';
+var taskOptions = {
+    includeLastRated: true,
+    includeCurrentTask: true
+};
+
+client.getContentRecommendations(contentId, {}, taskOptions, (error, result) => {
+    console.log('Last initiated task (might still be running): ', result.task);
+    console.log('Last completed task(s): ', result.lastRated);
+});</code></pre>
+</article>
+
+</section>
 
 </div>
 

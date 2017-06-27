@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Get Recommendations for New Article</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Get Recommendations for New Article</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Get Recommendations for New Article</h2>
+</header>
+
+<article>
+    <p>In this tutorial, we:</p>
+<ul>
+<li>Import an article in Intellogo's system</li>
+<li>Handle the basic cases for the import result</li>
+<li>Start a recommendations generation task for the newly imported article</li>
+<li>Retrieve the generated recommendations after the task completes</li>
+</ul>
+<pre class="prettyprint source"><code>var IntellogoClient = require('intellogo-sdk').IntellogoClient;
+
+var client = new IntellogoClient({
+    clientId: '&lt;myClientId>',
+    clientSecret: '&lt;myClientSecret>'
+});
+
+var url = 'https://medium.com/intellogo/deep-sentiment-analysis-7e2ef6baa0',
+    metadata = {
+        source: 'Intellogo Site',
+        imageUrl: 'https://cdn-images-1.medium.com/max/800/1*vgAdVmZaKn-4wt4YoM1zhw.png'
+    },
+    recommendationsFilter = {
+        from: 0,
+        to: 10, // top ten results
+        contentFilter: {
+            sourceGroup: ['web']
+        }
+    };
+client.importArticle(url, metadata, (error, importResult) => {
+    if (error) {
+        // might happen e.g. on bad credentials
+        console.error('Error on API call: ', error);
+    } else {
+        var importedId;
+        if (importResult.success) {
+            console.log('Article successfully imported');
+            importedId = importResult.id;
+        } else {
+            console.error('Error importing article: ', importResult.error);
+            if (importResult.existingIds) {
+                // The article import failed because the article already exists
+                // We can use the existing ID to get recommendations
+                importedId = importResult.existingIds[0];
+            }
+        }
+        if (importedId) {
+            // We have an ID, let's initiate a CvC task
+            console.log('Initiating task for contentId', importedId);
+            client.generateContentRecommendations({contentId: importedId}, (error) => {
+                if (error) {
+                    console.error('Error generating recommendations', error);
+                } else {
+                    console.log('Retrieving recommendations for article', url);
+                    // The task has completed, let's retrieve the generated recommendations
+                    client.getContentRecommendations(
+                        importedId, recommendationsFilter, (error, recommendations) => {
+                            if (error) {
+                                console.error('Error retrieving recommendations', error);
+                            } else {
+                                console.log('Received recommendations for', url);
+                                console.log(recommendations.ratings);
+                            }
+                        });
+                }
+            });
+        }
+    }
+});</code></pre>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 01 2017 19:01:01 GMT+0300 (EEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

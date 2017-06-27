@@ -6,6 +6,18 @@
         "title": "Dynamic Insight Recommendations"
     },
     "notifications-service": {
-        "title": "Notifications Service usage"
+        "title": "Notifications Service Usage"
+    },
+    "import-with-cvc": {
+        "title": "Get Recommendations for New Article"
+    },
+    "poll-intermediary-results": {
+        "title": "Polling for Content Recommendations"
+    },
+    "check-recent-tasks": {
+        "title": "See recent tasks for content recommendations"
+    },
+    "content-insight-matches": {
+        "title": "Get insights matching a content"
     }
 }
