@@ -52,7 +52,18 @@
  */
 
 /**
- * @typedef {Object} TaskOptions
+ * Result of an operation
+ * @typedef {Object} SuccessResponse
+ * @property {boolean} success Whether the operation was successful
+ * @property {*} [error] Error message, in case the operation failed
+ */
+
+/**
+ * @typedef {Object} IntellogoID
+ * @property {String} id The ID of an Intellogo entity (insight, content, smart collection)
+ */
+
+/* @typedef {Object} TaskOptions
  * @property {Boolean} [includeLastRated] Whether to include information about the last
  * successful task for the content
  * @property {Boolean} [includeCurrentTask] Whether to include information about the last initiated
