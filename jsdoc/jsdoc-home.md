@@ -28,3 +28,43 @@ The documentation for {@link SmartCollectionsAPI#getAllSmartCollections} specifi
 Notice that here the documentation explicitly states if there will be multiple results (an array), or a single result object.
 
 We recommend using callbacks for all method calls with {@link IntellogoClient}. {@link IntellogoResponse} is meant for internal use only.
+
+## Glossary
+
+### Content
+A Content is one of the main entities in Intellogo. It represents a piece of text that has been imported into Intellogo through one of the various supported mechanisms (see the methods in {@link ImportAPI}). These can be Wikipedia or other web articles, books, subtitles of videos etc.
+
+Intellogo does not store the full text of content after processing. However, rich metadata is preserved and can be used for search queries and recommendations filtering. See {@link ContentAPI~ContentMetadata} for details on the stored metadata.
+
+### Master (Top-Level) Content
+A subset of all Intellogo content.
+Top-level content is content that has been split in chapters or chunks. This happens with e-pubs (imported with {@link ImportAPI#importEpub}), as well as with any content that had chunking enabled during import.
+
+When an e-pub is imported in Intellogo, each chapter is separately imported in addition to the whole book. The representation might be more granular, depending on the table of contents. For example, a book might consist of several parts, each of which has multiple chapters. In that case, only the content representing the whole book is considered a top-level entity, although each part will be imported separately as well. In effect, the whole process creates a one or more levels deep hierarchy with the main content at the root.
+
+Articles, when the experimental chunking option is enabled, are split in similar-sized chunks, and each chunk is separately imported. These chunks, together with the entry for the whole article, form a one-level deep hierarchy of content entities.
+
+The hierarchy defined for a top-level content is useful to get a more in-depth look into the text - e.g. how attitudes or topics change from chapter to chapter.
+
+To retrieve top-level content, use {@link ContentAPI~searchTopLevelContent}. To retrieve the hierarchy for a single top-level content, use {@link ContentAPI~getContentTree}.
+
+### Child Content
+A content that is a part of a top-level content hierarchy. Such content has additional metadata properties that uniquely determine its position in the hierarchy - `level`, which is at what depth the content is in the hierarchy, and `index`, which positions the content in its parent's children.
+
+### Insight
+Insight is another of the main entities in Intellogo. Each insight represents a single topic, attitude, or concept that Intellogo is trained to recognize.
+
+Insights have some metadata associated with them, as well as an insight definition that is used by Intellogo's AI to learn the concept it should represent.
+
+If Intellogo does not already have an Insight for a concept you're interested in, you can create an entity for it and train Intellogo to understand it. Intellogo learns by example - you need to provide it with examples where your concept is present, so that the system can infer the common features. In Intellogo terms, these are called positive samples. Ideally, there should also be negative samples - examples of text where the concept is not present, so that Intellogo learns to better distinguish nuances.
+<br>
+Each provided sample must be an already imported Intellogo content. For this, create an Insight with descriptive metadata and assign samples to it (see {@link InsightsAPI}), then use the {@link TrainingAPI} to initiate a training.
+
+Alternatively, insights for a given topic can be easily found or created using {@link InsightsAPI#generateDynamicInsight}.
+
+*Note: An alias for an Insight is the term "Category". If you see a reference to e.g. `categoryId`, you can interpret it as `insightId`.*
+
+### Smart Collection
+
+
+### Recommendations
