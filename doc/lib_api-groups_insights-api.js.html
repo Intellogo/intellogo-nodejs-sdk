@@ -26,7 +26,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var callbackify = require('../util/callbackify').callbackify;
+            <pre class="prettyprint source linenums"><code>'use strict';
+const callbackify = require('../util/callbackify').callbackify,
+      _ = require('lodash');
 
 /**
  * @typedef {Object} InsightsAPI~DynamicGenerationResult
@@ -36,6 +38,28 @@
  * @property {*} [error] Any error that might occur during the operation
  * @property {boolean} success Whether the operation was successful.
  * If this is &lt;code>false&lt;/code>, categoryIds won't be set.
+ */
+
+/**
+ * @typedef {Object} InsightsAPI~SamplesRetrievalOptions
+ * @property {String} categoryId The id of the matching insights
+ * @property {boolean} [metadata=false] Whether the returned content samples should be populated
+ * with their metadata
+ */
+
+/**
+ * @typedef {Object} InsightsAPI~InsightSample
+ * @property {String} contentId The ID of the content
+ * @property {boolean} positive If the sample is positive or negative
+ * @property {ContentAPI~ContentMetadata} [metadata] Only available after method calls that
+ * explicitly populate it. Should not be specified when creating or updating insights
+ */
+
+/**
+ * @typedef {Object} InsightsAPI~SamplesUpdate
+ * @property {string} categoryId Id of the insight
+ * @property {Array.&lt;InsightsAPI~InsightSample>} samples
+ * @property {Array.&lt;InsightsAPI~InsightSample>} testSamples
  */
 
 /**
@@ -49,17 +73,71 @@
  * @typedef {Object} InsightsAPI~Insight
  * @property {String} categoryId The ID of the insight
  * @property {String} name Name of the insight
- * @property {String} displayName Display name of the insight
- * @property {String} description A short description of the insight
- * @property {String[]} tags Tags assigned to the Insight
- * @property {String[]} keywords Keywords relevant to the insight
- * @property {boolean} productionReady Whether the insight is of
+ * @property {String} [displayName] Display name of the insight
+ * @property {String} [description] A short description of the insight
+ * @property {String[]} [tags] Tags assigned to the Insight
+ * @property {String[]} [keywords] Keywords relevant to the insight
+ * @property {boolean} [productionReady] Whether the insight is of
  * production-ready quality
- * @property {boolean} autoupdate Whether auto-update is turned on
+ * @property {boolean} [autoupdate] Whether auto-update is turned on
  * for the insight
- * @property {boolean} readonly whether the insight is readonly
- * @property {boolean} locked whether the insight is locked for changes
+ * @property {boolean} [readonly] whether the insight is readonly
+ * @property {boolean} [locked] whether the insight is locked for changes
  * @property {Number} modifiedTime The last time an insight was trained
+ * @property {boolean} [useTSVD] System flag controlling one of the training parameters of insights
+ * with a small number of samples.
+ * @property {boolean} [userTrained] System flag marking the insight as dynamically created
+ * by a user.
+ */
+
+/**
+ * New Insight
+ * @typedef {Object} InsightsAPI~NewInsight
+ * @property {String} name Name of the insight
+ * @property {String} [displayName] Display name of the insight
+ * @property {String} [description] A short description of the insight
+ * @property {String[]} [tags] Tags assigned to the Insight
+ * @property {String[]} [keywords] Keywords relevant to the insight
+ * @property {boolean} [productionReady] Whether the insight is of
+ * production-ready quality
+ * @property {boolean} [autoupdate] Whether auto-update is turned on
+ * for the insight
+ * @property {boolean} [readonly] whether the insight is readonly
+ * @property {boolean} [locked] whether the insight is locked for changes
+ * @property {Number} modifiedTime The last time an insight was trained
+ * @property {boolean} [useTSVD] System flag controlling one of the training parameters of insights
+ * with a small number of samples.
+ * @property {boolean} [userTrained] System flag marking the insight as dynamically created
+ * by a user.
+ * @property {Array.&lt;InsightsAPI~InsightSample>} [samples] Samples to assign to the new insight
+ * @property {Array.&lt;InsightsAPI~InsightSample>} [testSamples] Test samples to assign to the new
+ * insight
+ */
+
+
+/**
+ * Insight with samples
+ * @typedef {Object} InsightsAPI~InsightWithSamples
+ * @property {String} _id The ID of the newly created insight
+ * @property {String} name Name of the insight
+ * @property {String} [displayName] Display name of the insight
+ * @property {String} [description] A short description of the insight
+ * @property {String[]} [tags] Tags assigned to the Insight
+ * @property {String[]} [keywords] Keywords relevant to the insight
+ * @property {boolean} [productionReady] Whether the insight is of
+ * production-ready quality
+ * @property {boolean} [autoupdate] Whether auto-update is turned on
+ * for the insight
+ * @property {boolean} [readonly] whether the insight is readonly
+ * @property {boolean} [locked] whether the insight is locked for changes
+ * @property {Number} modifiedTime The last time an insight was trained
+ * @property {boolean} [useTSVD] System flag controlling one of the training parameters of insights
+ * with a small number of samples.
+ * @property {boolean} [userTrained] System flag marking the insight as dynamically created
+ * by a user.
+ * @property {Array.&lt;InsightsAPI~InsightSample>} [samples] Samples to assign to the new insight
+ * @property {Array.&lt;InsightsAPI~InsightSample>} [testSamples] Test samples to assign to the new
+ * insight
  */
 
 /**
@@ -69,6 +147,37 @@
  * @mixin
  */
 function InsightsAPI () { }
+
+/**
+ * Create new insights.
+ *
+ * @param {Array.&lt;InsightsAPI~NewInsight>} insights Array of insights objects
+ * @param {IntellogoCallback.&lt;InsightsAPI~InsightWithSamples[]>} [callback]
+ * @return {IntellogoResponse.&lt;InsightsAPI~InsightWithSamples>}
+ * @method
+ */
+InsightsAPI.prototype.createInsights = callbackify(
+    function (insights) {
+        var data = this.webBridge.buildPostData(insights, null, true);
+        return this.webBridge.post('/api/categories/create', data, {}, true);
+    });
+
+/**
+ * Update insights' metadata.
+ * Note that samples and testSamples are not updated by this call.
+ * Use {@link InsightsAPI#setInsightsSamples}, {@link InsightsAPI#assignInsightsSamples},
+ * or {@link InsightsAPI#unassignInsightsSamples} for them instead.
+ *
+ * @param {Array.&lt;InsightsAPI~Insight>} insights Array of insights objects
+ * @param {IntellogoCallback.&lt;SuccessResponse[]>} [callback]
+ * @return {IntellogoResponse.&lt;SuccessResponse>}
+ * @method
+ */
+InsightsAPI.prototype.updateInsights = callbackify(
+    function (insights) {
+        var data = this.webBridge.buildPostData(insights, null, true);
+        return this.webBridge.post('/api/categories/update', data, {}, true);
+    });
 
 /**
  * Retrieve all insights with metadata.
@@ -90,9 +199,21 @@ InsightsAPI.prototype.getAllInsights = callbackify(
     });
 
 /**
+ * Return the number of all insights.
+ *
+ * @param {IntellogoCallback.&lt;Number>} [callback]
+ * @return {IntellogoResponse.&lt;Number>}
+ * @method
+ */
+InsightsAPI.prototype.countInsights = callbackify(
+    function () {
+        return this.webBridge.get('/api/categories/count', {}, false);
+    });
+
+/**
  * Get metadata for the specified insights.
  * @param {String[]} insights A list of insight IDs.
- * @param {IntellogoCallback.&lt;Object&lt;String, InsightsAPI~Insight>> [callback]
+ * @param {IntellogoCallback.&lt;Object&lt;String, InsightsAPI~Insight>>} [callback]
  * @return {IntellogoResponse.&lt;Object&lt;String, InsightsAPI~Insight>>}
  * @method
  */
@@ -101,9 +222,28 @@ InsightsAPI.prototype.getInsightsInfo = callbackify(
         if (!Array.isArray(insights)) {
             insights = [insights];
         }
-        var data = this.webBridge.buildPostData(insights, [], false);
-        return this.webBridge.post('/api/categories/info',
-                                   data, {}, false);
+        var data = this.webBridge.buildPostData(insights, null, false);
+        return this.webBridge.post('/api/categories/info', data, {}, false);
+    });
+
+/**
+ * Get image URLs associated with the insight's positive samples. This can be used to display
+ * representative images of an insight.
+ * @param {String} insightId The ID of the insight for which to retrieve the image URLs
+ * @param {Number} [imageCount] Maximum number of URLs to return
+ * @param {IntellogoCallback.&lt;String[]>} [callback]
+ * @return {IntellogoResponse.&lt;String>}
+ * @method
+ */
+InsightsAPI.prototype.getInsightImages = callbackify(
+    function (insightId, imageCount) {
+        var query = {
+            id: insightId
+        };
+        if (imageCount) {
+            query.count = imageCount;
+        }
+        return this.webBridge.get('/api/categories/contentImages', query, true);
     });
 
 /**
@@ -136,6 +276,119 @@ InsightsAPI.prototype.generateDynamicInsight = callbackify(
         return this.webBridge.post('/api/categories/dynamic', data, {}, false);
     });
 
+/**
+ * Deletes a list of existing insights.
+ * @param {String[]} ids Ids of the insights to be deleted
+ * @param {IntellogoCallback.&lt;SuccessResponse[]>} [callback]
+ * @return {IntellogoResponse.&lt;SuccessResponse>}
+ * @method
+ */
+InsightsAPI.prototype.deleteInsights = callbackify(
+    function (ids) {
+        var data = this.webBridge.buildPostData(ids, null, true);
+        return this.webBridge.post('/api/categories/delete', data, {}, true);
+    }
+);
+
+
+function getInsightSamples(webBridge, insightsOptions, collectionName) {
+    const requestData = _.map(insightsOptions,
+                              (options) => ({
+                                  metadata      : options.metadata || false,
+                                  categoryId    : options.categoryId,
+                                  collectionName: collectionName
+                              }));
+
+    const data = webBridge.buildPostData(requestData, null, true);
+
+    return webBridge.post('/api/categories/contents', data, {}, true);
+}
+
+/**
+ * Populate the insights' samples.
+ *
+ * @param {Array.&lt;InsightsAPI~SamplesRetrievalOptions>} insights
+ * @param {IntellogoCallback.&lt;InsightsAPI~InsightWithSamples[]>} [callback]
+ * @return {IntellogoResponse.&lt;InsightsAPI~InsightWithSamples>}
+ * @method
+ */
+InsightsAPI.prototype.getInsightsSamples = callbackify(
+    function (insights) {
+        return getInsightSamples(this.webBridge, insights, 'samples');
+    }
+);
+
+/**
+ * Populate the insights' test samples.
+ *
+ * @param {Array.&lt;InsightsAPI~SamplesRetrievalOptions>} insights
+ * @param {IntellogoCallback.&lt;InsightsAPI~InsightWithSamples[]>} [callback]
+ * @return {IntellogoResponse.&lt;InsightsAPI~InsightWithSamples>}
+ * @method
+ */
+InsightsAPI.prototype.getInsightsTestSamples = callbackify(
+    function (insights) {
+        return getInsightSamples(this.webBridge, insights, 'testSamples');
+    }
+);
+
+/**
+ * Replace the samples or testSamples of insight object. Previously assigned samples will be
+ * overwritten.
+ *
+ * @param {Array.&lt;InsightsAPI~SamplesUpdate>} insightsWithSamples
+ * @param {IntellogoCallback.&lt;InsightsAPI~InsightWithSamples[]>} [callback]
+ * @return {IntellogoResponse.&lt;InsightsAPI~InsightWithSamples>}
+ * @method
+ */
+InsightsAPI.prototype.setInsightsSamples = callbackify(
+    function (insightsWithSamples) {
+        let requestData = _.map(insightsWithSamples,
+            (option) => {
+                return {
+                    categoryId: option.categoryId,
+                    samples: option.samples,
+                    testSamples: option.testSamples
+                };
+            }
+        );
+
+        let data = this.webBridge.buildPostData(requestData, null, true);
+
+        return this.webBridge.post('/api/categories/samples/update', data, {}, true);
+    }
+);
+
+/**
+ * Assign new samples or testSamples to an insight. Previously assigned samples will remain
+ * assigned to the insight. &lt;br>
+ * To unassign samples, either use {@link InsightsAPI#unassignInsightsSamples}, or replace all
+ * insight samples with {@link InsightsAPI#setInsightsSamples}&lt;br>
+ * @param {Array.&lt;InsightsAPI~SamplesUpdate>} insightsWithSamples
+ * @param {IntellogoCallback.&lt;SuccessResponse[]>} [callback]
+ * @return {IntellogoResponse.&lt;SuccessResponse>}
+ * @method
+ */
+InsightsAPI.prototype.assignInsightsSamples = callbackify(
+    function (insightsWithSamples) {
+        var data = this.webBridge.buildPostData(insightsWithSamples, null, true);
+        return this.webBridge.post('/api/categories/assign', data, {}, true);
+    });
+
+
+/**
+ * Unassign samples or testSamples from an insight.
+ * @param {Array.&lt;InsightsAPI~SamplesUpdate>} insightsWithSamples
+ * @param {IntellogoCallback.&lt;SuccessResponse[]>} [callback]
+ * @return {IntellogoResponse.&lt;SuccessResponse>}
+ * @method
+ */
+InsightsAPI.prototype.unassignInsightsSamples = callbackify(
+    function (insightsWithSamples) {
+        var data = this.webBridge.buildPostData(insightsWithSamples, null, true);
+        return this.webBridge.post('/api/categories/unassign', data, {}, true);
+    });
+
 module.exports = InsightsAPI;
 </code></pre>
         </article>
@@ -153,7 +406,7 @@ module.exports = InsightsAPI;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 01 2017 19:01:00 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:50:16 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

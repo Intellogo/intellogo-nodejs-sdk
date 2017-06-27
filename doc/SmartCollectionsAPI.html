@@ -74,7 +74,7 @@ IntellogoAPI object.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line49">line 49</a>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -110,14 +110,14 @@ IntellogoAPI object.</div>
 
     
 
-    <h4 class="name" id="getAllSmartCollections"><span class="type-signature"></span>getAllSmartCollections<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>>}</span></h4>
+    <h4 class="name" id="createSmartCollections"><span class="type-signature"></span>createSmartCollections<span class="signature">(smartCollections, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#IntellogoID">IntellogoID</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Retrieve all smart collections with their metadata and definitions.
+    Create new smart collections with the provided metadata and items.
 </div>
 
 
@@ -126,6 +126,98 @@ IntellogoAPI object.</div>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>smartCollections</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A list of smart collections.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="global.html#IntellogoID">IntellogoID</a>>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -161,7 +253,460 @@ IntellogoAPI object.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line56">line 56</a>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#IntellogoID">IntellogoID</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="deleteSmartCollection"><span class="type-signature"></span>deleteSmartCollection<span class="signature">(smartCollectionId, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;*>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Delete an existing smart collection.<br>
+<br> Unlike other methods in SmartCollectionAPI, this one does not work on arrays of
+smart collections. Smart collections can be deleted only one at a time.<br>
+Note: The callback will be called with no arguments if the delete is successfuly.
+An error will be passed to the callback if the smart collection does not exist or
+if it is read-only, otherwise no arguments will be passed to the callback.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>smartCollectionId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The ID of the smart collection to delete.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;*></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;*></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getAllSmartCollections"><span class="type-signature"></span>getAllSmartCollections<span class="signature">(options<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieve all smart collections with their metadata and definitions.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Filter smart collections
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>categoryId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Only return smart collections that contain
+an insight with the specified id</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -210,7 +755,7 @@ IntellogoAPI object.</div>
 
     
 
-    <h4 class="name" id="getSmartCollectionsInfo"><span class="type-signature"></span>getSmartCollectionsInfo<span class="signature">(smartCollections)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;Object.&lt;String, <a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>>>}</span></h4>
+    <h4 class="name" id="getSmartCollectionsInfo"><span class="type-signature"></span>getSmartCollectionsInfo<span class="signature">(smartCollections, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>>}</span></h4>
 
     
 
@@ -241,6 +786,8 @@ IntellogoAPI object.</div>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -266,10 +813,51 @@ IntellogoAPI object.</div>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last">A list of smart collections IDs.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -310,7 +898,7 @@ IntellogoAPI object.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line67">line 67</a>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -344,7 +932,199 @@ IntellogoAPI object.</div>
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;Object.&lt;String, <a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>>></span>
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateSmartCollections"><span class="type-signature"></span>updateSmartCollections<span class="signature">(smartCollections, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Update smart collections with the provided metadata and/or items.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>smartCollections</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="SmartCollectionsAPI.html#~SmartCollection">SmartCollectionsAPI~SmartCollection</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A list of smart collections.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">callback</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line108">line 108</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
 
 
     </dd>
@@ -401,6 +1181,8 @@ IntellogoAPI object.</div>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -426,10 +1208,20 @@ IntellogoAPI object.</div>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The ID of the smart collection</td>
+            <td class="description last">The ID of the smart collection. Only present for existing smart
+collections. Do not specify when creating a new one, an ID will be automatically assigned and
+returned by Intellogo.</td>
         </tr>
 
     
@@ -448,6 +1240,12 @@ IntellogoAPI object.</div>
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+                </td>
             
 
             
@@ -471,6 +1269,12 @@ IntellogoAPI object.</div>
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+                </td>
             
 
             
@@ -514,7 +1318,7 @@ IntellogoAPI object.</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line35">line 35</a>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -538,7 +1342,8 @@ IntellogoAPI object.</div>
 
 
 <div class="description">
-    An item that is a part of a smart collection definition.
+    An item that is a part of a smart collection definition. It must have either `categoryId` or
+`contentId`
 </div>
 
 
@@ -571,6 +1376,8 @@ IntellogoAPI object.</div>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -583,7 +1390,7 @@ IntellogoAPI object.</div>
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>categoryId</code></td>
             
 
             <td class="type">
@@ -596,10 +1403,49 @@ IntellogoAPI object.</div>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The id of the insight that is part of the collection</td>
+            <td class="description last">The id of an insight that is part of the collection</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The id of a content that is part of the collection</td>
         </tr>
 
     
@@ -618,6 +1464,12 @@ IntellogoAPI object.</div>
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+                </td>
             
 
             
@@ -642,6 +1494,12 @@ in order to be considered a match</td>
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+                </td>
             
 
             
@@ -955,6 +1813,8 @@ in order to be considered a match</td>
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
                 </td>
@@ -964,6 +1824,38 @@ in order to be considered a match</td>
 
             <td class="description last">Whether the smart collection is ready for
 production</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>autoupdate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Whether recommendations for this smart collection should be
+automatically regenerated</td>
         </tr>
 
     
@@ -994,8 +1886,39 @@ production</td>
 
             
 
-            <td class="description last">Whether the smart collection has been invalidated
+            <td class="description last">System flag, set when the smart collection has been invalidated
 by another action, e.g. when an associated insight is deleted</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>readonly</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Whether the smart collection is read-only</td>
         </tr>
 
     
@@ -1034,7 +1957,7 @@ by another action, e.g. when an associated insight is deleted</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line13">line 13</a>
+        <a href="lib_api-groups_smart-collections-api.js.html">lib/api-groups/smart-collections-api.js</a>, <a href="lib_api-groups_smart-collections-api.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -1070,7 +1993,7 @@ by another action, e.g. when an associated insight is deleted</td>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 01 2017 19:01:01 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:50:16 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>
