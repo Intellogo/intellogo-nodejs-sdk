@@ -34,7 +34,13 @@ We recommend using callbacks for all method calls with {@link IntellogoClient}. 
 ### Content
 A Content is one of the main entities in Intellogo. It represents a piece of text that has been imported into Intellogo through one of the various supported mechanisms (see the methods in {@link ImportAPI}). These can be Wikipedia or other web articles, books, subtitles of videos etc.
 
-Intellogo does not store the full text of content after processing. However, rich metadata is preserved and can be used for search queries and recommendations filtering. See {@link ContentAPI~ContentMetadata} for details on the stored metadata.
+Intellogo does not store the full text of content after processing. However, rich metadata is preserved and can be used for search queries and recommendations filtering. At a minimum, a content has a source and sourceId, which specify where the content came from (e.g. Wikipedia, CNN, Youtube), and an identifier of the content within its source (a Wikipedia article ID, the URL to the CNN article or to the Youtube video).<br>
+See {@link ContentAPI~ContentMetadata} for details on the stored metadata.
+
+### Content Chunking
+This is an experimental feature that can be enabled on content import. Content chunking consists of splitting the text of the imported content into similarly sized pieces, each of which is also imported separately. Each piece contains a reference to its parent content in its metadata.
+
+The purpose of this feature is to enable more in-depth analysis of longer content. If a content is split into chunks, Intellogo can analyse not only the overall tone and topic of the content, but also how they change from the beginning of the text to its end.
 
 ### Master (Top-Level) Content
 A subset of all Intellogo content.

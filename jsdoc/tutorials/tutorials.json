@@ -22,5 +22,8 @@
     },
     "import-channel": {
         "title": "Working with Youtube channels"
+    },
+    "import-subtitles": {
+        "title": "Import Subtitles with chunking"
     }
 }
