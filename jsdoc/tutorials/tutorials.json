@@ -25,5 +25,8 @@
     },
     "import-subtitles": {
         "title": "Import Subtitles with chunking"
+    },
+    "import-epub": {
+        "title": "Import E-pub"
     }
 }
