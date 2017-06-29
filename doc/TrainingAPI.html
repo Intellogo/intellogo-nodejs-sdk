@@ -37,9 +37,9 @@
     <div class="container-overview">
     
         
-            <div class="description">A convenience class meant to group together training-related API.
+            <div class="description"><p>A convenience class meant to group together training-related API.
 All availables methods should be called directly through the
-<a href="IntellogoClient.html">IntellogoClient</a> object.</div>
+<a href="IntellogoClient.html">IntellogoClient</a> object.</p></div>
         
 
         
@@ -117,13 +117,13 @@ All availables methods should be called directly through the
 
 
 <div class="description">
-    Creates a wrapper around one of the task-initiating methods.
+    <p>Creates a wrapper around one of the task-initiating methods.
 When the wrapper is called, it initiates a task using the specified method
 and the provided arguments. The last argument is expected to be a callback,
 otherwise an error is thrown.
 The wrapper then waits for it to finish either by polling, or using a webook
 if the <a href="IntellogoClient.html">IntellogoClient</a> is set up for it.
-The callback is called when the task has finished or if an error occurs.
+The callback is called when the task has finished or if an error occurs.</p>
 </div>
 
 
@@ -175,8 +175,8 @@ The callback is called when the task has finished or if an error occurs.
 
             
 
-            <td class="description last">A method that can initiate a task.
-It should already be bound to the proper context.</td>
+            <td class="description last"><p>A method that can initiate a task.
+It should already be bound to the proper context.</p></td>
         </tr>
 
     
@@ -199,8 +199,8 @@ It should already be bound to the proper context.</td>
 
             
 
-            <td class="description last">Parameters controlling
-how the wrapper is set up.</td>
+            <td class="description last"><p>Parameters controlling
+how the wrapper is set up.</p></td>
         </tr>
 
     
@@ -279,7 +279,7 @@ how the wrapper is set up.</td>
 
 
 <div class="description">
-    Generate recommendations for a content. This method initiates a content task
+    <p>Generate recommendations for a content. This method initiates a content task
 and waits until the task has completed to call its callback.
 It accepts the same arguments as <a href="TrainingAPI.html#initiateContentRecommendationGeneration">TrainingAPI#initiateContentRecommendationGeneration</a>
 except that the last argument must be a callback function.
@@ -287,7 +287,7 @@ The callback will be called when the task has finished.
 If a local notifications web service has been initialized (using
 <a href="IntellogoClient.html#initNotificationsService">IntellogoClient#initNotificationsService</a>, a webhook will be used to signal
 task completion.
-Otherwise, regular polling will be used.
+Otherwise, regular polling will be used.</p>
 </div>
 
 
@@ -369,7 +369,7 @@ Otherwise, regular polling will be used.
 
 
 <div class="description">
-    Generate recommendations for an insight. This method initiates an insight
+    <p>Generate recommendations for an insight. This method initiates an insight
 training task and waits until the task has completed to call its callback.
 It accepts the same arguments as <a href="TrainingAPI.html#initiateInsightTraining">TrainingAPI#initiateInsightTraining</a>,
 except that the last argument must be a callback function.
@@ -377,7 +377,7 @@ The callback will be called when the task has finished.
 If a local notifications web service has been initialized (using
 <a href="IntellogoClient.html#initNotificationsService">IntellogoClient#initNotificationsService</a>, a webhook will be used to
 signal task completion.
-Otherwise, regular polling will be used.
+Otherwise, regular polling will be used.</p>
 </div>
 
 
@@ -459,7 +459,7 @@ Otherwise, regular polling will be used.
 
 
 <div class="description">
-    Retrieve task status
+    <p>Retrieve task status</p>
 </div>
 
 
@@ -521,7 +521,7 @@ Otherwise, regular polling will be used.
 
             
 
-            <td class="description last">The task ID</td>
+            <td class="description last"><p>The task ID</p></td>
         </tr>
 
     
@@ -651,12 +651,12 @@ Otherwise, regular polling will be used.
 
 
 <div class="description">
-    Initiate a task for generating recommendations for the specified content. Recommendations
+    <p>Initiate a task for generating recommendations for the specified content. Recommendations
 will be generated from a subset of all Intellogo content, defined by the specified
 <code>recommendationsFilters</code>. If the filters are an empty array [], recommendations
 will be generated from all content in the system.
 <br>
-Note: The task will complete faster when the filters are more restrictive.
+Note: The task will complete faster when the filters are more restrictive.</p>
 </div>
 
 
@@ -718,8 +718,8 @@ Note: The task will complete faster when the filters are more restrictive.
 
             
 
-            <td class="description last">The content for which to
-generate recommendations</td>
+            <td class="description last"><p>The content for which to
+generate recommendations</p></td>
         </tr>
 
     
@@ -752,8 +752,8 @@ generate recommendations</td>
 
             
 
-            <td class="description last">Filters that limit what part
-of all Intellogo content will be rated against the specified <code>content</code>.</td>
+            <td class="description last"><p>Filters that limit what part
+of all Intellogo content will be rated against the specified <code>content</code>.</p></td>
         </tr>
 
     
@@ -786,7 +786,7 @@ of all Intellogo content will be rated against the specified <code>content</code
 
             
 
-            <td class="description last">A webhook that should be notified of the task completion.</td>
+            <td class="description last"><p>A webhook that should be notified of the task completion.</p></td>
         </tr>
 
     
@@ -916,7 +916,7 @@ of all Intellogo content will be rated against the specified <code>content</code
 
 
 <div class="description">
-    Initiate a training operation with the given parameters
+    <p>Initiate a training operation with the given parameters</p>
 </div>
 
 
@@ -978,7 +978,7 @@ of all Intellogo content will be rated against the specified <code>content</code
 
             
 
-            <td class="description last">The id of the insight</td>
+            <td class="description last"><p>The id of the insight</p></td>
         </tr>
 
     
@@ -1011,8 +1011,8 @@ of all Intellogo content will be rated against the specified <code>content</code
 
             
 
-            <td class="description last">Content from which sources to rate after the
-insight has been trained</td>
+            <td class="description last"><p>Content from which sources to rate after the
+insight has been trained</p></td>
         </tr>
 
     
@@ -1045,8 +1045,8 @@ insight has been trained</td>
 
             
 
-            <td class="description last">Specific content items
-to rate after the insight has been trained</td>
+            <td class="description last"><p>Specific content items
+to rate after the insight has been trained</p></td>
         </tr>
 
     
@@ -1176,9 +1176,9 @@ to rate after the insight has been trained</td>
 
 
 <div class="description">
-    Initiate polling for the specified taskId. This will periodically
+    <p>Initiate polling for the specified taskId. This will periodically
 check the status of the task and emit a result event only when the task
-transitions to a final state (finished / cancelled / failed).
+transitions to a final state (finished / cancelled / failed).</p>
 </div>
 
 
@@ -1240,7 +1240,7 @@ transitions to a final state (finished / cancelled / failed).
 
             
 
-            <td class="description last">The ID of the task to poll for.</td>
+            <td class="description last"><p>The ID of the task to poll for.</p></td>
         </tr>
 
     
@@ -1273,8 +1273,8 @@ transitions to a final state (finished / cancelled / failed).
 
             
 
-            <td class="description last">What time interval to use for
-polling. The default value is 5000ms</td>
+            <td class="description last"><p>What time interval to use for
+polling. The default value is 5000ms</p></td>
         </tr>
 
     
@@ -1375,9 +1375,9 @@ polling. The default value is 5000ms</td>
 
         
 <div class="param-desc">
-    Will emit a data event when the
+    <p>Will emit a data event when the
 task completes successfully. If the task fails or another error occurs,
-an 'error' event will be emitted.
+an 'error' event will be emitted.</p>
 </div>
 
 
@@ -1469,7 +1469,7 @@ an 'error' event will be emitted.
 
             
 
-            <td class="description last">Information about the initiated task
+            <td class="description last"><p>Information about the initiated task</p>
                 <h6>Properties</h6>
 
 <table class="props">
@@ -1510,7 +1510,7 @@ an 'error' event will be emitted.
 
             
 
-            <td class="description last">The ID of the task</td>
+            <td class="description last"><p>The ID of the task</p></td>
         </tr>
 
     
@@ -1533,7 +1533,7 @@ an 'error' event will be emitted.
 
             
 
-            <td class="description last">The status of the task</td>
+            <td class="description last"><p>The status of the task</p></td>
         </tr>
 
     
@@ -1556,8 +1556,8 @@ an 'error' event will be emitted.
 
             
 
-            <td class="description last">When the task started. Will be -1
-if the task is still pending</td>
+            <td class="description last"><p>When the task started. Will be -1
+if the task is still pending</p></td>
         </tr>
 
     
@@ -1587,7 +1587,7 @@ if the task is still pending</td>
 
             
 
-            <td class="description last">A requestId that can be used to cancel the task</td>
+            <td class="description last"><p>A requestId that can be used to cancel the task</p></td>
         </tr>
 
     
@@ -1610,8 +1610,8 @@ if the task is still pending</td>
 
             
 
-            <td class="description last">Currently available
-recommendations for the content for which the task was initiated</td>
+            <td class="description last"><p>Currently available
+recommendations for the content for which the task was initiated</p></td>
         </tr>
 
     
@@ -1731,7 +1731,7 @@ recommendations for the content for which the task was initiated</td>
 
             
 
-            <td class="description last">The ID of the task</td>
+            <td class="description last"><p>The ID of the task</p></td>
         </tr>
 
     
@@ -1754,7 +1754,7 @@ recommendations for the content for which the task was initiated</td>
 
             
 
-            <td class="description last">The ID of the insight that this task will train</td>
+            <td class="description last"><p>The ID of the insight that this task will train</p></td>
         </tr>
 
     
@@ -1817,8 +1817,8 @@ recommendations for the content for which the task was initiated</td>
 
 
 <div class="description">
-    The status of an Intellogo task. The possible values are:
-'new', 'waiting', 'running', 'finished', 'failed' and 'cancelled'.
+    <p>The status of an Intellogo task. The possible values are:
+'new', 'waiting', 'running', 'finished', 'failed' and 'cancelled'.</p>
 </div>
 
 
@@ -1890,8 +1890,8 @@ recommendations for the content for which the task was initiated</td>
 
 
 <div class="description">
-    A description of the status of a task. Contains information about progress
-and subtasks, if there are any
+    <p>A description of the status of a task. Contains information about progress
+and subtasks, if there are any</p>
 </div>
 
 
@@ -1952,7 +1952,7 @@ and subtasks, if there are any
 
             
 
-            <td class="description last">The ID of the task</td>
+            <td class="description last"><p>The ID of the task</p></td>
         </tr>
 
     
@@ -1975,7 +1975,7 @@ and subtasks, if there are any
 
             
 
-            <td class="description last">A human-readable name for the task</td>
+            <td class="description last"><p>A human-readable name for the task</p></td>
         </tr>
 
     
@@ -1998,7 +1998,7 @@ and subtasks, if there are any
 
             
 
-            <td class="description last">Task state</td>
+            <td class="description last"><p>Task state</p></td>
         </tr>
 
     
@@ -2021,7 +2021,7 @@ and subtasks, if there are any
 
             
 
-            <td class="description last">Information about subtasks</td>
+            <td class="description last"><p>Information about subtasks</p></td>
         </tr>
 
     
@@ -2044,8 +2044,8 @@ and subtasks, if there are any
 
             
 
-            <td class="description last">Progress of the task. 1 means the task
-has finished.</td>
+            <td class="description last"><p>Progress of the task. 1 means the task
+has finished.</p></td>
         </tr>
 
     
@@ -2298,9 +2298,9 @@ has finished.</td>
                 </td>
             
 
-            <td class="description last">How to find the taskId from the result
+            <td class="description last"><p>How to find the taskId from the result
 of the task initiation. E.g. for content recommendations generation
-this path is 'task.taskId'.</td>
+this path is 'task.taskId'.</p></td>
         </tr>
 
     
@@ -2335,9 +2335,9 @@ this path is 'task.taskId'.</td>
                 </td>
             
 
-            <td class="description last">Whether the task initiator accepts
+            <td class="description last"><p>Whether the task initiator accepts
 a webhook argument. If <code>true</code>, a webhook may be used instead of
-polling.</td>
+polling.</p></td>
         </tr>
 
     
@@ -2406,13 +2406,13 @@ polling.</td>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li><li><a href="UserProfilesAPI.html">UserProfilesAPI</a></li><li><a href="YoutubeChannelsAPI.html">YoutubeChannelsAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-channel.html">Working with Youtube channels</a></li><li><a href="tutorial-import-epub.html">Import E-pub</a></li><li><a href="tutorial-import-subtitles.html">Import Subtitles with chunking</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li><li><a href="tutorial-user-profile-collections.html">Get Recommendations for User Profile</a></li><li><a href="tutorial-user-profiles.html">Create User Profile</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:50:16 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 29 2017 19:27:35 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

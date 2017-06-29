@@ -47,7 +47,7 @@
 
 
 <div class="description">
-    Creates an instance of the IntellogoClient.
+    <p>Creates an instance of the IntellogoClient.
 All methods accept an optional callback argument as their last
 parameter.<br>
 All methods also return an <code>EventEmitter</code> that emits
@@ -58,7 +58,7 @@ to use the callback option.
 Calling any of the methods will automatically get an OAuth2.0
 <code>access_token</code>, which will be used for all subsequent requests.
 The <code>access_token</code> will also be automatically renewed in case it
-expires.
+expires.</p>
 </div>
 
 
@@ -110,7 +110,7 @@ expires.
 
             
 
-            <td class="description last">Options to use for connecting to the Intellogo service</td>
+            <td class="description last"><p>Options to use for connecting to the Intellogo service</p></td>
         </tr>
 
     
@@ -167,7 +167,7 @@ expires.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line49">line 49</a>
+        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -223,8 +223,8 @@ expires.
 
 
 <div class="description">
-    Sets up a local web service that provides a better alternative for the task polling mechanism.
-While the service is running, it will be used instead of polling when possible.
+    <p>Sets up a local web service that provides a better alternative for the task polling mechanism.
+While the service is running, it will be used instead of polling when possible.</p>
 </div>
 
 
@@ -286,7 +286,7 @@ While the service is running, it will be used instead of polling when possible.
 
             
 
-            <td class="description last">Options to use for setting up the local web service</td>
+            <td class="description last"><p>Options to use for setting up the local web service</p></td>
         </tr>
 
     
@@ -319,7 +319,7 @@ While the service is running, it will be used instead of polling when possible.
 
             
 
-            <td class="description last">A callback that will be called when the service is up and running.</td>
+            <td class="description last"><p>A callback that will be called when the service is up and running.</p></td>
         </tr>
 
     
@@ -360,7 +360,7 @@ While the service is running, it will be used instead of polling when possible.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line67">line 67</a>
+        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line69">line 69</a>
     </li></ul></dd>
     
 
@@ -398,10 +398,10 @@ While the service is running, it will be used instead of polling when possible.
 
 
 <div class="description">
-    Stops the local web service, if it is still running. After this is done, the
+    <p>Stops the local web service, if it is still running. After this is done, the
 <a href="IntellogoClient.html">IntellogoClient</a> can still be used as usual. The only difference will be that waiting
 for task completion will use the polling mechanism, sending status requests at some polling
-interval.
+interval.</p>
 </div>
 
 
@@ -465,8 +465,8 @@ interval.
 
             
 
-            <td class="description last">An optional callback that will be called once the web service
-has been stopped.</td>
+            <td class="description last"><p>An optional callback that will be called once the web service
+has been stopped.</p></td>
         </tr>
 
     
@@ -507,7 +507,7 @@ has been stopped.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line81">line 81</a>
+        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -549,13 +549,13 @@ has been stopped.</td>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li><li><a href="UserProfilesAPI.html">UserProfilesAPI</a></li><li><a href="YoutubeChannelsAPI.html">YoutubeChannelsAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-channel.html">Working with Youtube channels</a></li><li><a href="tutorial-import-epub.html">Import E-pub</a></li><li><a href="tutorial-import-subtitles.html">Import Subtitles with chunking</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li><li><a href="tutorial-user-profile-collections.html">Get Recommendations for User Profile</a></li><li><a href="tutorial-user-profiles.html">Create User Profile</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:50:16 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 29 2017 19:27:35 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -37,9 +37,9 @@
     <div class="container-overview">
     
         
-            <div class="description">A convenience class meant to group together API for importing content.
+            <div class="description"><p>A convenience class meant to group together API for importing content.
 All availables methods should be called directly through the
-<a href="IntellogoClient.html">IntellogoClient</a> object.</div>
+<a href="IntellogoClient.html">IntellogoClient</a> object.</p></div>
         
 
         
@@ -74,7 +74,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line49">line 49</a>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -117,7 +117,7 @@ All availables methods should be called directly through the
 
 
 <div class="description">
-    Import the specified article.
+    <p>Import the specified article.</p>
 </div>
 
 
@@ -179,7 +179,7 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last">The URL of the article to import</td>
+            <td class="description last"><p>The URL of the article to import</p></td>
         </tr>
 
     
@@ -212,7 +212,7 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last">Metadata to assign to the imported article</td>
+            <td class="description last"><p>Metadata to assign to the imported article</p></td>
         </tr>
 
     
@@ -245,7 +245,7 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last">Import options</td>
+            <td class="description last"><p>Import options</p></td>
         </tr>
 
     
@@ -319,7 +319,548 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line60">line 60</a>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ImportAPI.html#~ArticleImportResult">ImportAPI~ArticleImportResult</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="importEpub"><span class="type-signature"></span>importEpub<span class="signature">(epubPath, metadata<span class="signature-attributes">opt</span>, importOptions<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ImportAPI.html#~EpubImportResult">ImportAPI~EpubImportResult</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Import a book in an .epub format.<br>
+The book is automatically split in parts and chapters per the epub's ToC. Intellogo will create
+an entity for each chapter of the book. Depending on the TOC, if the book was split e.g. in
+parts that in turn contain chapters, there will also be separate entities for each part
+(containing text from their assigned chapters). The process is recursive, so the result will
+consist of a hierarchy with the same depth as the book's ToC. In all cases, there will be a
+content representing the whole book.<br>
+Metadata for the imported content is parsed from the epub's metadata. If additional metadata
+is specified, the epub extracted one is overwritten.<br>
+If chunking is enabled, the ToC structure will be ignored and the whole text of the book will
+be split into equally-sized chunks, as in <a href="ImportAPI.html#importArticle">ImportAPI#importArticle</a>. This will result in
+a one-level deep hierarchy for the book.<br>
+If the import is successful, the ID of the content for the whole book can be found by looking
+at the last element of the <code>importSummary</code> array in the result.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>epubPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Absolute path to the epub file</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadata</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ContentAPI.html#~ContentMetadata">ContentAPI~ContentMetadata</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Additional metadata for the book</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>importOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ImportAPI.html#~ArticleImportOptions">ImportAPI~ArticleImportOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Chunking options</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="ImportAPI.html#~EpubImportResult">ImportAPI~EpubImportResult</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line204">line 204</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ImportAPI.html#~EpubImportResult">ImportAPI~EpubImportResult</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="importSubtitles"><span class="type-signature"></span>importSubtitles<span class="signature">(subtitlesPath, metadata, importOptions, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ImportAPI.html#~ArticleImportResult">ImportAPI~ArticleImportResult</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Import an .srt file containing timestamped subtitles. Metadata <strong>must</strong> be supplied, there is
+no automated metadata extraction for .srt files.<br>
+Intellogo supports two modes of chunking for .srt files:</p>
+<ul>
+<li>length-based chunking: This is the standard chunking, like the one for articles. The text
+content of the subtitles is split into equally-sized chunks.</li>
+<li>timestamp-based chunking: If a timestamp separator file is provided, each chunk will contain
+the captions with timestamp between consecutive lines of the timestamp separator file.
+This allows splitting the subtitles in a more semantic way - e.g. for a documentary's subtitles
+the user can manually specify the timestamps at which a new topic begins.</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>subtitlesPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The absolute path to the .srt file for import</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadata</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ContentAPI.html#~ContentMetadata">ContentAPI~ContentMetadata</a></span>
+|
+
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Metadata to assign to the imported content.
+If the value is a string, it is the path to a json file with the metadata.
+Otherwise, the object contains all relevant metadata.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>importOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="ImportAPI.html#~SubtitlesImportOptions">ImportAPI~SubtitlesImportOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Import options. Use to enable chunking
+for the imported subtitles.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="ImportAPI.html#~ArticleImportResult">ImportAPI~ArticleImportResult</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -377,8 +918,8 @@ All availables methods should be called directly through the
 
 
 <div class="description">
-    Metadata properties supported on article import. If any of the optional fields are missing,
-Intellogo will attempt to automatically extract that information during import.
+    <p>Metadata properties supported on article import. If any of the optional fields are missing,
+Intellogo will attempt to automatically extract that information during import.</p>
 </div>
 
 
@@ -449,7 +990,7 @@ Intellogo will attempt to automatically extract that information during import.
 
             
 
-            <td class="description last">The name of the article source</td>
+            <td class="description last"><p>The name of the article source</p></td>
         </tr>
 
     
@@ -480,7 +1021,7 @@ Intellogo will attempt to automatically extract that information during import.
 
             
 
-            <td class="description last">Author of the article.</td>
+            <td class="description last"><p>Author of the article.</p></td>
         </tr>
 
     
@@ -511,7 +1052,7 @@ Intellogo will attempt to automatically extract that information during import.
 
             
 
-            <td class="description last">Title of the article.</td>
+            <td class="description last"><p>Title of the article.</p></td>
         </tr>
 
     
@@ -542,7 +1083,7 @@ Intellogo will attempt to automatically extract that information during import.
 
             
 
-            <td class="description last">Summary of the article.</td>
+            <td class="description last"><p>Summary of the article.</p></td>
         </tr>
 
     
@@ -573,8 +1114,8 @@ Intellogo will attempt to automatically extract that information during import.
 
             
 
-            <td class="description last">Source ID to assign to the article. If not specified, the URL will be
-used as sourceId.</td>
+            <td class="description last"><p>Source ID to assign to the article. If not specified, the URL will be
+used as sourceId.</p></td>
         </tr>
 
     
@@ -605,7 +1146,7 @@ used as sourceId.</td>
 
             
 
-            <td class="description last">URL to an image relevant to the article.</td>
+            <td class="description last"><p>URL to an image relevant to the article.</p></td>
         </tr>
 
     
@@ -644,7 +1185,7 @@ used as sourceId.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line5">line 5</a>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -743,8 +1284,8 @@ used as sourceId.</td>
                 </td>
             
 
-            <td class="description last">Whether the article should be split into equal-sized
-chunks on import. Useful for providing more in-depth analysis of very long articles.</td>
+            <td class="description last"><p>Whether the article should be split into equal-sized
+chunks on import. Useful for providing more in-depth analysis of very long articles.</p></td>
         </tr>
 
     
@@ -779,7 +1320,7 @@ chunks on import. Useful for providing more in-depth analysis of very long artic
                 </td>
             
 
-            <td class="description last">The size of each article chunk, if splitting is enabled.</td>
+            <td class="description last"><p>The size of each article chunk, if splitting is enabled.</p></td>
         </tr>
 
     
@@ -818,7 +1359,7 @@ chunks on import. Useful for providing more in-depth analysis of very long artic
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line18">line 18</a>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -907,7 +1448,7 @@ chunks on import. Useful for providing more in-depth analysis of very long artic
 
             
 
-            <td class="description last">Whether the import was successful</td>
+            <td class="description last"><p>Whether the import was successful</p></td>
         </tr>
 
     
@@ -938,13 +1479,13 @@ chunks on import. Useful for providing more in-depth analysis of very long artic
 
             
 
-            <td class="description last">If the import did not succeed, this contains an error message.
-Possible reasons for failure:
-<ul>
+            <td class="description last"><p>If the import did not succeed, this contains an error message.
+Possible reasons for failure:</p>
+<p><ul>
   <li>Article is too short</li>
   <li>Problems parsing article content</li>
   <li>The article is already present in Intellogo's database</li>
-  <li>Other unexpected problems</li></td>
+  <li>Other unexpected problems</li></p></td>
         </tr>
 
     
@@ -973,8 +1514,8 @@ Possible reasons for failure:
 
             
 
-            <td class="description last">If the import succeeded, this is the IntellogoID of the article.
-Can be used to e.g. generate and retrieve recommendations.</td>
+            <td class="description last"><p>If the import succeeded, this is the IntellogoID of the article.
+Can be used to e.g. generate and retrieve recommendations.</p></td>
         </tr>
 
     
@@ -1003,7 +1544,7 @@ Can be used to e.g. generate and retrieve recommendations.</td>
 
             
 
-            <td class="description last">The title of the imported article.</td>
+            <td class="description last"><p>The title of the imported article.</p></td>
         </tr>
 
     
@@ -1032,9 +1573,9 @@ Can be used to e.g. generate and retrieve recommendations.</td>
 
             
 
-            <td class="description last">If the article import failed because the article is already
+            <td class="description last"><p>If the article import failed because the article is already
 present in Intellogo's database, this array contains the IntellogoIDs of the possible duplicates
-detected. This array will usually have only one element.</td>
+detected. This array will usually have only one element.</p></td>
         </tr>
 
     
@@ -1073,7 +1614,600 @@ detected. This array will usually have only one element.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line25">line 25</a>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~ChapterImportResult">ChapterImportResult</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ingested</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Whether the particular chapter was successfully imported.
+A chapter import might fail if e.g. the chapter is too short. This does not affect the import
+of the whole book.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>An error message, if the chapter import failed</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The title of the chapter</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contentId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The ID of the Intellogo content created for the chapter</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~EpubImportResult">EpubImportResult</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>success</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Whether the import succeeded</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>log</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Raw log from the import process. Useful mainly for debugging purposes</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>importSummary</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="ImportAPI.html#~ChapterImportResult">ImportAPI~ChapterImportResult</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Status for each chapter and book
+part imported. The last one will always be the one for the whole book.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~SubtitlesImportOptions">SubtitlesImportOptions</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chunkingMode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>What chunking to apply to the imported subtitles.
+Allowed values: <code>length-based</code> or <code>timestamp-based</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chunkSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Length (in characters) of each chunk.
+<em><br>Required if <code>chunkingMode</code> is <code>length-based</code>.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timestampsFile</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The path to a file specifying timestamps on which to split
+the subtitles. This must be a text file. Every line specifies a splitting point in the captions
+in the format <code>hh:mm:ss,ms &lt;ENTRY NAME&gt;</code>. Every splitting point will create a new content chunk
+containing all captions between the previous line and this line's timestamp. <code>ENTRY NAME</code> will
+be used as title in the chunk's metadata.<br>
+For example, a timestamp file with two lines</p>
+<pre class="prettyprint source"><code>00:15:00,000 First Half
+00:30:00,000 Second Half</code></pre><p>will create two chunks from the subtitles file - one with all captions from the first 15 minutes
+and one with all captions from 00:15 until 00:30 minutes into the subtitles. If the subtitles
+file contains captions after the 30th minute, they will not be included in any chunk (although
+they will be used when importing the full content).
+<br><em>Required if <code>chunkingMode</code> is <code>timestamp-based</code>.</em></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_import-api.js.html">lib/api-groups/import-api.js</a>, <a href="lib_api-groups_import-api.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -1103,13 +2237,13 @@ detected. This array will usually have only one element.</td>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li><li><a href="UserProfilesAPI.html">UserProfilesAPI</a></li><li><a href="YoutubeChannelsAPI.html">YoutubeChannelsAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-channel.html">Working with Youtube channels</a></li><li><a href="tutorial-import-epub.html">Import E-pub</a></li><li><a href="tutorial-import-subtitles.html">Import Subtitles with chunking</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li><li><a href="tutorial-user-profile-collections.html">Get Recommendations for User Profile</a></li><li><a href="tutorial-user-profiles.html">Create User Profile</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:50:16 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 29 2017 19:27:35 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

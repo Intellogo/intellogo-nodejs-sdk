@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: utils</title>
+    <title>JSDoc: Tutorial: Get Recommendations for User Profile</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,220 +17,70 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: utils</h1>
+    <h1 class="page-title">Tutorial: Get Recommendations for User Profile</h1>
 
-    
-
-
-
-
-<section>
+    <section>
 
 <header>
     
-        
-    
+
+    <h2>Get Recommendations for User Profile</h2>
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".callbackify"><span class="type-signature">(static) </span>callbackify<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoFunction">IntellogoFunction</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Creates a wrapper for the given function that accepts a callback
-as its last parameter.
-When the new function is invoked with a callback, it will call the wrapped
-function with all provided arguments (except the callback), and will only
-execute the callback when an 'error' or an 'end' event is emitted
-The callback will be called with all collected data, or with the error.
-<br>
-If no callback is provided, the wrapper will not modify in any way
-the given function's behaviour.
-<br><i>In both cases, the returned function will still return the same value
-as the original function when called.</i></p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The function to wrap</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_util_callbackify.js.html">lib/util/callbackify.js</a>, <a href="lib_util_callbackify.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The wrapper function</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
+    <p>In this tutorial we:</p>
+<ul>
+<li>Retrieve insight combinations for a specific user profile</li>
+<li>Define smart collection items from the top combination and use them to get web article recommendations matching the profile</li>
+</ul>
+<pre class="prettyprint source"><code>const IntellogoClient = require('intellogo-sdk').IntellogoClient;
+
+var client = new IntellogoClient({
+    clientId: '&lt;clientId>',
+    clientSecret: '&lt;clientSecret>'
+});
+
+var userProfileId = '&lt;profileId>',
+    // find combinations that have between 2 and 4 insights,
+    //and match at least 5% of the profile's content entries
+    combinationsParams = {
+        combinationCategoriesMin: 2,
+        combinationCategoriesMax: 4,
+        combinationContentsMinPercent: 0.05,
+        from: 0,
+        to: 5
+    },
+    recommendationsOptions = {
+        from: 0,
+        to: 10,
+        contentFilter: {
+            sourceGroup: ['web']
+        }
+    };
+
+client.getUserProfileInsightCombinations(
+    userProfileId, combinationsParams, (error, combinations) => {
+        console.log(combinations);
+        var bestCombination = combinations[0];
+        var profileSmartCollection = bestCombination.categories.map((categoryId) => {
+            return {
+                id: categoryId,
+                min: 70,
+                max: 100
+            };
+        });
+        console.log(profileSmartCollection);
+        client.getDynamicCollectionRecommendations(
+            profileSmartCollection, recommendationsOptions, (error, recommendations) => {
+                console.log('Top ten web articles for this profile:');
+                recommendations.items.forEach((recommendation) => {
+                    console.log(recommendation.metadata.title);
+                });
+            });
+    });</code></pre>
 </article>
 
 </section>
-
-
-
 
 </div>
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Mixin: ContentAPI</title>
+    <title>JSDoc: Mixin: UserProfilesAPI</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Mixin: ContentAPI</h1>
+    <h1 class="page-title">Mixin: UserProfilesAPI</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>ContentAPI</h2>
+        <h2>UserProfilesAPI</h2>
         
     
 </header>
@@ -37,7 +37,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>A convenience class meant to group together content-related API.
+            <div class="description"><p>A convenience class meant to group together user profiles-related API.
 All availables methods should be called directly through the
 <a href="IntellogoClient.html">IntellogoClient</a> object.</p></div>
         
@@ -74,7 +74,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line75">line 75</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -110,14 +110,15 @@ All availables methods should be called directly through the
 
     
 
-    <h4 class="name" id="checkIfSourceIdsExist"><span class="type-signature"></span>checkIfSourceIdsExist<span class="signature">(source, ids, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~ContentExistenceResult">ContentAPI~ContentExistenceResult</a>>}</span></h4>
+    <h4 class="name" id="assignContentToUserProfile"><span class="type-signature"></span>assignContentToUserProfile<span class="signature">(profileId, contentsToAssign, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Checks whether the IDs for the given source exist.</p>
+    <p>Assign new content to the user profile. Previous content will remain unaffected and duplicates
+will be automatically excluded.</p>
 </div>
 
 
@@ -155,7 +156,7 @@ All availables methods should be called directly through the
 
         <tr>
             
-                <td class="name"><code>source</code></td>
+                <td class="name"><code>profileId</code></td>
             
 
             <td class="type">
@@ -179,14 +180,14 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last"><p>The content's source (e.g. Wikipedia)</p></td>
+            <td class="description last"><p>The ID of the profile to update</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>ids</code></td>
+                <td class="name"><code>contentsToAssign</code></td>
             
 
             <td class="type">
@@ -210,7 +211,7 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last"><p>List of IDs to check.</p></td>
+            <td class="description last"><p>The IDs of the new content to assign</p></td>
         </tr>
 
     
@@ -223,7 +224,7 @@ All availables methods should be called directly through the
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="ContentAPI.html#~ContentExistenceResult">ContentAPI~ContentExistenceResult</a>>></span>
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
 
 
             
@@ -284,7 +285,7 @@ All availables methods should be called directly through the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line178">line 178</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line199">line 199</a>
     </li></ul></dd>
     
 
@@ -318,7 +319,7 @@ All availables methods should be called directly through the
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~ContentExistenceResult">ContentAPI~ContentExistenceResult</a>></span>
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
 
 
     </dd>
@@ -333,18 +334,14 @@ All availables methods should be called directly through the
 
     
 
-    <h4 class="name" id="checkIfTitleAndLengthPairExist"><span class="type-signature"></span>checkIfTitleAndLengthPairExist<span class="signature">(title, length, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~TitleExistenceResult">ContentAPI~TitleExistenceResult</a>>}</span></h4>
+    <h4 class="name" id="createUserProfile"><span class="type-signature"></span>createUserProfile<span class="signature">(profileData, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Checks whether a content with the given title and the specified length
-exists in the Intellogo system. The length will be matched with a
-+/-10% tolerance, e.g. a content with content length of 2000 will be
-returned as a match when the <code>length</code> parameter is in the
-interval [1800; 2200]</p>
+    <p>Create a new user profile.</p>
 </div>
 
 
@@ -382,7 +379,200 @@ interval [1800; 2200]</p>
 
         <tr>
             
-                <td class="name"><code>title</code></td>
+                <td class="name"><code>profileData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="UserProfilesAPI.html#~ProfileData">UserProfilesAPI~ProfileData</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Metadata and content to include in the new
+user profile</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line149">line 149</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="deleteUserProfile"><span class="type-signature"></span>deleteUserProfile<span class="signature">(profileId, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Delete a user profile.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
             
 
             <td class="type">
@@ -406,38 +596,7 @@ interval [1800; 2200]</p>
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>length</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last"><p>The ID of the profile to remove.</p></td>
         </tr>
 
     
@@ -450,7 +609,7 @@ interval [1800; 2200]</p>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="ContentAPI.html#~TitleExistenceResult">ContentAPI~TitleExistenceResult</a>></span>
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
 
 
             
@@ -511,7 +670,7 @@ interval [1800; 2200]</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line222">line 222</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line238">line 238</a>
     </li></ul></dd>
     
 
@@ -545,7 +704,7 @@ interval [1800; 2200]</p>
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~TitleExistenceResult">ContentAPI~TitleExistenceResult</a>></span>
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
 
 
     </dd>
@@ -560,14 +719,14 @@ interval [1800; 2200]</p>
 
     
 
-    <h4 class="name" id="checkTitleAndAuthor"><span class="type-signature"></span>checkTitleAndAuthor<span class="signature">(title, author, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~ContentExistenceResult">ContentAPI~ContentExistenceResult</a>>}</span></h4>
+    <h4 class="name" id="getAllUserProfiles"><span class="type-signature"></span>getAllUserProfiles<span class="signature">(callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Checks whether the title-author pair exists in the Intellogo system</p>
+    <p>Return all available user profiles. The actual content from the profiles will <em>not</em> be returned.</p>
 </div>
 
 
@@ -605,7 +764,172 @@ interval [1800; 2200]</p>
 
         <tr>
             
-                <td class="name"><code>title</code></td>
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getUserProfileContent"><span class="type-signature"></span>getUserProfileContent<span class="signature">(profileId, options<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;(<a href="UserProfilesAPI.html#~ProfileContent">UserProfilesAPI~ProfileContent</a>|String)>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieves the content from a reading profile, sorted in ascending order by title.
+Supports pagination and optional full metadata for the content.<br>
+If <code>options.metadata</code> is false, only the IDs of the profile contents will be returned (as
+strings). Otherwise, <a href="UserProfilesAPI.html#~ProfileContent">UserProfilesAPI~ProfileContent</a> objects with full metadata will be
+returned.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
             
 
             <td class="type">
@@ -629,1226 +953,7 @@ interval [1800; 2200]</p>
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>author</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="ContentAPI.html#~ContentExistenceResult">ContentAPI~ContentExistenceResult</a>></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line198">line 198</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~ContentExistenceResult">ContentAPI~ContentExistenceResult</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getAllContentsMetadataByContentIds"><span class="type-signature"></span>getAllContentsMetadataByContentIds<span class="signature">(contentIds, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Retrieve specified contents with metadata.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>contentIds</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;String></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The IDs of the content to retrieve</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line107">line 107</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getContentById"><span class="type-signature"></span>getContentById<span class="signature">(id, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Retrieve content by id without metadata</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The ID of the content to retrieve</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line95">line 95</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getContentsBySource"><span class="type-signature"></span>getContentsBySource<span class="signature">(source, sourceIds<span class="signature-attributes">opt</span>, titles<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Retrieves content from the given source that matches the
-specified criteria.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>source</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sourceIds</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;String></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>titles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;String></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line157">line 157</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getContentSources"><span class="type-signature"></span>getContentSources<span class="signature">(callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;String>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Get a list of all content sources</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;String>></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line83">line 83</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;String></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getContentTree"><span class="type-signature"></span>getContentTree<span class="signature">(contentId, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~ContentWithChildren">ContentAPI~ContentWithChildren</a>>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Retrieve content hierarchy for a top-level content.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>contentId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The ID of the top-level content</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="ContentAPI.html#~ContentWithChildren">ContentAPI~ContentWithChildren</a>></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line282">line 282</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~ContentWithChildren">ContentAPI~ContentWithChildren</a>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="searchContent"><span class="type-signature"></span>searchContent<span class="signature">(searchTerm, options<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Retrieve all content items matching specified criteria.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>searchTerm</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>A search word or expression that the content must match</p></td>
+            <td class="description last"><p>The ID of the profile.</p></td>
         </tr>
 
     
@@ -1861,7 +966,7 @@ specified criteria.</p>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ContentRetrievalOptions">ContentRetrievalOptions</a></span>
+<span class="param-type"><a href="UserProfilesAPI.html#~ContentRetrievalOptions">UserProfilesAPI~ContentRetrievalOptions</a></span>
 
 
             
@@ -1881,8 +986,7 @@ specified criteria.</p>
 
             
 
-            <td class="description last"><p>A filter to apply to the results.
-Also supports pagination.</p></td>
+            <td class="description last"><p>Content retrieval options</p></td>
         </tr>
 
     
@@ -1895,7 +999,7 @@ Also supports pagination.</p></td>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>></span>
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;(<a href="UserProfilesAPI.html#~ProfileContent">UserProfilesAPI~ProfileContent</a>|String)>></span>
 
 
             
@@ -1956,7 +1060,7 @@ Also supports pagination.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line132">line 132</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -1990,7 +1094,7 @@ Also supports pagination.</p></td>
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;(<a href="UserProfilesAPI.html#~ProfileContent">UserProfilesAPI~ProfileContent</a>|String)></span>
 
 
     </dd>
@@ -2005,16 +1109,20 @@ Also supports pagination.</p></td>
 
     
 
-    <h4 class="name" id="searchTopLevelContent"><span class="type-signature"></span>searchTopLevelContent<span class="signature">(searchTerm, options<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>}</span></h4>
+    <h4 class="name" id="getUserProfileInsightCombinations"><span class="type-signature"></span>getUserProfileInsightCombinations<span class="signature">(profileId, options, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~ProfileCombination">UserProfilesAPI~ProfileCombination</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Retrieve all top-level content items matching specified criteria.<br>
-This method provides the same interface as <a href="ContentAPI.html#searchContent">ContentAPI#searchContent</a>, but for searching
-only for top-level items.</p>
+    <p>Retrieve combinations of insights matching the user profile. These combinations can be used
+to create smart collections relevant to the user profile.<br>
+Each combination constists of two or more insights that matched enough of the profile's content.
+Results are sorted by the number of profile content matched (descending). Typically there are
+many relevant insight combinations, so it is advised to use the pagination parameters.<br>
+<em>Note: This method will return results only if the user profile has <code>autoupdateCombinations</code> set
+to <code>true</code> and a profile update task has finished since the last profile update.</em></p>
 </div>
 
 
@@ -2052,7 +1160,7 @@ only for top-level items.</p>
 
         <tr>
             
-                <td class="name"><code>searchTerm</code></td>
+                <td class="name"><code>profileId</code></td>
             
 
             <td class="type">
@@ -2076,7 +1184,7 @@ only for top-level items.</p>
 
             
 
-            <td class="description last"><p>A search word or expression that the content must match</p></td>
+            <td class="description last"><p>The ID of the profile</p></td>
         </tr>
 
     
@@ -2089,7 +1197,7 @@ only for top-level items.</p>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#ContentRetrievalOptions">ContentRetrievalOptions</a></span>
+<span class="param-type"><a href="UserProfilesAPI.html#~CombinationOptions">UserProfilesAPI~CombinationOptions</a></span>
 
 
             
@@ -2097,8 +1205,6 @@ only for top-level items.</p>
 
             
                 <td class="attributes">
-                
-                    &lt;optional><br>
                 
 
                 
@@ -2109,8 +1215,7 @@ only for top-level items.</p>
 
             
 
-            <td class="description last"><p>A filter to apply to the results.
-Also supports pagination.</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -2123,7 +1228,7 @@ Also supports pagination.</p></td>
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>>></span>
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="UserProfilesAPI.html#~ProfileCombination">UserProfilesAPI~ProfileCombination</a>>></span>
 
 
             
@@ -2184,7 +1289,7 @@ Also supports pagination.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line259">line 259</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line273">line 273</a>
     </li></ul></dd>
     
 
@@ -2218,7 +1323,840 @@ Also supports pagination.</p></td>
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~ProfileCombination">UserProfilesAPI~ProfileCombination</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getUserProfileMetadata"><span class="type-signature"></span>getUserProfileMetadata<span class="signature">(profileId, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve metadata for a specific user profile.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>ID of the profile</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="UserProfilesAPI.html#~UserProfile">UserProfilesAPI~UserProfile</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getUserProfileSize"><span class="type-signature"></span>getUserProfileSize<span class="signature">(profileId, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;Number>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Return the total number of content in the user profile's definition.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The ID of the profile.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Number></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line135">line 135</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;Number></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="unassignContentFromUserProfile"><span class="type-signature"></span>unassignContentFromUserProfile<span class="signature">(profileId, contentsToUnassign, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Remove content from the user profile.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The ID of the profile to update</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contentsToUnassign</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The IDs of the content to remove from the profile</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateUserProfile"><span class="type-signature"></span>updateUserProfile<span class="signature">(profileId, The, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Update a user's profile. Missing fields will not be changed.<br>
+If <code>profileData.contents</code> is provided, it will replace all content currently assigned to the
+profile. If you want to assign additional content, use
+UserProfilesAPI#assignContentToProfile</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The ID of the profile to udpate</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="UserProfilesAPI.html#~ProfileData">UserProfilesAPI~ProfileData</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>updated profile properties.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line178">line 178</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="global.html#SuccessResponse">SuccessResponse</a>></span>
 
 
     </dd>
@@ -2236,13 +2174,616 @@ Also supports pagination.</p></td>
 
         
                 
-<h4 class="name" id="~Content">Content</h4>
+<h4 class="name" id="~CombinationOptions">CombinationOptions</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>combinationCategoriesMin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The minimum number of insights in a combination
+(Only combinations containing at least this number of insights will be returned.)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>combinationCategoriesMax</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The maximum number of insights in a combination.
+(Only combinations containing at most this number of insights will be returned.)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>combinationContentsMinCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The minimum number of content that a combination
+must match. <em>Applied only when <code>combinationContentsMinPercent</code> is
+<strong>NOT</strong> specified.</em></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>combinationContentsMinPercent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Acts like <code>combinationContentsMinCount</code>, but
+instead of setting a number of content, specifies what <b>percentage</b> of the profile's
+content must be matched by each returned combination</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tags</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Filter returned combinations by tags.<br>
+A combination matches a tag if at least one of the combination's insights has that tag.<br>
+Only combinations that match <b>all</b> specified tags will be returned</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>from</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Start of range. Used for pagination</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>to</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>End of range.Used for pagination</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~ContentRetrievalOptions">ContentRetrievalOptions</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>from</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Start of range. Use for pagination of results.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>to</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>End of range. Use for pagination of results.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>metadata</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Whether to return the metadata for the profile's content
+or just the profile content ids.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line27">line 27</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~ProfileCombination">ProfileCombination</h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>categories</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>IDs of the insights in this combination</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>contents</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>IDs of the content that the combination matched. Can be used to
+understand why the insights in the combination were chosen.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tags</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The tags of the combination, i.e. the union of the tags of all
+insights in the combination</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~ProfileContent">ProfileContent</h4>
 
 
 
 
 <div class="description">
-    <p>An Intellogo content item.</p>
+    <p>A content that is a part of a user profile.
+Differs from <a href="ContentAPI.html#~Content">ContentAPI~Content</a> only by the name of the property containing the
+content's ID.</p>
 </div>
 
 
@@ -2287,7 +2828,7 @@ Also supports pagination.</p></td>
 
         <tr>
             
-                <td class="name"><code>contentId</code></td>
+                <td class="name"><code>_id</code></td>
             
 
             <td class="type">
@@ -2365,7 +2906,7 @@ Also supports pagination.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line30">line 30</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -2383,7 +2924,7 @@ Also supports pagination.</p></td>
 
             
                 
-<h4 class="name" id="~ContentExistenceResult">ContentExistenceResult</h4>
+<h4 class="name" id="~ProfileData">ProfileData</h4>
 
 
 
@@ -2418,8 +2959,6 @@ Also supports pagination.</p></td>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -2432,36 +2971,7 @@ Also supports pagination.</p></td>
 
         <tr>
             
-                <td class="name"><code>exists</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>contentId</code></td>
+                <td class="name"><code>clientReference</code></td>
             
 
             <td class="type">
@@ -2474,811 +2984,65 @@ Also supports pagination.</p></td>
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>A descriptive name of the profile</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>source</code></td>
+                <td class="name"><code>autoupdateCategory</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Boolean</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Whether the profile insight should be auto-updated
+(i.e. should content recommendations be updated regularly)</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>sourceId</code></td>
+                <td class="name"><code>autoupdateCombinations</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Boolean</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line61">line 61</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id="~ContentIdentifier">ContentIdentifier</h4>
-
-
-
-
-<div class="description">
-    <p>An object identifying a single content item. A content can be identified
-either by its <i>contentId</i> or by the pair <i>&lt;source, sourceId&gt;</i></p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>contentId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The ID of a content</p></td>
+            <td class="description last"><p>Whether the relevant smart collections for the
+profile should be auto-updated</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>source</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The source of the item</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sourceId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-|
-
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The sourceId</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line46">line 46</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id="~ContentMetadata">ContentMetadata</h4>
-
-
-
-
-<div class="description">
-    <p>Content Metadata. It may contain more keys than the specified here.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>title</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>author</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>source</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The origin of the content</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sourceId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-|
-
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The ID of the content
-that identifies it in its source</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>ingestionTime</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The time at which the content was
-added to the Intellogo system (a timestamp in seconds).</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>summary</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>textStats</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Contains information about some text
-characteristics of the content</p>
-                <h6>Properties</h6>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>fleschReadingEase</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p><a src="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability
-_tests#Flesch_reading_ease">Flesch Reading Ease</a> score of the content</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>avgReadingTime</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Average reading
-time (in seconds)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keywords</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;String></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Keywords describing the
-content</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>namedEntities</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Named entities in the content
-that reference DBPedia resources</p>
-                <h6>Properties</h6>
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>entity</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The text that matched a resource</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>uri</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The DBPedia URI of the resource</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>types</code></td>
+                <td class="name"><code>contents</code></td>
             
 
             <td class="type">
@@ -3294,21 +3058,7 @@ that reference DBPedia resources</p>
 
             
 
-            <td class="description last"><p>Entity type (e.g. Person, Place)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last"><p>An array containing all of this profile's content</p></td>
         </tr>
 
     
@@ -3347,7 +3097,7 @@ that reference DBPedia resources</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line3">line 3</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -3365,15 +3115,10 @@ that reference DBPedia resources</p>
 
             
                 
-<h4 class="name" id="~ContentWithChildren">ContentWithChildren</h4>
+<h4 class="name" id="~UserProfile">UserProfile</h4>
 
 
 
-
-<div class="description">
-    <p>An Intellogo content item with populated children. Used for representing hierarchy for a
-top-level content.</p>
-</div>
 
 
 
@@ -3419,7 +3164,7 @@ top-level content.</p>
 
         <tr>
             
-                <td class="name"><code>contentId</code></td>
+                <td class="name"><code>_id</code></td>
             
 
             <td class="type">
@@ -3441,20 +3186,20 @@ top-level content.</p>
 
             
 
-            <td class="description last"><p>The ID of the content</p></td>
+            <td class="description last"><p>The ID of the user profile</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>metadata</code></td>
+                <td class="name"><code>clientReference</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="ContentAPI.html#~ContentMetadata">ContentAPI~ContentMetadata</a></span>
+<span class="param-type">String</span>
 
 
             
@@ -3470,20 +3215,20 @@ top-level content.</p>
 
             
 
-            <td class="description last"><p>Content metadata</p></td>
+            <td class="description last"><p>A descriptive name of the profile</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>children</code></td>
+                <td class="name"><code>categoryId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;<a href="ContentAPI.html#~ContentWithChildren">ContentAPI~ContentWithChildren</a>></span>
+<span class="param-type">String</span>
 
 
             
@@ -3501,7 +3246,69 @@ top-level content.</p>
 
             
 
-            <td class="description last"><p>Child entities, if any</p></td>
+            <td class="description last"><p>The insight ID of the insight generated from this profile.
+Can be used to get recommendations for the profile. This field is system-maintained and cannot
+be changed through the API.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>autoupdateCategory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Whether the profile insight should be auto-updated
+(i.e. should content recommendations be updated regularly)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>autoupdateCombinations</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Whether the relevant smart collections for the
+profile should be auto-updated</p></td>
         </tr>
 
     
@@ -3540,150 +3347,7 @@ top-level content.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line37">line 37</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id="~TitleExistenceResult">TitleExistenceResult</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>exists</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>existingContents</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="ContentAPI.html#~Content">ContentAPI~Content</a>></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_content-api.js.html">lib/api-groups/content-api.js</a>, <a href="lib_api-groups_content-api.js.html#line55">line 55</a>
+        <a href="lib_api-groups_user-profiles-api.js.html">lib/api-groups/user-profiles-api.js</a>, <a href="lib_api-groups_user-profiles-api.js.html#line5">line 5</a>
     </li></ul></dd>
     
 

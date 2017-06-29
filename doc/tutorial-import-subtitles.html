@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: utils</title>
+    <title>JSDoc: Tutorial: Import Subtitles with chunking</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,220 +17,73 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: utils</h1>
+    <h1 class="page-title">Tutorial: Import Subtitles with chunking</h1>
 
-    
-
-
-
-
-<section>
+    <section>
 
 <header>
     
-        
-    
+
+    <h2>Import Subtitles with chunking</h2>
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".callbackify"><span class="type-signature">(static) </span>callbackify<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoFunction">IntellogoFunction</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Creates a wrapper for the given function that accepts a callback
-as its last parameter.
-When the new function is invoked with a callback, it will call the wrapped
-function with all provided arguments (except the callback), and will only
-execute the callback when an 'error' or an 'end' event is emitted
-The callback will be called with all collected data, or with the error.
-<br>
-If no callback is provided, the wrapper will not modify in any way
-the given function's behaviour.
-<br><i>In both cases, the returned function will still return the same value
-as the original function when called.</i></p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The function to wrap</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_util_callbackify.js.html">lib/util/callbackify.js</a>, <a href="lib_util_callbackify.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The wrapper function</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
+    <p>This tutorial shows how to:</p>
+<ul>
+<li>import a .srt file, splitting it into chunks of equal size</li>
+<li>retrieve the metadata of all chunks for the imported subtitles</li>
+</ul>
+<pre class="prettyprint source"><code>const IntellogoClient = require('intellogo-sdk').IntellogoClient;
+
+var client = new IntellogoClient({
+    clientId: '&lt;clientId>',
+    clientSecret: '&lt;clientSecret>'
+});
+
+var subtitlesPath = '/path/to/srt/sample.srt',
+    metadata = {
+        source: 'Sample Source',
+        sourceId: 'sample_srt',
+        title: 'Sample Chunked Title',
+        author: 'Sample Author'
+    },
+    chunkingOptions = {
+        chunkingMode: 'length-based',
+        chunkSize: 3000
+    };
+
+client.importSubtitles(subtitlesPath, metadata, chunkingOptions, (error, importResult) => {
+    if (error) {
+        console.error('error importing', subtitlesPath, error);
+        return;
+    }
+    if (importResult.error) {
+        if (!importResult.existingIds) {
+            console.error('error importing ', subtitlesPath, importResult.error);
+            return;
+        } else {
+            // content already exists
+            console.log('Existing content: id', importResult.existingIds[0]);
+        }
+    } else {
+        console.log('Successful import');
+    }
+
+    var importedId = importResult.id || importResult.existingIds[0];
+    // retrieve child content
+    client.getContentTree(importedId, (error, contentTree) => {
+        if (error) {
+            console.error('error retrieving child content: ', error);
+            return;
+        }
+        contentTree.children.forEach((child) => {
+            console.log('Child ', child.metadata.title, ' at index ', child.metadata.index);
+        });
+    });
+});</code></pre>
 </article>
 
 </section>
-
-
-
 
 </div>
 

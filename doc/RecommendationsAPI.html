@@ -37,9 +37,9 @@
     <div class="container-overview">
     
         
-            <div class="description">A convenience class meant to group together recommendations-related API.
+            <div class="description"><p>A convenience class meant to group together recommendations-related API.
 All availables methods should be called directly through the
-<a href="IntellogoClient.html">IntellogoClient</a> object.</div>
+<a href="IntellogoClient.html">IntellogoClient</a> object.</p></div>
         
 
         
@@ -117,7 +117,7 @@ All availables methods should be called directly through the
 
 
 <div class="description">
-    Retrieve recommendations for a content
+    <p>Retrieve recommendations for a content</p>
 </div>
 
 
@@ -179,7 +179,7 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last">the ID of the content</td>
+            <td class="description last"><p>the ID of the content</p></td>
         </tr>
 
     
@@ -212,8 +212,8 @@ All availables methods should be called directly through the
 
             
 
-            <td class="description last">used to filter the results,
-to get pagination, and/or to disable full metadata retrieval</td>
+            <td class="description last"><p>used to filter the results,
+to get pagination, and/or to disable full metadata retrieval</p></td>
         </tr>
 
     
@@ -246,8 +246,8 @@ to get pagination, and/or to disable full metadata retrieval</td>
 
             
 
-            <td class="description last">Specifies whether to return details for recent
-task for the same contentId.</td>
+            <td class="description last"><p>Specifies whether to return details for recent
+task for the same contentId.</p></td>
         </tr>
 
     
@@ -321,7 +321,7 @@ task for the same contentId.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line115">line 115</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line138">line 138</a>
     </li></ul></dd>
     
 
@@ -377,7 +377,7 @@ task for the same contentId.</td>
 
 
 <div class="description">
-    Retrieve recommendation for the specified combination of insights.
+    <p>Retrieve recommendation for the specified combination of insights.</p>
 </div>
 
 
@@ -470,7 +470,7 @@ task for the same contentId.</td>
 
             
 
-            <td class="description last">used to filter the results and to get pagination, if necessary</td>
+            <td class="description last"><p>used to filter the results and to get pagination, if necessary</p></td>
         </tr>
 
     
@@ -544,7 +544,7 @@ task for the same contentId.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line160">line 160</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -600,7 +600,7 @@ task for the same contentId.</td>
 
 
 <div class="description">
-    Retrieve recommendations for an insight
+    <p>Retrieve recommendations for an insight</p>
 </div>
 
 
@@ -662,7 +662,7 @@ task for the same contentId.</td>
 
             
 
-            <td class="description last">the ID of the insight</td>
+            <td class="description last"><p>the ID of the insight</p></td>
         </tr>
 
     
@@ -693,8 +693,8 @@ task for the same contentId.</td>
 
             
 
-            <td class="description last">used to filter the results, to get pagination,
-and/or to disable full metadata retrieval</td>
+            <td class="description last"><p>used to filter the results, to get pagination,
+and/or to disable full metadata retrieval</p></td>
         </tr>
 
     
@@ -824,9 +824,9 @@ and/or to disable full metadata retrieval</td>
 
 
 <div class="description">
-    Retrieve all insights for which the given content has a score in the specified range.
+    <p>Retrieve all insights for which the given content has a score in the specified range.
 This can be used to see the most prominent insights for an article. <br>
-Insights are returned in a sorted order, highest scores first.
+Insights are returned in a sorted order, highest scores first.</p>
 </div>
 
 
@@ -888,8 +888,8 @@ Insights are returned in a sorted order, highest scores first.
 
             
 
-            <td class="description last">The content for which to return
-insights</td>
+            <td class="description last"><p>The content for which to return
+insights</p></td>
         </tr>
 
     
@@ -920,8 +920,8 @@ insights</td>
 
             
 
-            <td class="description last">Options to apply.
-Supports pagination, score range and a production-ready filter.</td>
+            <td class="description last"><p>Options to apply.
+Supports pagination, score range and a production-ready filter.</p></td>
         </tr>
 
     
@@ -995,7 +995,7 @@ Supports pagination, score range and a production-ready filter.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line186">line 186</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line209">line 209</a>
     </li></ul></dd>
     
 
@@ -1044,6 +1044,233 @@ Supports pagination, score range and a production-ready filter.</td>
 
     
 
+    <h4 class="name" id="getProfileRecommendations"><span class="type-signature"></span>getProfileRecommendations<span class="signature">(profileId, options, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;Array.&lt;<a href="RecommendationsAPI.html#~Recommendation">RecommendationsAPI~Recommendation</a>>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve recommendations for a user profile.
+<br><em>Note: This method will return results only if
+the user profile has <code>autoupdateCategory</code> set to <code>true</code> and a profile update task has
+finished since the last profile update.</em></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>the ID of the profile</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ContentRetrievalOptions">ContentRetrievalOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>used to filter the results, to get pagination,
+and/or to disable full metadata retrieval</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;Array.&lt;<a href="RecommendationsAPI.html#~Recommendation">RecommendationsAPI~Recommendation</a>>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;Array.&lt;<a href="RecommendationsAPI.html#~Recommendation">RecommendationsAPI~Recommendation</a>>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="getSmartCollectionRecommendations"><span class="type-signature"></span>getSmartCollectionRecommendations<span class="signature">(smartCollectionId, options, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="RecommendationsAPI.html#~SmartCollectionResult">RecommendationsAPI~SmartCollectionResult</a>>}</span></h4>
 
     
@@ -1051,7 +1278,7 @@ Supports pagination, score range and a production-ready filter.</td>
 
 
 <div class="description">
-    Retrieve recommendations for the specified smart collection.
+    <p>Retrieve recommendations for the specified smart collection.</p>
 </div>
 
 
@@ -1113,7 +1340,7 @@ Supports pagination, score range and a production-ready filter.</td>
 
             
 
-            <td class="description last">the ID of the smart collection</td>
+            <td class="description last"><p>the ID of the smart collection</p></td>
         </tr>
 
     
@@ -1144,7 +1371,7 @@ Supports pagination, score range and a production-ready filter.</td>
 
             
 
-            <td class="description last">used to filter the results and to get pagination, if necessary</td>
+            <td class="description last"><p>used to filter the results and to get pagination, if necessary</p></td>
         </tr>
 
     
@@ -1218,7 +1445,7 @@ Supports pagination, score range and a production-ready filter.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line141">line 141</a>
+        <a href="lib_api-groups_recommendations-api.js.html">lib/api-groups/recommendations-api.js</a>, <a href="lib_api-groups_recommendations-api.js.html#line164">line 164</a>
     </li></ul></dd>
     
 
@@ -1333,7 +1560,7 @@ Supports pagination, score range and a production-ready filter.</td>
 
             
 
-            <td class="description last">Start of the results range (used for pagination).</td>
+            <td class="description last"><p>Start of the results range (used for pagination).</p></td>
         </tr>
 
     
@@ -1356,7 +1583,7 @@ Supports pagination, score range and a production-ready filter.</td>
 
             
 
-            <td class="description last">End of the results range (used for pagination).</td>
+            <td class="description last"><p>End of the results range (used for pagination).</p></td>
         </tr>
 
     
@@ -1379,8 +1606,8 @@ Supports pagination, score range and a production-ready filter.</td>
 
             
 
-            <td class="description last">The minimum score of the content against an insight. Insights with
-lower scores against this content will *not* be returned.</td>
+            <td class="description last"><p>The minimum score of the content against an insight. Insights with
+lower scores against this content will <em>not</em> be returned.</p></td>
         </tr>
 
     
@@ -1403,8 +1630,8 @@ lower scores against this content will *not* be returned.</td>
 
             
 
-            <td class="description last">The maximum score of the content against an insight. Insights with
-higher scores against this content will *not* be returned.</td>
+            <td class="description last"><p>The maximum score of the content against an insight. Insights with
+higher scores against this content will <em>not</em> be returned.</p></td>
         </tr>
 
     
@@ -1427,7 +1654,7 @@ higher scores against this content will *not* be returned.</td>
 
             
 
-            <td class="description last">Whether to return only production-ready insights.</td>
+            <td class="description last"><p>Whether to return only production-ready insights.</p></td>
         </tr>
 
     
@@ -1547,7 +1774,7 @@ higher scores against this content will *not* be returned.</td>
 
             
 
-            <td class="description last">The insight description</td>
+            <td class="description last"><p>The insight description</p></td>
         </tr>
 
     
@@ -1570,7 +1797,7 @@ higher scores against this content will *not* be returned.</td>
 
             
 
-            <td class="description last">The score of the given content against this insight</td>
+            <td class="description last"><p>The score of the given content against this insight</p></td>
         </tr>
 
     
@@ -1698,8 +1925,8 @@ higher scores against this content will *not* be returned.</td>
 
             
 
-            <td class="description last">The actual recommendations for
-the content</td>
+            <td class="description last"><p>The actual recommendations for
+the content</p></td>
         </tr>
 
     
@@ -1730,7 +1957,7 @@ the content</td>
 
             
 
-            <td class="description last">Information about the last initiated task for this content, if any
+            <td class="description last"><p>Information about the last initiated task for this content, if any</p>
                 <h6>Properties</h6>
 
 <table class="props">
@@ -1771,7 +1998,7 @@ the content</td>
 
             
 
-            <td class="description last">The ID of the task</td>
+            <td class="description last"><p>The ID of the task</p></td>
         </tr>
 
     
@@ -1794,7 +2021,7 @@ the content</td>
 
             
 
-            <td class="description last">The status of the task</td>
+            <td class="description last"><p>The status of the task</p></td>
         </tr>
 
     
@@ -1832,7 +2059,7 @@ the content</td>
 
             
 
-            <td class="description last">Information about the last completed tasks for this content.
+            <td class="description last"><p>Information about the last completed tasks for this content.</p>
                 <h6>Properties</h6>
 
 <table class="props">
@@ -1873,7 +2100,7 @@ the content</td>
 
             
 
-            <td class="description last">The ID of the task.</td>
+            <td class="description last"><p>The ID of the task.</p></td>
         </tr>
 
     
@@ -1896,7 +2123,7 @@ the content</td>
 
             
 
-            <td class="description last">The status of the task.</td>
+            <td class="description last"><p>The status of the task.</p></td>
         </tr>
 
     
@@ -1919,7 +2146,7 @@ the content</td>
 
             
 
-            <td class="description last">Timestamp (in ms) when the task was initiated.</td>
+            <td class="description last"><p>Timestamp (in ms) when the task was initiated.</p></td>
         </tr>
 
     
@@ -1942,10 +2169,10 @@ the content</td>
 
             
 
-            <td class="description last">What content filters were used when initiating
+            <td class="description last"><p>What content filters were used when initiating
 the given task. If any source groups were specified on task initiation, here they will be in an
 expanded form (so there will be a list of all sources the source group includes instead of just
-the name of the source group).</td>
+the name of the source group).</p></td>
         </tr>
 
     
@@ -2080,7 +2307,7 @@ the name of the source group).</td>
 
             
 
-            <td class="description last">The ID of the recommended content</td>
+            <td class="description last"><p>The ID of the recommended content</p></td>
         </tr>
 
     
@@ -2109,7 +2336,7 @@ the name of the source group).</td>
 
             
 
-            <td class="description last">The metadata of the recommended content</td>
+            <td class="description last"><p>The metadata of the recommended content</p></td>
         </tr>
 
     
@@ -2140,7 +2367,7 @@ the name of the source group).</td>
 
             
 
-            <td class="description last">The score of the content (in the range [0,1])</td>
+            <td class="description last"><p>The score of the content (in the range [0,1])</p></td>
         </tr>
 
     
@@ -2268,7 +2495,7 @@ the name of the source group).</td>
 
             
 
-            <td class="description last">The ID of the recommended content</td>
+            <td class="description last"><p>The ID of the recommended content</p></td>
         </tr>
 
     
@@ -2297,7 +2524,7 @@ the name of the source group).</td>
 
             
 
-            <td class="description last">The metadata of the recommended content</td>
+            <td class="description last"><p>The metadata of the recommended content</p></td>
         </tr>
 
     
@@ -2328,8 +2555,8 @@ the name of the source group).</td>
 
             
 
-            <td class="description last">The scores of the content
-(in the range [0,1]) in each of the smart collection's insights</td>
+            <td class="description last"><p>The scores of the content
+(in the range [0,1]) in each of the smart collection's insights</p></td>
         </tr>
 
     
@@ -2449,7 +2676,7 @@ the name of the source group).</td>
 
             
 
-            <td class="description last">The recommended content items</td>
+            <td class="description last"><p>The recommended content items</p></td>
         </tr>
 
     
@@ -2518,13 +2745,13 @@ the name of the source group).</td>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li><li><a href="module-web-bridge.html">web-bridge</a></li></ul><h3>Classes</h3><ul><li><a href="IntellogoClient.html">IntellogoClient</a></li><li><a href="module-web-bridge-WebBridge.html">WebBridge</a></li><li><a href="NotificationsWebService.html">NotificationsWebService</a></li></ul><h3>Mixins</h3><ul><li><a href="ContentAPI.html">ContentAPI</a></li><li><a href="ImportAPI.html">ImportAPI</a></li><li><a href="InsightsAPI.html">InsightsAPI</a></li><li><a href="RecommendationsAPI.html">RecommendationsAPI</a></li><li><a href="SmartCollectionsAPI.html">SmartCollectionsAPI</a></li><li><a href="TrainingAPI.html">TrainingAPI</a></li><li><a href="UserProfilesAPI.html">UserProfilesAPI</a></li><li><a href="YoutubeChannelsAPI.html">YoutubeChannelsAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-check-recent-tasks.html">See recent tasks for content recommendations</a></li><li><a href="tutorial-content-insight-matches.html">Get insights matching a content</a></li><li><a href="tutorial-dynamic-insight-recommendations.html">Dynamic Insight Recommendations</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-import-channel.html">Working with Youtube channels</a></li><li><a href="tutorial-import-epub.html">Import E-pub</a></li><li><a href="tutorial-import-subtitles.html">Import Subtitles with chunking</a></li><li><a href="tutorial-import-with-cvc.html">Get Recommendations for New Article</a></li><li><a href="tutorial-notifications-service.html">Notifications Service Usage</a></li><li><a href="tutorial-poll-intermediary-results.html">Polling for Content Recommendations</a></li><li><a href="tutorial-user-profile-collections.html">Get Recommendations for User Profile</a></li><li><a href="tutorial-user-profiles.html">Create User Profile</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:50:16 GMT+0300 (EEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Jun 29 2017 19:27:35 GMT+0300 (EEST)
 </footer>
 
 <script> prettyPrint(); </script>

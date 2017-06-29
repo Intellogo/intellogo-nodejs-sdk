@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: utils</title>
+    <title>JSDoc: Tutorial: Working with Youtube channels</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,220 +17,54 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: utils</h1>
+    <h1 class="page-title">Tutorial: Working with Youtube channels</h1>
 
-    
-
-
-
-
-<section>
+    <section>
 
 <header>
     
-        
-    
+
+    <h2>Working with Youtube channels</h2>
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".callbackify"><span class="type-signature">(static) </span>callbackify<span class="signature">(fn)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoFunction">IntellogoFunction</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Creates a wrapper for the given function that accepts a callback
-as its last parameter.
-When the new function is invoked with a callback, it will call the wrapped
-function with all provided arguments (except the callback), and will only
-execute the callback when an 'error' or an 'end' event is emitted
-The callback will be called with all collected data, or with the error.
-<br>
-If no callback is provided, the wrapper will not modify in any way
-the given function's behaviour.
-<br><i>In both cases, the returned function will still return the same value
-as the original function when called.</i></p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>fn</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The function to wrap</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_util_callbackify.js.html">lib/util/callbackify.js</a>, <a href="lib_util_callbackify.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The wrapper function</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#IntellogoFunction">IntellogoFunction</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
+    <p>var IntellogoClient = require('intellogo-sdk').IntellogoClient;</p>
+<p>var client = new IntellogoClient({
+    clientId: '<clientId>',
+    clientSecret: '<clientSecret>'
+});</p>
+<p>var channelId = 'UCA4GegKl9TRP1j6hY3TJo9w',
+    channelUrl = 'https://www.youtube.com/channel/' + channelId,
+    importOptions = {
+        autoSub: true, // use Youtube's auto-generated captions if there are no user-uploaded
+        refreshAll: true, // import all videos from the channel, not just recent ones
+        enableCaptionsChunking: false
+    },
+    retrievalOptions = {
+        contentFilter: {
+            source: 'Youtube',
+            channelId: channelId
+        }
+    };</p>
+<p>client.importChannel(channelUrl, importOptions, (error, result) =&gt; {
+    if (error) {
+        console.error('Error importing channel: ', error);
+        return;
+    }
+    console.log('channel import result: ', result);
+    client.searchContent('', /<em> no search term, we'll be looking for all imported videos </em>/
+                         retrievalOptions,
+                         (error, results) =&gt; {
+                             if (error) {
+                                 console.error('Error retrieving imported videos: ', error);
+                                 return;
+                             }
+                             console.log('Imported videos: ', results);
+                         });
+});</p>
 </article>
 
 </section>
-
-
-
 
 </div>
 

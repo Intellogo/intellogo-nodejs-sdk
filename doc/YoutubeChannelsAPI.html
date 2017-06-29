@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Mixin: YoutubeChannelsAPI</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Mixin: YoutubeChannelsAPI</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2></h2>
+        <h2>YoutubeChannelsAPI</h2>
         
     
 </header>
@@ -36,6 +36,10 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description"><p>A convenience class meant to group together youtube channels-related API.
+All availables methods should be called directly through the
+<a href="IntellogoClient.html">IntellogoClient</a> object.</p></div>
         
 
         
@@ -67,6 +71,11 @@
 
     
 
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_youtube-channels-api.js.html">lib/api-groups/youtube-channels-api.js</a>, <a href="lib_api-groups_youtube-channels-api.js.html#line38">line 38</a>
+    </li></ul></dd>
     
 
     
@@ -94,460 +103,21 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Methods</h3>
 
         
-                
-<h4 class="name" id="ContentFilter">ContentFilter</h4>
-
-
-
-
-<div class="description">
-    <p>Describes a content filter.
-The commonly used filters are documented below. You can add custom key-value
-pairs to this object. In that case, the system will try to find content
-that has exactly matching metadata. Such queries might be slower and/or
-return no results, so use this feature with caution. <br>
-<i>Do not specify <b>source</b> and <b>sourceGroup</b> at the same time</p>
-<ul>
-<li>one of them will be overwritten!</i></li>
-</ul>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
             
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
 
     
 
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>source</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;String></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>only match content from these sources</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sourceGroup</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;String></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>only match content from these
-source groups. Supported source groups are 'wikipedia', 'web', and 'books'</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>acquisitionDate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>A timestamp (measured in seconds).
-If specified, only content newer than this will be matched</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id="ContentRetrievalOptions">ContentRetrievalOptions</h4>
-
-
-
-
-<div class="description">
-    <p>Options that can be passed to the recommendations retrieval methods.
-Pagination is supported through the from/to parameters.</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>from</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Start index of the results</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>to</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>End index of the results</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>contentFilter</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ContentFilter">ContentFilter</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Filters to apply to the results</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fullMetadata</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Whether to retrieve the full metadata for the
-recommendations. If <code>false</code>, only partial metadata will be returned
-(source and sourceId will be present, but not the title or summary).</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line42">line 42</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-
-    
-
-    <h4 class="name" id="IntellogoCallback"><span class="type-signature"></span>IntellogoCallback<span class="signature">(error, result)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getImportedChannels"><span class="type-signature"></span>getImportedChannels<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="YoutubeChannelsAPI.html#~Channel">YoutubeChannelsAPI~Channel</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Defines a callback function that will be called when an operation completes
-successfully, or fails with some error. The result will be of type &lt;DataType&gt;</p>
+    <p>Retrieve information about all Youtube channels imported in Intellogo's system.</p>
 </div>
 
 
@@ -583,15 +153,10 @@ successfully, or fails with some error. The result will be of type &lt;DataType&
 
         <tr>
             
-                <td class="name"><code>error</code></td>
+                <td class="name"><code>{IntellogoCallback.<YoutubeChannelsAPI~Channel[]></code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
             
             </td>
 
@@ -599,31 +164,7 @@ successfully, or fails with some error. The result will be of type &lt;DataType&
 
             
 
-            <td class="description last"><p>Any error that occured during execution, or a falsy value
-if nothing went wrong</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">DataType</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The result of the operation</p></td>
+            <td class="description last"><p>[callback]</p></td>
         </tr>
 
     
@@ -664,7 +205,7 @@ if nothing went wrong</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line17">line 17</a>
+        <a href="lib_api-groups_youtube-channels-api.js.html">lib/api-groups/youtube-channels-api.js</a>, <a href="lib_api-groups_youtube-channels-api.js.html#line46">line 46</a>
     </li></ul></dd>
     
 
@@ -687,22 +228,43 @@ if nothing went wrong</p></td>
 
 
 
+<h5>Returns:</h5>
+
+        
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="YoutubeChannelsAPI.html#~Channel">YoutubeChannelsAPI~Channel</a>></span>
 
-            
-                
+
+    </dd>
+</dl>
 
     
 
-    <h4 class="name" id="IntellogoFunction"><span class="type-signature"></span>IntellogoFunction<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;*>}</span></h4>
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="importChannel"><span class="type-signature"></span>importChannel<span class="signature">(channelUrl, importOptions, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Defines a function that returns an IntellogoResponse</p>
+    <p>Import all videos from a specified Youtube channel. Accepts the same arguments as
+<a href="YoutubeChannelsAPI.html#initiateChannelImport">YoutubeChannelsAPI#initiateChannelImport</a>, except the last argument must be a
+callback function. The callback will be called once the task has finished.
+Task status will be checked by polling.</p>
 </div>
 
 
@@ -719,6 +281,8 @@ if nothing went wrong</p></td>
 <table class="params">
     <thead>
     <tr>
+        
+        <th>Name</th>
         
 
         <th>Type</th>
@@ -738,11 +302,13 @@ if nothing went wrong</p></td>
 
         <tr>
             
+                <td class="name"><code>channelUrl</code></td>
+            
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">String</span>
 
 
             
@@ -755,7 +321,69 @@ if nothing went wrong</p></td>
                 
 
                 
-                    &lt;repeatable><br>
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The URL to a Youtube channel</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>importOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="YoutubeChannelsAPI.html#~ImportParams">YoutubeChannelsAPI~ImportParams</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Import options</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="YoutubeChannelsAPI.html#~Task">YoutubeChannelsAPI~Task</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
                 
                 </td>
             
@@ -803,7 +431,215 @@ if nothing went wrong</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line10">line 10</a>
+        <a href="lib_api-groups_youtube-channels-api.js.html">lib/api-groups/youtube-channels-api.js</a>, <a href="lib_api-groups_youtube-channels-api.js.html#line82">line 82</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="initiateChannelImport"><span class="type-signature"></span>initiateChannelImport<span class="signature">(channelUrl, importOptions, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="YoutubeChannelsAPI.html#~Task">YoutubeChannelsAPI~Task</a>>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Initiate a Youtube channel import task. This method will call its callback immediately
+after the task is initiated; it will not wait for its completion.<br>
+If you want to be notified only on task completion,
+use <a href="YoutubeChannelsAPI.html#importChannel">YoutubeChannelsAPI#importChannel</a> instead</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>channelUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The URL to a Youtube channel</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>importOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="YoutubeChannelsAPI.html#~ImportParams">YoutubeChannelsAPI~ImportParams</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Import options</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#IntellogoCallback">IntellogoCallback</a>.&lt;<a href="YoutubeChannelsAPI.html#~Task">YoutubeChannelsAPI~Task</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="lib_api-groups_youtube-channels-api.js.html">lib/api-groups/youtube-channels-api.js</a>, <a href="lib_api-groups_youtube-channels-api.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -837,7 +673,7 @@ if nothing went wrong</p></td>
     </dt>
     <dd>
         
-<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;*></span>
+<span class="param-type"><a href="global.html#IntellogoResponse">IntellogoResponse</a>.&lt;<a href="YoutubeChannelsAPI.html#~Task">YoutubeChannelsAPI~Task</a>></span>
 
 
     </dd>
@@ -847,12 +683,22 @@ if nothing went wrong</p></td>
 
 
 
-            
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
                 
-<h4 class="name" id="IntellogoID">IntellogoID</h4>
+<h4 class="name" id="~Channel">Channel</h4>
 
 
 
+
+<div class="description">
+    <p>Youtube Channel descriptor</p>
+</div>
 
 
 
@@ -912,7 +758,53 @@ if nothing went wrong</p></td>
 
             
 
-            <td class="description last"><p>The ID of an Intellogo entity (insight, content, smart collection)</p></td>
+            <td class="description last"><p>The Youtube ID of the channel</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the channel</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>videosCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Number of videos from this channel that are imported in Intellogo</p></td>
         </tr>
 
     
@@ -951,7 +843,7 @@ if nothing went wrong</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line61">line 61</a>
+        <a href="lib_api-groups_youtube-channels-api.js.html">lib/api-groups/youtube-channels-api.js</a>, <a href="lib_api-groups_youtube-channels-api.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -969,86 +861,14 @@ if nothing went wrong</p></td>
 
             
                 
-<h4 class="name" id="IntellogoResponse">IntellogoResponse</h4>
+<h4 class="name" id="~ImportParams">ImportParams</h4>
 
 
 
 
 <div class="description">
-    <p>A <code>Stream</code> object that emits a 'data' event for every
-result object received from the server. Result objects will be of type
-&lt;DataType&gt;.<br>
-An 'end' event is emitted when no more data is available.
-If an error occurs, an 'error' event is emmited.</p>
+    <p>Channel Import Params</p>
 </div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Stream.&lt;DataType></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id="OAuthOptions">OAuthOptions</h4>
-
-
-
 
 
 
@@ -1084,8 +904,6 @@ If an error occurs, an 'error' event is emmited.</p>
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -1096,79 +914,13 @@ If an error occurs, an 'error' event is emmited.</p>
 
         <tr>
             
-                <td class="name"><code>clientId</code></td>
+                <td class="name"><code>autoSub</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Your Intellogo clientId.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>clientSecret</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Your Intellogo clientSecret.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hostname</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+<span class="param-type">Boolean</span>
 
 
             
@@ -1185,21 +937,81 @@ If an error occurs, an 'error' event is emmited.</p>
             
 
             
-                <td class="default">
-                
-                    production.intellogo.com
-                
-                </td>
-            
 
-            <td class="description last"><p>The hostname of the Intellogo server to connect to.</p></td>
+            <td class="description last"><p>Whether to use the automatically generated Youtube subtitles,
+or only user-uploaded subtitles</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>port</code></td>
+                <td class="name"><code>refreshAll</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>If true, Intellogo will try to import all videos. Otherwise,
+only recent videos (from last week) will be imported.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enableCaptionsChunking</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>If true, enables the experimental chunking
+behavior. The captions will be split in chunks of the specified length and they will be
+separately imported. The video captions as a whole will still be imported.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chunkSize</code></td>
             
 
             <td class="type">
@@ -1222,14 +1034,8 @@ If an error occurs, an 'error' event is emmited.</p>
             
 
             
-                <td class="default">
-                
-                    443
-                
-                </td>
-            
 
-            <td class="description last"><p>The port at which the server is available.</p></td>
+            <td class="description last"><p>If chunking is enabled, the chunk size to use</p></td>
         </tr>
 
     
@@ -1268,7 +1074,7 @@ If an error occurs, an 'error' event is emmited.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="lib_intellogo-client.js.html">lib/intellogo-client.js</a>, <a href="lib_intellogo-client.js.html#line21">line 21</a>
+        <a href="lib_api-groups_youtube-channels-api.js.html">lib/api-groups/youtube-channels-api.js</a>, <a href="lib_api-groups_youtube-channels-api.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -1286,13 +1092,13 @@ If an error occurs, an 'error' event is emmited.</p>
 
             
                 
-<h4 class="name" id="SuccessResponse">SuccessResponse</h4>
+<h4 class="name" id="~Task">Task</h4>
 
 
 
 
 <div class="description">
-    <p>Result of an operation</p>
+    <p>Result from initiating a youtube import task</p>
 </div>
 
 
@@ -1325,8 +1131,6 @@ If an error occurs, an 'error' event is emmited.</p>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -1339,60 +1143,46 @@ If an error occurs, an 'error' event is emmited.</p>
 
         <tr>
             
-                <td class="name"><code>success</code></td>
+                <td class="name"><code>channel</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">String</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>Whether the operation was successful</p></td>
+            <td class="description last"><p>The name of the channel for which import was initiated</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>error</code></td>
+                <td class="name"><code>taskId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">String</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>Error message, in case the operation failed</p></td>
+            <td class="description last"><p>The ID of the initiated task</p></td>
         </tr>
 
     
@@ -1431,7 +1221,7 @@ If an error occurs, an 'error' event is emmited.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jsdoc_typedefs.jsdoc.html">jsdoc/typedefs.jsdoc</a>, <a href="jsdoc_typedefs.jsdoc.html#line54">line 54</a>
+        <a href="lib_api-groups_youtube-channels-api.js.html">lib/api-groups/youtube-channels-api.js</a>, <a href="lib_api-groups_youtube-channels-api.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
