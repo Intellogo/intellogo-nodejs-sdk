@@ -28,5 +28,8 @@
     },
     "import-epub": {
         "title": "Import E-pub"
+    },
+    "user-profiles": {
+        "title": "Create User Profile"
     }
 }
