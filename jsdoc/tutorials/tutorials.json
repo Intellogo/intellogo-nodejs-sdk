@@ -31,5 +31,8 @@
     },
     "user-profiles": {
         "title": "Create User Profile"
+    },
+    "user-profile-collections": {
+        "title": "Get Recommendations for User Profile"
     }
 }
