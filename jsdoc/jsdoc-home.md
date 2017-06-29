@@ -4,6 +4,8 @@ All source files can be found in our <a href="http://github.com/intellogo/intell
 See our {@tutorial getting-started} tutorial for an example on how to use the API,
 or dive into the other tutorials on the right.
 
+Using the Intellogo API requires credentials. Contact us for more information on how to obtain them.
+
 ## Notes on the Documentation
 The main class in this library is the {@link IntellogoClient} class. It includes all mixins described here. All methods in them _should_ be executed on an instance of {@link IntellogoClient}, as shown in the tutorials. The documentation is split in different mixins only to group related functionality. The mixins are not meant to be used directly.
 
@@ -58,19 +60,22 @@ To retrieve top-level content, use {@link ContentAPI~searchTopLevelContent}. To 
 A content that is a part of a top-level content hierarchy. Such content has additional metadata properties that uniquely determine its position in the hierarchy - `level`, which is at what depth the content is in the hierarchy, and `index`, which positions the content in its parent's children.
 
 ### Insight
-Insight is another of the main entities in Intellogo. Each insight represents a single topic, attitude, or concept that Intellogo is trained to recognize.
+Insight is another of the main entities in Intellogo. Each insight represents a single topic, attitude, concept etc. that Intellogo is trained to recognize.
 
-Insights have some metadata associated with them, as well as an insight definition that is used by Intellogo's AI to learn the concept it should represent.
+Insights have some metadata associated with them, as well as an insight definition that is used by Intellogo's AI to learn the concept it should represent. There are hundreds of available insights that you can search through using {@link InsightsAPI#getAllInsights}.
 
-If Intellogo does not already have an Insight for a concept you're interested in, you can create an entity for it and train Intellogo to understand it. Intellogo learns by example - you need to provide it with examples where your concept is present, so that the system can infer the common features. In Intellogo terms, these are called positive samples. Ideally, there should also be negative samples - examples of text where the concept is not present, so that Intellogo learns to better distinguish nuances.
-<br>
-Each provided sample must be an already imported Intellogo content. For this, create an Insight with descriptive metadata and assign samples to it (see {@link InsightsAPI}), then use the {@link TrainingAPI} to initiate a training.
-
-Alternatively, insights for a given topic can be easily found or created using {@link InsightsAPI#generateDynamicInsight}.
+Intellogo calculates relevance scores for all imported content against the available insights. We say a content matches an insight, or that it is in the insight's recommendations, if its relevance score is high enough. The higher the score, the better match the content is to the topic the insight represents. Relevance scores are only calculated for insights marked as auto-update.
 
 *Note: An alias for an Insight is the term "Category". If you see a reference to e.g. `categoryId`, you can interpret it as `insightId`.*
 
+### Insight Training
+If Intellogo does not already have an Insight for a concept you're interested in, you can create an entity for it and train Intellogo to understand it.<br>
+Intellogo learns by example - you need to provide it with examples where your concept is present, so that the system can infer the common features. In Intellogo terms, these are called positive samples. Ideally, there should also be negative samples - examples of text where the concept is not present, so that Intellogo learns to better distinguish nuances.
+
+To define a new concept, create an Insight with descriptive metadata and assign samples to it (see {@link InsightsAPI}), then use the {@link TrainingAPI} to initiate a training. Each provided sample must be an already imported Intellogo content.
+
 ### Smart Collection
+Smart Collections offer a powerful tool to find content that matches more than one insight. A smart collection is defined by two or more insights and/or content items, each having a score range. This way you can control how high the content's score must be in each smart collection item in order to match the whole smart collection. The higher the minimum score, the better match a content must be to be matched to the whole collection as well.
 
-
-### Recommendations
+### User Profiles
+A User Profile is a collection of Intellogo content a User has read and finds interesting. Based on them, Intellogo can infer which insights and smart collections would be a good match for the user, and generate new reading recommendations for them.
