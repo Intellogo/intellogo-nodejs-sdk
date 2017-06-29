@@ -19,5 +19,20 @@
     },
     "content-insight-matches": {
         "title": "Get insights matching a content"
+    },
+    "import-channel": {
+        "title": "Working with Youtube channels"
+    },
+    "import-subtitles": {
+        "title": "Import Subtitles with chunking"
+    },
+    "import-epub": {
+        "title": "Import E-pub"
+    },
+    "user-profiles": {
+        "title": "Create User Profile"
+    },
+    "user-profile-collections": {
+        "title": "Get Recommendations for User Profile"
     }
 }
